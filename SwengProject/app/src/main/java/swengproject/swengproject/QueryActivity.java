@@ -21,8 +21,8 @@ public class QueryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle SavedInstanceState){
-        super.onCreate(avedInstanceState);
-        setContentView(R.layout.activity_query);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_query);                //Sets the XML file
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
         StrictMode.setThreadPolicy(policy);
@@ -32,10 +32,13 @@ public class QueryActivity extends AppCompatActivity {
     /*
 * insertMySQLPost()
 * Params: None
-* Description: Function appends data to URL and attempts to POST data to insert.php
+* Description: Function appends data to URL and attempts to POST data to PHP script
 * Return: Boolean: succesfully entered data
 */
     public boolean insertMySQLPost() throws IOException {
+
+        String DATA_VARIABLE = "";
+
 
         String data = URLEncoder.encode("DATA NAME", "UTF-8")
                 + "=" + URLEncoder.encode(DATA_VARIABLE, "UTF-8");
