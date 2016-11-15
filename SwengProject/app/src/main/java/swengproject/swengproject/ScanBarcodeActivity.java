@@ -22,18 +22,19 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
 
     final private int TYPE = 3;
     final private String CONTENT_VIEW = "";
+    private Button scanBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(CONTENT_VIEW);
+        setContentView(R.layout.scanPage);
 
-        Button scanBtn = findViewById(R.id.scanBtn);
+        scanBtn = (Button) findViewById(R.id.button7);
         scanBtn.setOnClickListener(this);
 
     }
     public void onClick(View v){
-        if(v.getId()==R.id.scanBtn) {
+        if(v.getId()==R.id.button7) {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
         }

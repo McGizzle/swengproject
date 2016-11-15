@@ -14,11 +14,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button b = new Button(findViewById(R.test_button));     //declares the button
+        Button b =  (Button) findViewById(R.id.new_p_btn);     //declares the button
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Code for what happens when button pressed goes here
+                Intent i = (new Intent(MainActivity.this, AddProjectActivity.class));
+                startActivity(i);
             }
         });
 
@@ -27,11 +29,7 @@ public class MainActivity extends AppCompatActivity {
         // Lots of information can be passed through this
         // startActivity(passData) starts the next activity
 
-        String DATA = "";
-        Intent passData = (new Intent(MainActivity.this, QueryActivity.class));
-        passData.putExtra("DATA NAME",DATA);
-        passData.putExtra("DATA2 NAME",DATA);
-        startActivity(passData);
+
 
     }
 

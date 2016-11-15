@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class AddProjectActivity extends AppCompatActivity {
 
     final int TYPE = 1;
-    final String BUTTON_NAME = "";
+    final String BUTTON_NAME = "submitButton";
     final String ET_NAME = "ediText";
     final String ET_INDIVIDUALS = "editText4";
     final String ET_DATE = "editText3";
@@ -32,7 +32,7 @@ public class AddProjectActivity extends AppCompatActivity {
         pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
 
-        Button submit = new Button(findViewById(R.BUTTON_NAME));
+        Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

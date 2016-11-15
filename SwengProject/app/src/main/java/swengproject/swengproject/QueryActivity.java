@@ -1,12 +1,10 @@
 package swengproject.swengproject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -38,8 +36,6 @@ public class QueryActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();                //How to get Data from previous activity
-        String view = extras.getString("VIEW");
-        //setContentView(R.layout.view);
 
       //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
       //  StrictMode.setThreadPolicy(policy);
@@ -47,10 +43,7 @@ public class QueryActivity extends AppCompatActivity {
         DATA  = extras.getStringArrayList("DATA");
         META_DATA = extras.getStringArrayList("META_DATA");
 
-        pb = (ProgressBar)findViewById(R.id.progressBar1);
-        pb.setVisibility(View.VISIBLE);
         new MyAsyncTask().execute();
-
     }
 
     /*
@@ -150,12 +143,11 @@ public class QueryActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(){
-            pb.setVisibility(View.GONE);
+
             Toast.makeText(getApplicationContext(), "command sent", Toast.LENGTH_LONG).show();
         }
         protected void onProgressUpdate(Integer... progress){
-            pb.setProgress(progress[0]);
+
         }
-
-
+}
 }
