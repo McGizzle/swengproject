@@ -47,7 +47,7 @@ public class QueryActivity extends AppCompatActivity {
         String view = extras.getString("VIEW");
         setContentView(R.layout.view);
         DATA  = extras.getStringArrayList("DATA");
-        META_DATA = extras.getStringArrayList("META");
+        META_DATA = extras.getStringArrayList("META_DATA");
 
         pb = (ProgressBar)findViewById(R.id.progressBar1);
         pb.setVisibility(View.VISIBLE);

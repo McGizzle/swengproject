@@ -68,7 +68,7 @@ public class AddProjectActivity extends AppCompatActivity {
         Intent passData = (new Intent(AddProjectActivity.this, QueryActivity.class));
         passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
-        passData.putExtra("META",meta);
+        passData.putExtra("META_DATA",meta);
         startActivity(passData);
 
     }
