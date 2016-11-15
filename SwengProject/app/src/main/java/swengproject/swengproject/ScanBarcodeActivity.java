@@ -27,7 +27,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scanPage);
+        setContentView(R.layout.scan_page);
 
         scanBtn = (Button) findViewById(R.id.button7);
         scanBtn.setOnClickListener(this);
