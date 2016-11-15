@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
+import static swengproject.swengproject.R.layout.add_project;
+
 /**
  * Created by McGroarty on 15/11/2016.
  */
@@ -17,17 +19,12 @@ import java.util.ArrayList;
 public class AddProjectActivity extends AppCompatActivity {
 
     final int TYPE = 1;
-    final String BUTTON_NAME = "submitButton";
-    final String ET_NAME = "ediText";
-    final String ET_INDIVIDUALS = "editText4";
-    final String ET_DATE = "editText3";
-
     private ProgressBar pb;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_project);
+        setContentView(add_project);
 
         pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
@@ -66,11 +63,13 @@ public class AddProjectActivity extends AppCompatActivity {
         meta.add("END_DATE");
         data.add(end_date);
 
-
         Intent passData = (new Intent(AddProjectActivity.this, QueryActivity.class));
         passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
+        passData.putExtra("ACTIVITY",add_project);
+        passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
+
         startActivity(passData);
 
     }

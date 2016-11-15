@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -30,20 +31,30 @@ public class QueryActivity extends AppCompatActivity {
     ArrayList<String> DATA;
     ArrayList<String> META_DATA;
     private String response;
+    private MyAsyncTask task;
+    private String PREVIOUS_ACTIVITY;
 
 
     @Override
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();                //How to get Data from previous activity
-
+        int activity =  extras.getInt("ACTIVITY");
+        setContentView(activity);
+        PREVIOUS_ACTIVITY = extras.getString("PREVIOUS_ACTIVITY");
       //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
       //  StrictMode.setThreadPolicy(policy);
 
         DATA  = extras.getStringArrayList("DATA");
         META_DATA = extras.getStringArrayList("META_DATA");
 
-        new MyAsyncTask().execute();
+        pb = (ProgressBar) findViewById(R.id.progressBar);
+
+
+         task = new MyAsyncTask();
+        task.execute();
+
+
     }
 
     /*
@@ -62,7 +73,7 @@ public class QueryActivity extends AppCompatActivity {
             String x = URLEncoder.encode(META_DATA.get(i), "UTF-8")
                     + "=" + URLEncoder.encode(DATA.get(i), "UTF-8");
             result.append(x);
-            Log.d("INFO","Meta = "+META_DATA.get(i) + "Data = "+DATA.get(i));
+            Log.d("INFO","Meta = "+META_DATA.get(i) + " Data = "+DATA.get(i));
         }
 
         // Send data
@@ -88,15 +99,16 @@ public class QueryActivity extends AppCompatActivity {
 
             } else {
                 Log.d("Tag", "Failure");
-                insertFail();
+    //            insertFail();
                 return null;
             }
 
         }catch(Exception ex) {
-            ex.printStackTrace();
             Log.d("Tag", "Failure");
+//            insertFail();
             return null;
         }
+
         response = result.toString();
         return result.toString();
     }
@@ -133,18 +145,34 @@ public class QueryActivity extends AppCompatActivity {
     private class MyAsyncTask extends AsyncTask<String, Integer, String> {
 
         @Override
+        protected void onPreExecute() {
+            pb.setVisibility(View.VISIBLE);
+            Log.d("Async","pre exe");
+        }
+
+
+        @Override
         protected String doInBackground(String... params) {
+            String r = null;
             try {
-                insertMySQLPost();
+                r =  insertMySQLPost();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return null;
+            return r;
         }
 
-        protected void onPostExecute(){
+        protected void onPostExecute(String result){
 
-            Toast.makeText(getApplicationContext(), "command sent", Toast.LENGTH_LONG).show();
+            pb.setVisibility(View.GONE);
+            if(result!=null){
+                Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
+                Log.d("repsonse",response);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Failed. Please retry.", Toast.LENGTH_LONG).show();
+                finish();
+            }
         }
         protected void onProgressUpdate(Integer... progress){
 
