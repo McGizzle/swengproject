@@ -13,6 +13,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
+import static swengproject.swengproject.R.layout.scan_page;
 
 
 /**
@@ -27,17 +28,18 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scan_page);
+        setContentView(scan_page);
 
-        scanBtn = (Button) findViewById(R.id.button7);
+        scanBtn = (Button) findViewById(R.id.scanBtn);
         scanBtn.setOnClickListener(this);
+
+        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+        scanIntegrator.initiateScan();
 
     }
     public void onClick(View v){
-        if(v.getId()==R.id.button7) {
-            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-            scanIntegrator.initiateScan();
-        }
+        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+        scanIntegrator.initiateScan();
     }
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,intent);
@@ -56,6 +58,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
             passData.putExtra("DATA",DATA);
             passData.putExtra("META_DATA",META_DATA);
             passData.putExtra("TYPE",TYPE);
+            passData.putExtra("ACTIVITY",scan_page);
             startActivity(passData);
 
         }

@@ -32,7 +32,6 @@ public class QueryActivity extends AppCompatActivity {
     ArrayList<String> META_DATA;
     private String response;
     private MyAsyncTask task;
-    private String PREVIOUS_ACTIVITY;
 
 
     @Override
@@ -41,19 +40,19 @@ public class QueryActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();                //How to get Data from previous activity
         int activity =  extras.getInt("ACTIVITY");
         setContentView(activity);
-        PREVIOUS_ACTIVITY = extras.getString("PREVIOUS_ACTIVITY");
       //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
       //  StrictMode.setThreadPolicy(policy);
+        pb = (ProgressBar) findViewById(R.id.progressBar);
 
         DATA  = extras.getStringArrayList("DATA");
         META_DATA = extras.getStringArrayList("META_DATA");
-
-        pb = (ProgressBar) findViewById(R.id.progressBar);
-
-
-         task = new MyAsyncTask();
-        task.execute();
-
+        if(DATA.get(0)==null){
+            finish();
+        }
+        else {
+            task = new MyAsyncTask();
+            task.execute();
+        }
 
     }
 
@@ -99,13 +98,11 @@ public class QueryActivity extends AppCompatActivity {
 
             } else {
                 Log.d("Tag", "Failure");
-    //            insertFail();
                 return null;
             }
 
         }catch(Exception ex) {
             Log.d("Tag", "Failure");
-//            insertFail();
             return null;
         }
 
@@ -161,7 +158,7 @@ public class QueryActivity extends AppCompatActivity {
             }
             return r;
         }
-
+        @Override
         protected void onPostExecute(String result){
 
             pb.setVisibility(View.GONE);
