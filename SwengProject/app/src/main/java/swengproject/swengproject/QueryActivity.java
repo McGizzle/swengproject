@@ -39,7 +39,7 @@ public class QueryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();                //How to get Data from previous activity
         String view = extras.getString("VIEW");
-        setContentView(R.layout.view);
+        //setContentView(R.layout.view);
 
       //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
       //  StrictMode.setThreadPolicy(policy);

@@ -18,17 +18,18 @@ public class AddProjectActivity extends AppCompatActivity {
 
     final int TYPE = 1;
     final String BUTTON_NAME = "";
-    final String ET_NAME = "";
-    final String ET_INDIVIDUALS = "";
-    final String CONTENT_ACTIVITY = "";
+    final String ET_NAME = "ediText";
+    final String ET_INDIVIDUALS = "editText4";
+    final String ET_DATE = "editText3";
+
     private ProgressBar pb;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.CONTENT_ACTIVITY);
+        setContentView(R.layout.addProject);
 
-        pb = (ProgressBar)findViewById(R.id.progressBar1);
+        pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
 
         Button submit = new Button(findViewById(R.BUTTON_NAME));
@@ -45,12 +46,12 @@ public class AddProjectActivity extends AppCompatActivity {
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
 
-        EditText n = new EditText(findViewById(R.ET_NAME));
+        EditText n = (EditText) (findViewById(R.id.editText));
         String name = n.toString();
         meta.add("NAME");
         data.add(name);
 
-        EditText i = new EditText(findViewById(R.ET_INDIVIDUALS));
+        EditText i = (EditText) (findViewById(R.id.editText4));
         String list = i.toString();
         String[] separated = list.split(",");
         meta.add("INDIVIDUALS_NUM");
@@ -60,12 +61,12 @@ public class AddProjectActivity extends AppCompatActivity {
             data.add(separated[x]);
         }
 
-        EditText e = new EditText(findViewById(R.end_date));
+        EditText e = (EditText) (findViewById(R.id.editText3));
         String end_date = e.toString();
         meta.add("END_DATE");
         data.add(end_date);
 
-        
+
         Intent passData = (new Intent(AddProjectActivity.this, QueryActivity.class));
         passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
