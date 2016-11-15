@@ -37,15 +37,13 @@ public class QueryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
+        Bundle extras = getIntent().getExtras();                //How to get Data from previous activity
+        String view = extras.getString("VIEW");
+        setContentView(R.layout.view);
 
       //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
       //  StrictMode.setThreadPolicy(policy);
 
-
-        Bundle extras = getIntent().getExtras();                //How to get Data from previous activity
-        String view = extras.getString("VIEW");
-        setContentView(R.layout.view);
         DATA  = extras.getStringArrayList("DATA");
         META_DATA = extras.getStringArrayList("META_DATA");
 
@@ -71,6 +69,7 @@ public class QueryActivity extends AppCompatActivity {
             String x = URLEncoder.encode(META_DATA.get(i), "UTF-8")
                     + "=" + URLEncoder.encode(DATA.get(i), "UTF-8");
             result.append(x);
+            Log.d("INFO","Meta = "+META_DATA.get(i) + "Data = "+DATA.get(i));
         }
 
         // Send data

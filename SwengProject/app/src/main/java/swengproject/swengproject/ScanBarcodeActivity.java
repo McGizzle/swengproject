@@ -21,11 +21,12 @@ import java.util.ArrayList;
 public class ScanBarcodeActivity extends AppCompatActivity implements View.OnClickListener{
 
     final private int TYPE = 3;
+    final private String CONTENT_VIEW = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        //setContentView();
+        setContentView(CONTENT_VIEW);
 
         Button scanBtn = findViewById(R.id.scanBtn);
         scanBtn.setOnClickListener(this);
@@ -50,6 +51,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
             DATA.add(scanFormat);
 
             Intent passData = (new Intent(ScanBarcodeActivity.this, QueryActivity.class));
+            passData.putExtra("VIEW",CONTENT_VIEW);
             passData.putExtra("DATA",DATA);
             passData.putExtra("META_DATA",META_DATA);
             passData.putExtra("TYPE",TYPE);
