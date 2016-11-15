@@ -1,0 +1,11 @@
+Product Backlog:
+  1. Database to store information
+  2. PHP script to handle data server side
+  3. Android front-end to take input from user
+  4. Android back-end to handle information
+
+Sprint Backlog:
+  1. Conceptually design MySQL tables
+  2. Decide on PHP approach and begin coding
+  3. Design homepage
+  4. Design approach to handle data and submit to server
