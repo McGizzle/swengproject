@@ -13,4 +13,7 @@ Sprint Backlog:
   3. User Interface (Front end).
      - Designed and created homepage.
      - designed and created each view.
-  4. Design approach to handle data and submit to server
+  4. Android back-end to handle information
+     - Query Activity to POST data to PHP script written
+     - Scanner Activity to scan barcode and submit to server written
+     
