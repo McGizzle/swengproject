@@ -16,9 +16,9 @@ import static swengproject.swengproject.R.layout.add_project;
  * Created by McGroarty on 15/11/2016.
  */
 
-public class AddProjectActivity extends AppCompatActivity {
+public class AddIndividualActivity extends AppCompatActivity {
 
-    final int TYPE = 1;
+    final int TYPE = 2;
     private ProgressBar pb;
 
     @Override
@@ -43,27 +43,25 @@ public class AddProjectActivity extends AppCompatActivity {
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
 
-        EditText n = (EditText) (findViewById(R.id.editText));
-        String name = n.getText().toString();
+        EditText fn = (EditText) (findViewById(R.id.firstName));
+        String fname = fn.getText().toString();
+        EditText ln = (EditText) findViewById(R.id.secondName);
+        String lname = ln.getText().toString();
         meta.add("NAME");
-        data.add(name);
+        data.add(fname+" "+lname);
 
-        EditText i = (EditText) (findViewById(R.id.editText4));
-        String list = i.getText().toString();
+        EditText i = (EditText) (findViewById(R.id.teamName));
+        String list = i.toString();
         String[] separated = list.split(",");
-        meta.add("INDIVIDUALS_NUM");
+        meta.add("TEAM_NUM");
         data.add(""+separated.length);
         for(int x=0;x<separated.length;x++){
-            meta.add("INDIVUALS"+x);
+            meta.add("TEAM"+x);
             data.add(separated[x]);
         }
 
-        EditText e = (EditText) (findViewById(R.id.editText3));
-        String end_date = e.getText().toString();
-        meta.add("END_DATE");
-        data.add(end_date);
 
-        Intent passData = (new Intent(AddProjectActivity.this, QueryActivity.class));
+        Intent passData = (new Intent(AddIndividualActivity.this, QueryActivity.class));
         passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);

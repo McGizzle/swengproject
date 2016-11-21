@@ -43,7 +43,6 @@ public class QueryActivity extends AppCompatActivity {
       //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
       //  StrictMode.setThreadPolicy(policy);
         pb = (ProgressBar) findViewById(R.id.progressBar);
-
         DATA  = extras.getStringArrayList("DATA");
         META_DATA = extras.getStringArrayList("META_DATA");
         if(DATA.get(0)==null){
@@ -66,12 +65,13 @@ public class QueryActivity extends AppCompatActivity {
 
     public String insertMySQLPost() throws IOException {
 
+        StringBuilder send = new StringBuilder();
         StringBuilder result = new StringBuilder();
 
         for(int i=0;i<META_DATA.size()&&i<DATA.size();i++) {
             String x = URLEncoder.encode(META_DATA.get(i), "UTF-8")
                     + "=" + URLEncoder.encode(DATA.get(i), "UTF-8");
-            result.append(x);
+            send.append(x);
             Log.d("INFO","Meta = "+META_DATA.get(i) + " Data = "+DATA.get(i));
         }
 
@@ -83,7 +83,7 @@ public class QueryActivity extends AppCompatActivity {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(result.toString());
+            wr.write(send.toString());
             wr.flush();
 
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -94,7 +94,7 @@ public class QueryActivity extends AppCompatActivity {
                 while ((line = reader.readLine()) != null) {
                     result.append(line);
                 }
-                insertSuccess();
+                Log.d("Tag", "Failure");
 
             } else {
                 Log.d("Tag", "Failure");
@@ -106,7 +106,6 @@ public class QueryActivity extends AppCompatActivity {
             return null;
         }
 
-        response = result.toString();
         return result.toString();
     }
 
@@ -147,7 +146,6 @@ public class QueryActivity extends AppCompatActivity {
             Log.d("Async","pre exe");
         }
 
-
         @Override
         protected String doInBackground(String... params) {
             String r = null;
@@ -163,11 +161,11 @@ public class QueryActivity extends AppCompatActivity {
 
             pb.setVisibility(View.GONE);
             if(result!=null){
-                Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_LONG).show();
+                insertSuccess();
                 Log.d("repsonse",response);
             }
             else{
-                Toast.makeText(getApplicationContext(), "Failed. Please retry.", Toast.LENGTH_LONG).show();
+                insertFail();
                 finish();
             }
         }

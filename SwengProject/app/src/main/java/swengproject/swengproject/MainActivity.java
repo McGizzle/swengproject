@@ -15,10 +15,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button new_proj =  (Button) findViewById(R.id.new_p_btn);     //declares the button
+        Button add_proj =  (Button) findViewById(R.id.new_p_btn);     //declares the button
         Button scanBtn = (Button) findViewById(R.id.button4);
+        Button add_idv = (Button) findViewById(R.id.new_indv_btn);
 
-        new_proj.setOnClickListener(new View.OnClickListener() {
+
+        add_proj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("LOG","button clicked");
@@ -33,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("LOG","button clicked");
                 Intent i = (new Intent(MainActivity.this, ScanBarcodeActivity.class));
                 startActivity(i);
+            }
+        });
+
+        add_idv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("LOG","button clicked");
+                Intent i = new Intent(MainActivity.this, AddIndividualActivity.class);
             }
         });
 
