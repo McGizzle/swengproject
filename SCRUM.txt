@@ -1,5 +1,6 @@
 Product Backlog:
   1. Database to store information
+    - Tables to be made for projects, allocated groups for projects, objects, persons
   2. PHP script to handle data server side
   3. User Interface (Front end).
 	   - Homepage.
@@ -16,4 +17,4 @@ Sprint Backlog:
   4. Android back-end to handle information
      - Query Activity to POST data to PHP script written
      - Scanner Activity to scan barcode and submit to server written
-     
+  5. Tables made for Project, ProjectGroup and Persons
