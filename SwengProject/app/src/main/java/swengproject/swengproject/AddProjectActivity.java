@@ -65,6 +65,7 @@ public class AddProjectActivity extends AppCompatActivity {
         meta.add("END_DATE");
         data.add(end_date);
 
+
         Intent passData = (new Intent(AddProjectActivity.this, QueryActivity.class));
         passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);

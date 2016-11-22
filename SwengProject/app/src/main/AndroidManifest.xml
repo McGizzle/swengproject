@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="swengproject.swengproject">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -19,13 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanBarcodeActivity"></activity>
-        <activity android:name=".QueryActivity"></activity>
-        <activity android:name=".AddProjectActivity"></activity>
-        <activity android:name=".AddIndividualActivity"></activity>
+        <activity android:name=".ScanBarcodeActivity"/>
+        <activity android:name=".QueryActivity"/>
+        <activity android:name=".AddProjectActivity"/>
+        <activity android:name=".AddIndividualActivity"/>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
+
 
 </manifest>

@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
+import static swengproject.swengproject.R.layout.add_individual;
 import static swengproject.swengproject.R.layout.add_project;
 
 /**
@@ -24,7 +25,7 @@ public class AddIndividualActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(add_project);
+        setContentView(add_individual);
 
         pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
@@ -42,6 +43,9 @@ public class AddIndividualActivity extends AppCompatActivity {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
+        meta.add("TYPE");
+        data.add(TYPE+"");
+
 
         EditText fn = (EditText) (findViewById(R.id.firstName));
         String fname = fn.getText().toString();
@@ -51,7 +55,7 @@ public class AddIndividualActivity extends AppCompatActivity {
         data.add(fname+" "+lname);
 
         EditText i = (EditText) (findViewById(R.id.teamName));
-        String list = i.toString();
+        String list = i.getText().toString();
         String[] separated = list.split(",");
         meta.add("TEAM_NUM");
         data.add(""+separated.length);

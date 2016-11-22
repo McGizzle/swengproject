@@ -23,7 +23,7 @@
 	switch($type){
 		case 1: add_project($con);
 		break;
-		case 2: add_individuals();
+		case 2: add_individuals($con);
 		break;
 		case 3: attach_individuals();
 		break;
@@ -54,14 +54,14 @@
 
 	  //Attach individuals to each projects
 		for($i=0;$i<$num;$i++){
-			$sql = "INSERT INTO Project_Individuals (ProjectName,IndividualName) VALUES ('$projectName','$indvs[$i]')";
+			$sql = "INSERT INTO ProjectGroup (ProjectName,MemberName) VALUES ('$projectName','$indvs[$i]')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
 		echo '1';
 		mysqli_close($con);
 
 	}
-	function add_individuals(){
+	function add_individuals($con){
 
 		$name = $_POST["NAME"];
 		$num = $_POST["TEAM_NUM"];
@@ -69,11 +69,11 @@
 		for($i=0;$i<$num;$i++){
 			$projects[$i] = $_POST["TEAM".$i];
 		}
-		$sql = "INSERT INTO Person Name VALUES '$name'";
-		$ret = mysqli_query($con,$sql);
+		$sql = "INSERT INTO Person (Name) VALUES ('$name')";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 
 		for($i=0;$i<$num;$i++){
-			$sql = "INSERT INTO Project_Individuals (ProjectName,IndividualName) VALUES ('$projects[$i]','$name')";
+			$sql = "INSERT INTO ProjectGroup (ProjectName,MemberName) VALUES ('$projects[$i]','$name')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
 		echo '1';
