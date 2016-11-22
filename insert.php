@@ -32,6 +32,36 @@
 	}
 
 	function add_project(){
+		$projectName = $_POST["NAME"];															//Abstract Data from POST
+		$endDate = $_POST["END_DATE"]
+		$num = $_POST["INDIVIDUALS_NUM"]
+		$indvs = array();
+		for($i=0;$i<$num;$i++){
+			$indivs[$k] = $_POST["INDIVIDUALS" . $num];
+		}
+		//Create new table under project name to store individuals
+		$sql = "CREATE TABLE $projectName (Member VARCHAR(60) NOT NULL)";
+		$ret = mysqli_query($con,$sql);
+		if($ret == false){
+			echo 'Error';
+		}
+	  //Attach individuals to each project
+		for($i=0;$i<$num;$i++){
+			$sql = "INSERT INTO $projectName Member VALUES '$indivs[$i]'";
+			$ret = mysqli_query($con,$sql);
+			if($ret == false){
+				echo 'Error';
+			}
+			//
+		}
+		// ADD the new project into the database
+		$sql = "INSERT INTO $projects_database (Name, EndDate) VALUES ('$projectName', '$endDate') ";
+		$ret = mysqli_query($con,$sql);
+		if($ret == false){
+			echo 'Error';
+		}
+
+
 
 	}
 	function add_individuals(){
@@ -53,7 +83,7 @@
 
 	}
 	function find_object(){
-		
+
 	}
 
 

@@ -43,14 +43,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("LOG","button clicked");
                 Intent i = new Intent(MainActivity.this, AddIndividualActivity.class);
+                startActivity(i);
             }
         });
-
-        // Below is an example of how data is passed from one activity to the next
-        // The "DATA NAME" is how the data is refernced in the next activity
-        // Lots of information can be passed through this
-        // startActivity(passData) starts the next activity
-
 
 
     }

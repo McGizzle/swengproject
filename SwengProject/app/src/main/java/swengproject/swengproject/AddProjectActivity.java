@@ -42,6 +42,8 @@ public class AddProjectActivity extends AppCompatActivity {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
+        meta.add("TYPE");
+        data.add(TYPE+"");
 
         EditText n = (EditText) (findViewById(R.id.editText));
         String name = n.getText().toString();
@@ -54,7 +56,7 @@ public class AddProjectActivity extends AppCompatActivity {
         meta.add("INDIVIDUALS_NUM");
         data.add(""+separated.length);
         for(int x=0;x<separated.length;x++){
-            meta.add("INDIVUALS"+x);
+            meta.add("INDIVIDUALS"+x);
             data.add(separated[x]);
         }
 
