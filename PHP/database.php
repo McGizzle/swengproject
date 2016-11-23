@@ -25,7 +25,7 @@
 		break;
 		case 2: add_individuals($con);
 		break;
-		case 3: attach_individuals();
+		case 3: search_object();
 		break;
 		case 4: insert_object();
 		break;
@@ -79,7 +79,7 @@
 		echo '1';
 		mysqli_close($con);
 	}
-	function attach_individuals(){
+	function search_object(){
 
 	}
 	function insert_object(){
