@@ -26,7 +26,7 @@ public class AddProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(add_project);
 
-        pb = (ProgressBar)findViewById(R.id.progressBar);
+        pb = (ProgressBar) findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
 
         Button submit = (Button) findViewById(R.id.submitButton);
@@ -34,6 +34,16 @@ public class AddProjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gather_info();
+            }
+        });
+
+
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AddProjectActivity.this, MainActivity.class);
+                startActivity(i);
             }
         });
     }

@@ -37,6 +37,15 @@ public class AddIndividualActivity extends AppCompatActivity {
                 gather_info();
             }
         });
+
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AddIndividualActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void gather_info() {
