@@ -32,6 +32,8 @@ public class QueryActivity extends AppCompatActivity {
     private MyAsyncTask task;
     private Class PREV_ACTIVITY;
     private final String SUCCESS_RESPONSE = "1";
+    private final String FOUND_OBJECT = "";
+    private final String NEW_OBJECT = "";
 
 
     @Override
@@ -199,6 +201,12 @@ public class QueryActivity extends AppCompatActivity {
 
             if(result.equals(SUCCESS_RESPONSE)){
                 insertSuccess();
+            }
+            else if(result.equals(FOUND_OBJECT)){
+                //TODO Code for when object is found
+            }
+            else if(result.equals(NEW_OBJECT)){
+                //TODO Code for when new object recognised
             }
             else if(result.split(" ")[0].equals("Duplicate")){
                 insertDuplicate();
