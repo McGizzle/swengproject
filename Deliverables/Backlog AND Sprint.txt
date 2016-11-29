@@ -26,8 +26,7 @@ Sprint Backlog:
      - Function to add Project to database COMPLETE
      - Function to add User to database COMPLETE
 
-  3. User Interface (Front end).
-
+  3. User Interface (Front end)
      - Designed and created AddProject page COMPLETE
      - Designed and created AddIndividual Page COMPLETE
      - Home Button added to all pages COMPLETE
