@@ -206,7 +206,8 @@ public class QueryActivity extends AppCompatActivity {
                 //TODO Code for when object is found
             }
             else if(result.equals(NEW_OBJECT)){
-                //TODO Code for when new object recognised
+                Intent i = new Intent(QueryActivity.this, AssignObjectActivity.class);
+                startActivity(i);
             }
             else if(result.split(" ")[0].equals("Duplicate")){
                 insertDuplicate();
