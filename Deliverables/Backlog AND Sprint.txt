@@ -17,20 +17,20 @@ Product Backlog:
 
 Sprint Backlog:
   1. Database tables created
-     - Table for ProjectGroup
-     - Table for Project
-     - Table for Person
-     - Table for Objects
+     - Table for ProjectGroup COMPLETE
+     - Table for Project COMPLETE
+     - Table for Person COMPLETE
+     - Table for Objects COMPLETE
 
   2. PHP script functions
-     - Function to add Project to database
-     - Function to add User to database
+     - Function to add Project to database COMPLETE
+     - Function to add User to database COMPLETE
 
   3. User Interface (Front end).
-     - Designed and created AddProject page.
-     - Designed and created AddIndividual Page.
-     - Home Button added to all pages
+     - Designed and created AddProject page COMPLETE
+     - Designed and created AddIndividual Page COMPLETE
+     - Home Button added to all pages COMPLETE
 
   4. Android back-end to handle information
-     - Query Activity updated to handle response from server
-     - Scanner code optimized
+     - Query Activity updated to handle response from server COMPLETE
+     - Scanner code optimized COMPLETE
