@@ -7,6 +7,11 @@ Product Backlog:
 
   3. User Interface (Front end).
 	   - Page to handle Object creation
+	   - Page to scan objects
+	   - Page to generate list of objects
+	   - Page to assign and object
+	   - Page to create an object
+	   - Add home button to every screen
 	   - Cleaning of UI
 
   4. Android back-end to handle information
@@ -27,13 +32,17 @@ Sprint Backlog:
      - Function to add User to database COMPLETE
 
   3. User Interface (Front end)
-     - Designed and created AddProject page COMPLETE
-     - Designed and created AddIndividual Page COMPLETE
+     -Page to handle Object creation COMPLETE
+     - Page to scan objects COMPLETE
+     - Page to generate list of objects COMPLETE
+     - Page to assign and object COMPLETE
+     - Page to create an object COMPLETE
+     - Cleaning of UI COMPLETE
      - Home Button added to all pages COMPLETE
-     - All views (screens) have been designed.
-     - The app is fully capable of navigating through all screens, with the exception of
-	     generating a list of scanned objects.
-     - information can be passed back from a views, so adding an individual or projects is functioning.
+     - All views (screens) have been designed COMPLETE
+     - Full navigation between views COMPLETE
+     - Information passed between views COMPLETE
+     
 
   4. Android back-end to handle information
      - Query Activity updated to handle response from server COMPLETE
