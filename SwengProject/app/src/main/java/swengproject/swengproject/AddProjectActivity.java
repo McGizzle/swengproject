@@ -83,7 +83,15 @@ public class AddProjectActivity extends AppCompatActivity {
         passData.putExtra("ACTIVITY",add_project);
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
-        startActivity(passData);
+        startActivityForResult(passData,0);
 
     }
-}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if(requestCode==0){
+            if(resultCode==RESULT_OK){
+                //TODO display List of people
+            }
+        }
+    }
+    }

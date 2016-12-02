@@ -53,7 +53,6 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("TYPE");
         data.add(TYPE+"");
 
-
         EditText fn = (EditText) (findViewById(R.id.objectId));
         String name = fn.getText().toString();
         EditText ln = (EditText) findViewById(R.id.datePick);
