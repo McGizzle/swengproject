@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-import static swengproject.swengproject.R.layout.add_project;
 import static swengproject.swengproject.R.layout.assign_object;
 
 /**
@@ -24,6 +23,7 @@ public class AssignObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -68,7 +68,6 @@ public class AssignObjectActivity extends AppCompatActivity {
         ArrayList<String> meta = new ArrayList<String>();
         meta.add("TYPE");
         data.add(TYPE+"");
-
 
         EditText fn = (EditText) (findViewById(R.id.objectId));
         String name = fn.getText().toString();

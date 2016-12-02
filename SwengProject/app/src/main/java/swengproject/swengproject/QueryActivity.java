@@ -31,9 +31,13 @@ public class QueryActivity extends AppCompatActivity {
     ArrayList<String> META_DATA;
     private MyAsyncTask task;
     private Class PREV_ACTIVITY;
+    private final String OBJECT_NOT_FOUND = "0";
     private final String SUCCESS_RESPONSE = "1";
-    private final String FOUND_OBJECT = "";
-    private final String NEW_OBJECT = "";
+    private final String OBJECT_FOUND = "2";
+    private final String LIST_PROJECTS = "3";
+    private final String LIST_PERSON = "4";
+    private final String DUPLICATE = "5";
+
 
 
     @Override
@@ -194,22 +198,39 @@ public class QueryActivity extends AppCompatActivity {
             return r;
         }
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(String r){
 
+            String[] result = r.split("#");
             pb.setVisibility(View.GONE);
-            Log.d("POST",result);
 
-            if(result.equals(SUCCESS_RESPONSE)){
+            if(result[0].equals(SUCCESS_RESPONSE)){
                 insertSuccess();
             }
-            else if(result.equals(FOUND_OBJECT)){
-                //TODO Code for when object is found
-            }
-            else if(result.equals(NEW_OBJECT)){
-                Intent i = new Intent(QueryActivity.this, AssignObjectActivity.class);
+            else if(result[0].equals(OBJECT_FOUND)){
+                Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
+                i.putExtra("INFO",result);
+                i.putExtra("FOUND",true);
                 startActivity(i);
             }
-            else if(result.split(" ")[0].equals("Duplicate")){
+            else if(result[0].equals(OBJECT_NOT_FOUND)){
+                Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
+                i.putExtra("INFO",result);
+                i.putExtra("FOUND",false);
+                startActivity(i);
+            }
+            else if(result[0].equals(LIST_PROJECTS)){
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(ListActivity.RESULT_OK,returnIntent);
+                finish();
+            }
+            else if(result[0].equals(LIST_PERSON)){
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(ListActivity.RESULT_OK,returnIntent);
+                finish();
+            }
+            else if(result[0].equals(DUPLICATE)){
                 insertDuplicate();
             }
             else {

@@ -56,8 +56,8 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
         IntentIntegrator scanIntegrator = new IntentIntegrator(this);
         scanIntegrator.initiateScan();
     }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();
@@ -76,8 +76,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
             passData.putExtra("TYPE", TYPE);
             passData.putExtra("PREVIOUS_ACTIVITY", ScanBarcodeActivity.class);
             passData.putExtra("ACTIVITY", scan_page);
-
-            startActivity(passData);
+            startActivityForResult(passData,0);
 
         } else {
             Context context = getApplicationContext();
