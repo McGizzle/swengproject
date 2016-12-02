@@ -31,8 +31,9 @@ public class QueryActivity extends AppCompatActivity {
     ArrayList<String> META_DATA;
     private MyAsyncTask task;
     private Class PREV_ACTIVITY;
+    private final String OBJECT_NOT_FOUND = "0";
     private final String SUCCESS_RESPONSE = "1";
-    private final String OBJECT = "2";
+    private final String OBJECT_FOUND = "2";
     private final String LIST_PROJECTS = "3";
     private final String LIST_PERSON = "4";
     private final String DUPLICATE = "5";
@@ -205,8 +206,17 @@ public class QueryActivity extends AppCompatActivity {
             if(result[0].equals(SUCCESS_RESPONSE)){
                 insertSuccess();
             }
-            else if(result[0].equals(OBJECT)){
-               Intent i =  new Intent(QueryActivity.this,DisplayObjectActivity.class);
+            else if(result[0].equals(OBJECT_FOUND)){
+                Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
+                i.putExtra("INFO",result);
+                i.putExtra("FOUND",true);
+                startActivity(i);
+            }
+            else if(result[0].equals(OBJECT_NOT_FOUND)){
+                Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
+                i.putExtra("INFO",result);
+                i.putExtra("FOUND",false);
+                startActivity(i);
             }
             else if(result[0].equals(LIST_PROJECTS)){
                 Intent returnIntent = new Intent();

@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-import static swengproject.swengproject.R.layout.add_project;
 import static swengproject.swengproject.R.layout.assign_object;
 
 /**
@@ -24,6 +23,9 @@ public class AssignObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(assign_object);
 
         pb = (ProgressBar)findViewById(R.id.progressBar);
