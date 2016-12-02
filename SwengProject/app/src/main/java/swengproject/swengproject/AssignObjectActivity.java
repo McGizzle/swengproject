@@ -24,8 +24,18 @@ public class AssignObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(assign_object);
 
+
+        Bundle extras = getIntent().getExtras();
+        String[] info = extras.getStringArray("INFO");
+        final String barcode = info[1];
+        boolean found = extras.getBoolean("FOUND");
+        if(found)
+        {
+          found_object(barcode);
+        }
+
+        setContentView(assign_object);
         pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
 
@@ -33,7 +43,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gather_info();
+                gather_info(barcode);
             }
         });
 
@@ -46,7 +56,13 @@ public class AssignObjectActivity extends AppCompatActivity {
             }
         });
     }
-    public void gather_info() {
+
+    public void found_object(String barcode)
+    {
+
+    }
+
+    public void gather_info(String barcode) {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -68,15 +84,16 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("GROUP");
         data.add(group);
 
-        EditText p = (EditText) (findViewById(R.id.groupId)); // change to whatever the personID is 
+        meta.add("BARCODE");
+        data.add(barcode);
+
+        EditText p = (EditText) (findViewById(R.id.groupId)); // change to whatever the personID is
         String person = p.getText().toString();
         meta.add("INDIVIDUAL");
         data.add(person);
 
         meta.add("DAMAGED");
         data.add("false");
-
-        //who to add as person, is there a group leader?
 
 
         Intent passData = (new Intent(AssignObjectActivity.this, QueryActivity.class));
