@@ -68,6 +68,14 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("GROUP");
         data.add(group);
 
+        EditText p = (EditText) (findViewById(R.id.groupId)); // change to whatever the personID is 
+        String person = p.getText().toString();
+        meta.add("INDIVIDUAL");
+        data.add(person);
+
+        meta.add("DAMAGED");
+        data.add("false");
+
         //who to add as person, is there a group leader?
 
 
@@ -75,7 +83,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
-        passData.putExtra("ACTIVITY",add_project);
+        passData.putExtra("ACTIVITY",assign_object);
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivity(passData);
