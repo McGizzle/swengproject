@@ -15,8 +15,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static swengproject.swengproject.R.layout.add_project;
 import static swengproject.swengproject.R.layout.assign_object;
+import static swengproject.swengproject.R.layout.generate_list_obj;
 
 /**
  * Created by Dervla on 28/11/2016.
@@ -28,6 +28,8 @@ public class AssignObjectActivity extends AppCompatActivity {
     EditText datePick;
     int yearX, dayX, monthX;
     static final int dialog = 0;
+    private String barcode;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -38,6 +40,47 @@ public class AssignObjectActivity extends AppCompatActivity {
         monthX = cal.get(Calendar.MONTH);
         dayX = cal.get(Calendar.DAY_OF_MONTH);
         showDialogOnButtonClick();
+
+        Bundle extras = getIntent().getExtras();
+        String[] info = extras.getStringArray("INFO");
+        barcode = info[1];
+        boolean found = extras.getBoolean("FOUND");
+        if(found)
+        {
+          found_object(barcode);
+        }
+
+
+    }
+
+    public void found_object(String barcode)
+    {
+        setContentView(generate_list_obj);
+        pb = (ProgressBar)findViewById(R.id.progressBar);
+        pb.setVisibility(View.GONE);
+
+        Button addObj = (Button) findViewById(R.id.submitButton); //CHANGE TO ADD BUTTON ID
+        addObj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_clicked();
+            }
+        });
+
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AssignObjectActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+    }
+
+    public void add_clicked()
+    {
+        setContentView(assign_object);
         pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
 
@@ -95,13 +138,13 @@ public class AssignObjectActivity extends AppCompatActivity {
         }
     };
 
+
     public void gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
         meta.add("TYPE");
         data.add(TYPE+"");
-
 
         EditText fn = (EditText) (findViewById(R.id.objectId));
         String name = fn.getText().toString();
@@ -117,14 +160,23 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("GROUP");
         data.add(group);
 
-        //who to add as person, is there a group leader?
+        meta.add("BARCODE");
+        data.add(barcode);
+
+        EditText p = (EditText) (findViewById(R.id.groupId)); // change to whatever the personID is
+        String person = p.getText().toString();
+        meta.add("INDIVIDUAL");
+        data.add(person);
+
+        meta.add("DAMAGED");
+        data.add("false");
 
 
         Intent passData = (new Intent(AssignObjectActivity.this, QueryActivity.class));
         passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
-        passData.putExtra("ACTIVITY",add_project);
+        passData.putExtra("ACTIVITY",assign_object);
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivity(passData);

@@ -78,7 +78,7 @@ public class AddIndividualActivity extends AppCompatActivity {
         passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
-        passData.putExtra("ACTIVITY",add_project);
+        passData.putExtra("ACTIVITY",add_individual);
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivity(passData);
