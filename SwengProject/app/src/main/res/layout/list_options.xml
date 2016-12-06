@@ -44,7 +44,7 @@
         android:background="#cc3f35"
         android:layout_width="133dp"
         android:layout_height="53dp"
-        android:id="@+id/button6"
+        android:id="@+id/assignedButton"
         app:layout_constraintBottom_toTopOf="@+id/brokenButton"
         android:layout_marginBottom="64dp"
         android:layout_marginStart="120dp"
