@@ -173,7 +173,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("INDIVIDUAL");
         data.add(person);
 
-        meta.add("DAMAGED");
+        meta.add("BROKEN");
         data.add("false");
 
 
