@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 import static swengproject.swengproject.R.layout.assign_object;
+import static swengproject.swengproject.R.layout.generate_list_obj;
 
 /**
  * Created by Dervla on 28/11/2016.
@@ -19,22 +20,51 @@ import static swengproject.swengproject.R.layout.assign_object;
 public class AssignObjectActivity extends AppCompatActivity {
     final int TYPE = 4;
     private ProgressBar pb;
+    private String barcode;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         Bundle extras = getIntent().getExtras();
         String[] info = extras.getStringArray("INFO");
-        final String barcode = info[1];
+        barcode = info[1];
         boolean found = extras.getBoolean("FOUND");
         if(found)
         {
           found_object(barcode);
         }
 
+
+    }
+
+    public void found_object(String barcode)
+    {
+        setContentView(generate_list_obj);
+        pb = (ProgressBar)findViewById(R.id.progressBar);
+        pb.setVisibility(View.GONE);
+
+        Button addObj = (Button) findViewById(R.id.submitButton); //CHANGE TO ADD BUTTON ID
+        addObj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_clicked();
+            }
+        });
+
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AssignObjectActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+    }
+
+    public void add_clicked()
+    {
         setContentView(assign_object);
         pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
@@ -43,7 +73,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gather_info(barcode);
+                gather_info();
             }
         });
 
@@ -57,12 +87,8 @@ public class AssignObjectActivity extends AppCompatActivity {
         });
     }
 
-    public void found_object(String barcode)
-    {
 
-    }
-
-    public void gather_info(String barcode) {
+    public void gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
