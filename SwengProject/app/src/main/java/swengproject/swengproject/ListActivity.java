@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by McGroarty on 02/12/2016.
  */
 
 public class ListActivity extends AppCompatActivity {
+
+    private TextView tv;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -40,13 +44,24 @@ public class ListActivity extends AppCompatActivity {
 
     }
     public void reclaimed(){
-        //TODO
+        setContentView(reclaimed_list);
     }
     public void attached(){
-        //TODO
+        setContentView(attached_list);
     }
     public void broken(){
-        //TODO
+        setContentView(broken_list);
+    }
+    public void onResult(){
+        Bundle extras = getIntent().getExtras();
+        final String[] info = extras.getStringArray("INFO");
+        tv = (TextView) findViewById(R.id.textViewList);
+        String output="List\n\n";
+        for(int i=1;i<info.length;i++){
+            output += info[i];
+            output += "\n";
+        }
+        tv.setText(output);
     }
 
 }
