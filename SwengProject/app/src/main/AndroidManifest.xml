@@ -21,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScanBarcodeActivity"/>
-        <activity android:name=".QueryActivity"/>
-        <activity android:name=".AddProjectActivity"/>
-        <activity android:name=".AddIndividualActivity"/>
+        <activity android:name=".ScanBarcodeActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".QueryActivity"  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".AddProjectActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".AddIndividualActivity"  android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 
