@@ -131,8 +131,8 @@ public class QueryActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent =  new Intent(QueryActivity.this , PREV_ACTIVITY);
-                        finish();
                         startActivity(intent);
+                        finish();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -201,6 +201,7 @@ public class QueryActivity extends AppCompatActivity {
 
             String[] result = r.split("#");
             pb.setVisibility(View.GONE);
+            Log.d("TAG",result[0]);
 
             if(result[0].equals(SUCCESS_RESPONSE)){
                 insertSuccess();

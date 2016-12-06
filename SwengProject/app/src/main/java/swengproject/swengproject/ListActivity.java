@@ -8,10 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import static swengproject.swengproject.R.layout.assigned_obj;
 import static swengproject.swengproject.R.layout.broken_obj;
 import static swengproject.swengproject.R.layout.list_options;
 import static swengproject.swengproject.R.layout.reclaim_obj;
+import static swengproject.swengproject.R.layout.scan_page;
+import static swengproject.swengproject.R.layout.show_list;
 
 
 /**
@@ -21,6 +25,7 @@ import static swengproject.swengproject.R.layout.reclaim_obj;
 public class ListActivity extends AppCompatActivity {
 
     private TextView tv;
+    private final String TYPE = "5";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -54,9 +59,22 @@ public class ListActivity extends AppCompatActivity {
         setContentView(reclaim_obj);
         EditText dateET = (EditText) findViewById(R.id.dateText);
         String date = dateET.getText().toString();
+
+        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> meta = new ArrayList<String>();
+        meta.add("TYPE");
+        data.add(TYPE+"");
+        meta.add("LIST_TYPE");
+        data.add("RECLAIMED");
+        meta.add("DATE");
+        data.add(date);
         Intent i = new Intent(ListActivity.this,QueryActivity.class);
-        i.putExtra("DATE",date);
-        i.putExtra("LIST_TYPE","RECLAIMED");
+        i.putExtra("DATA", data);
+        i.putExtra("META_DATA", meta);
+        i.putExtra("TYPE", TYPE);
+        i.putExtra("PREVIOUS_ACTIVITY", ListActivity.class);
+        i.putExtra("ACTIVITY", scan_page);
+
         startActivityForResult(i,1);
 
     }
@@ -65,16 +83,39 @@ public class ListActivity extends AppCompatActivity {
         EditText dateET = (EditText) findViewById(R.id.dateText);
         String date = dateET.getText().toString();
 
+        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> meta = new ArrayList<String>();
+        meta.add("TYPE");
+        data.add(TYPE+"");
+        meta.add("LIST_TYPE");
+        data.add("ATTACHED");
+        meta.add("DATE");
+        data.add(date);
         Intent i = new Intent(ListActivity.this,QueryActivity.class);
-        i.putExtra("DATE",date);
-        i.putExtra("LIST_TYPE","ATTACHED");
+        i.putExtra("DATA", data);
+        i.putExtra("META_DATA", meta);
+        i.putExtra("TYPE", TYPE);
+        i.putExtra("PREVIOUS_ACTIVITY", ListActivity.class);
+        i.putExtra("ACTIVITY", scan_page);
+
+
         startActivityForResult(i,1);
 
     }
     public void broken(){
         setContentView(broken_obj);
+        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> meta = new ArrayList<String>();
+        meta.add("TYPE");
+        data.add(TYPE+"");
+        meta.add("LIST_TYPE");
+        data.add("BROKEN");
         Intent i = new Intent(ListActivity.this,QueryActivity.class);
-        i.putExtra("LIST_TYPE","BROKEN");
+        i.putExtra("DATA", data);
+        i.putExtra("META_DATA", meta);
+        i.putExtra("TYPE", TYPE);
+        i.putExtra("PREVIOUS_ACTIVITY", ListActivity.class);
+        i.putExtra("ACTIVITY", scan_page);
         startActivityForResult(i,1);
 
     }
