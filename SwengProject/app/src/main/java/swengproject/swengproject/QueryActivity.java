@@ -34,9 +34,8 @@ public class QueryActivity extends AppCompatActivity {
     private final String OBJECT_NOT_FOUND = "0";
     private final String SUCCESS_RESPONSE = "1";
     private final String OBJECT_FOUND = "2";
-    private final String LIST_PROJECTS = "3";
-    private final String LIST_PERSON = "4";
-    private final String DUPLICATE = "5";
+    private final String LIST = "3";
+    private final String DUPLICATE = "4";
 
 
 
@@ -218,15 +217,9 @@ public class QueryActivity extends AppCompatActivity {
                 i.putExtra("FOUND",false);
                 startActivity(i);
             }
-            else if(result[0].equals(LIST_PROJECTS)){
+            else if(result[0].equals(LIST)){
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",result);
-                setResult(ListActivity.RESULT_OK,returnIntent);
-                finish();
-            }
-            else if(result[0].equals(LIST_PERSON)){
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",result);
+                returnIntent.putExtra("INFO",result);
                 setResult(ListActivity.RESULT_OK,returnIntent);
                 finish();
             }
