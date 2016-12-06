@@ -1,5 +1,6 @@
 package swengproject.swengproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,7 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static swengproject.swengproject.R.layout.assigned_obj;
+import static swengproject.swengproject.R.layout.broken_obj;
 import static swengproject.swengproject.R.layout.list_options;
+import static swengproject.swengproject.R.layout.reclaim_obj;
 
 
 /**
@@ -47,24 +51,47 @@ public class ListActivity extends AppCompatActivity {
 
     }
     public void reclaimed(){
-        setContentView(reclaimed_list);
+        setContentView(reclaim_obj);
+        EditText dateET = (EditText) findViewById(R.id.dateText);
+        String date = dateET.getText().toString();
+        Intent i = new Intent(ListActivity.this,QueryActivity.class);
+        i.putExtra("DATE",date);
+        i.putExtra("LIST_TYPE","RECLAIMED");
+        startActivityForResult(i,1);
+
     }
     public void attached(){
-        setContentView(attached_list);
+        setContentView(assigned_obj);
+        EditText dateET = (EditText) findViewById(R.id.dateText);
+        String date = dateET.getText().toString();
+
+        Intent i = new Intent(ListActivity.this,QueryActivity.class);
+        i.putExtra("DATE",date);
+        i.putExtra("LIST_TYPE","ATTACHED");
+        startActivityForResult(i,1);
+
     }
     public void broken(){
-        setContentView(broken_list);
+        setContentView(broken_obj);
+        Intent i = new Intent(ListActivity.this,QueryActivity.class);
+        i.putExtra("LIST_TYPE","BROKEN");
+        startActivityForResult(i,1);
+
     }
-    public void onResult(){
-        Bundle extras = getIntent().getExtras();
-        final String[] info = extras.getStringArray("INFO");
-        tv = (TextView) findViewById(R.id.textViewList);
-        String output="List\n\n";
-        for(int i=1;i<info.length;i++){
-            output += info[i];
-            output += "\n";
-        }
-        tv.setText(output);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (resultCode == RESULT_OK) {
+                setContentView(show_list);
+                Bundle extras = getIntent().getExtras();
+                final String[] info = extras.getStringArray("INFO");
+                tv = (TextView) findViewById(R.id.textViewList);
+                String output="List\n\n";
+                for(int i=1;i<info.length;i++){
+                    output += info[i];
+                    output += "\n";
+                }
+                tv.setText(output);
+            }
     }
 
 }
