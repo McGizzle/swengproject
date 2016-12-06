@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static swengproject.swengproject.R.layout.list_options;
+
+
 /**
  * Created by McGroarty on 02/12/2016.
  */
@@ -20,9 +23,9 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(list_options);
 
-        Button reclaimBttn = (Button) findViewById(R.id.reclaimBttn);
-        Button attachedBttn = (Button) findViewById(R.id.attachedBttn);
-        Button brokenBttn = (Button) findViewById(R.id.brokenBttn);
+        Button reclaimBttn = (Button) findViewById(R.id.reclaimButton);
+        Button attachedBttn = (Button) findViewById(R.id.assignedButton);
+        Button brokenBttn = (Button) findViewById(R.id.brokenButton);
         reclaimBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
