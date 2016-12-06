@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Button add_proj =  (Button) findViewById(R.id.new_p_btn);     //declares the button
         Button scanBtn = (Button) findViewById(R.id.button4);
         Button add_idv = (Button) findViewById(R.id.new_indv_btn);
+        Button listBttn = (Button) findViewById(R.id.listBttn);
 
 
         add_proj.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("LOG","button clicked");
                 Intent i = new Intent(MainActivity.this, AddIndividualActivity.class);
+                startActivity(i);
+            }
+        });
+
+        listBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("LOG","list button");
+                Intent i =new Intent(MainActivity.this, ListActivity.class);
                 startActivity(i);
             }
         });

@@ -47,19 +47,24 @@ public class AssignObjectActivity extends AppCompatActivity {
         boolean found = extras.getBoolean("FOUND");
         if(found)
         {
-          found_object(barcode);
+          found_object();
+        }
+
+        else
+        {
+            add_clicked();
         }
 
 
     }
 
-    public void found_object(String barcode)
+    public void found_object()
     {
         setContentView(generate_list_obj);
         pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
 
-        Button addObj = (Button) findViewById(R.id.submitButton); //CHANGE TO ADD BUTTON ID
+        Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,12 +168,12 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("BARCODE");
         data.add(barcode);
 
-        EditText p = (EditText) (findViewById(R.id.groupId)); // change to whatever the personID is
+        EditText p = (EditText) (findViewById(R.id.personID));
         String person = p.getText().toString();
         meta.add("INDIVIDUAL");
         data.add(person);
 
-        meta.add("DAMAGED");
+        meta.add("BROKEN");
         data.add("false");
 
 
