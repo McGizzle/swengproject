@@ -192,7 +192,7 @@ public class QueryActivity extends AppCompatActivity {
             String r = null;
             try {
                 r =  insertMySQLPost();
-                Log.d("TAG",r);
+                Log.d("RESULT",r);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -203,7 +203,7 @@ public class QueryActivity extends AppCompatActivity {
 
             String[] result = r.split("#");
             pb.setVisibility(View.GONE);
-            Log.d("TAG",result[0]);
+            Log.d("RESULT",result[0]);
 
             if(result[0].equals(SUCCESS_RESPONSE)){
                 insertSuccess();
