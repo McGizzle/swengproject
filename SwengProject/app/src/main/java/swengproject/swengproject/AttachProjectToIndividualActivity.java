@@ -20,9 +20,9 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(attach_proj_indiv);
+        setContentView(indiv_to_project);
 
-        Button goBttn = (Button) findViewById(R.id.goBttn);
+        Button goBttn = (Button) findViewById(R.id.submitButton);
         goBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,7 +31,7 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
         });
     }
     public void get_info(){
-        EditText proj  = (EditText) findViewById(R.id.projET);
+        EditText proj  = (EditText) findViewById(R.id.projectET);
         EditText nam  = (EditText) findViewById(R.id.nameET);
         String project = proj.getText().toString();
         String name = nam.getText().toString();
