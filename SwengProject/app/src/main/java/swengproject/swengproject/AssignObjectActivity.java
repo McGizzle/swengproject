@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -34,12 +35,7 @@ public class AssignObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(assign_object);
-        final Calendar cal = Calendar.getInstance();
-        yearX = cal.get(Calendar.YEAR);
-        monthX = cal.get(Calendar.MONTH);
-        dayX = cal.get(Calendar.DAY_OF_MONTH);
-        showDialogOnButtonClick();
+
 
         Bundle extras = getIntent().getExtras();
         String[] info = extras.getStringArray("INFO");
@@ -87,8 +83,13 @@ public class AssignObjectActivity extends AppCompatActivity {
     public void add_clicked()
     {
         setContentView(assign_object);
-        pb = (ProgressBar)findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
+        final Calendar cal = Calendar.getInstance();
+        yearX = cal.get(Calendar.YEAR);
+        monthX = cal.get(Calendar.MONTH);
+        dayX = cal.get(Calendar.DAY_OF_MONTH);
+        showDialogOnButtonClick();
+
+        Log.d("TAG", barcode);
 
         Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
