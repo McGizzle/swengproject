@@ -36,6 +36,8 @@ public class QueryActivity extends AppCompatActivity {
     private final String OBJECT_FOUND = "2";
     private final String LIST = "3";
     private final String DUPLICATE = "4";
+    private final String FAILED_RESPONSE_LIST = "5";
+    private final String TAG = "QueryActivity";
 
 
 
@@ -48,6 +50,7 @@ public class QueryActivity extends AppCompatActivity {
         PREV_ACTIVITY = (Class) extras.get("PREVIOUS_ACTIVITY");
 
         pb = (ProgressBar) findViewById(R.id.progressBar);
+        pb.setVisibility(View.GONE);
         DATA  = extras.getStringArrayList("DATA");
         META_DATA = extras.getStringArrayList("META_DATA");
         if(DATA.get(0)==null){
@@ -82,7 +85,7 @@ public class QueryActivity extends AppCompatActivity {
             x += "&" + URLEncoder.encode(META_DATA.get(i), "UTF-8") + "="
                     + URLEncoder.encode(DATA.get(i), "UTF-8");
             send.append(x);
-            Log.d("INFO","Meta = "+META_DATA.get(i) + " Data = "+DATA.get(i));
+            Log.d(TAG,"Meta = "+META_DATA.get(i) + " Data = "+DATA.get(i));
         }
 
         // Send data
@@ -97,23 +100,22 @@ public class QueryActivity extends AppCompatActivity {
             wr.flush();
 
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                Log.d("Tag", "Success");
+                Log.d(TAG, "Success");
                 InputStream in = new BufferedInputStream(conn.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.d("TAG",line);
                     result.append(line);
                 }
                 return result.toString();
 
             } else {
-                Log.d("Tag 1", "Failure");
+                Log.d(TAG, "Failure");
                 return null;
             }
 
         }catch(Exception ex) {
-            Log.d("Tag 2", "Failure");
+            Log.d(TAG, "Failure");
             return null;
         }
 
@@ -132,9 +134,8 @@ public class QueryActivity extends AppCompatActivity {
                 .setMessage("Your Information was successfully submitted.")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent =  new Intent(QueryActivity.this , PREV_ACTIVITY);
-                        startActivity(intent);
                         finish();
+
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -147,20 +148,24 @@ public class QueryActivity extends AppCompatActivity {
      * Return: None
      */
     public void insertFail(){
-        new AlertDialog.Builder(QueryActivity.this)
+       AlertDialog x = new AlertDialog.Builder(QueryActivity.this)
                 .setTitle("Uh Oh!")
                 .setMessage("Something went wrong and it probably was not our fault." +
                         " Check your internet connection and try again")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent =  new Intent(QueryActivity.this , PREV_ACTIVITY);
                         finish();
-                        startActivity(intent);
-
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+
+        x.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                finish();
+            }
+        });
 
     }
     public void insertDuplicate(){
@@ -184,7 +189,7 @@ public class QueryActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             pb.setVisibility(View.VISIBLE);
-            Log.d("TAG","pre exe");
+            Log.d(TAG,"PRE EXECUTION");
         }
 
         @Override
@@ -192,7 +197,7 @@ public class QueryActivity extends AppCompatActivity {
             String r = null;
             try {
                 r =  insertMySQLPost();
-                Log.d("RESULT",r);
+                Log.d(TAG,"RETURN FROM SERVER = "+r);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -203,7 +208,7 @@ public class QueryActivity extends AppCompatActivity {
 
             String[] result = r.split("#");
             pb.setVisibility(View.GONE);
-            Log.d("RESULT",result[0]);
+            Log.d(TAG,"RESPONSE CODE = "+result[0]);
 
             if(result[0].equals(SUCCESS_RESPONSE)){
                 insertSuccess();
@@ -222,12 +227,18 @@ public class QueryActivity extends AppCompatActivity {
                 startActivity(i);
             }
             else if(result[0].equals(LIST)){
+                Log.d("TAG","LIST FOUND");
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("INFO",result);
                 setResult(ListActivity.RESULT_OK,returnIntent);
                 finish();
             }
+            else if(result[0].equals(FAILED_RESPONSE_LIST)){
+                Log.d(TAG,"FAILED LIST");
+                insertFail();
+            }
             else if(result[0].equals(DUPLICATE)){
+                Log.d(TAG,"DUPLICATE");
                 insertDuplicate();
             }
             else {
