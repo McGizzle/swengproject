@@ -40,13 +40,13 @@ if ( !empty($_POST) ) {
 		break;
 		case 4: assign_object($con);
 		break;
-		case 5:
+		case 5: get_list($con);
 		break;
 		case 6: date_objects_list($con);
 		break;
 		case 7: other_objects_list($con);
 		break;
-		case 8: find_object();
+		case 8:
 		break;
 	}
 
@@ -109,64 +109,82 @@ if ( !empty($_POST) ) {
 		mysqli_close($con);
 	}
 
-	// function assign_object(){
-	// 	$name = $_POST['NAME']; //not used
-	// 	$date = $_POST['DATE'];//not used
-	// 	$group = $_POST['GROUP'];
-	// 	$barcode = $_POST['BARCODE'];
-	// 	$individual $_POST['INDIVIDUAL'];
-	// 	$broken = $_POST['DAMAGED'];
-	//
-	// 	$sql = "INSERT into Object (Barcode, PersonID, Project, Broken) VALUES ('$barcode', '$indivdual', '$group', '$broken')";
-	// 	$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
-	// 	echo $SUCCESS_RESPONSE;
-	// 	mysqli_close($con);
-	// }
-	//
-	// function reclaimed_objects_list(){
-	// 	$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate < NOW() OR o.Project IS NULL";
-	// 	$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
-	// 	if (mysqli_num_rows($ret) == 0) {
-	// 		echo $OBJECT_NOT_FOUND;
-	// 	} else {
-	// 		echo $OBJECT_FOUND . "#";
-	// 		$rows = mysqli_fetch_all($ret);
-	// 		foreach($rows as $row) {
-	// 			echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
-	// 		}
-	// 	}
-	// 	mysqli_close($con);
-	// }
-	//
-	// function broken_objects_list(){
-	// 	$sql = "SELECT * FROM Object o WHERE o.Broken = 1";
-	// 	$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
-	// 	if (mysqli_num_rows($ret) == 0) {
-	// 		echo $OBJECT_NOT_FOUND;
-	// 	} else {
-	// 		echo $OBJECT_FOUND . "#";
-	// 		$rows = mysqli_fetch_all($ret);
-	// 		foreach($rows as $row) {
-	// 			echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
-	// 		}
-	// 	}
-	// 	mysqli_close($con);
-	// }
-	//
-	// function attached_objects_list() {
-	// 	$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate > NOW() AND o.Project IS NOT NULL";
-	// 	$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
-	// 	if (mysqli_num_rows($ret) == 0) {
-	// 		echo OBJECT_NOT_FOUND;
-	// 	} else {
-	// 		echo OBJECT_FOUND;
-	// 		$rows = mysqli_fetch_all($ret);
-	// 		foreach($rows as $row) {
-	// 			echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
-	// 		}
-	// 	}
-	// 	mysqli_close($con);
-	// }
+	function assign_object($con){
+		$name = $_POST['NAME']; //not used
+		$date = $_POST['DATE'];//not used
+		$group = $_POST['GROUP'];
+		$barcode = $_POST['BARCODE'];
+		$individual $_POST['INDIVIDUAL'];
+		$broken = $_POST['DAMAGED'];
+
+		$sql = "INSERT into Object (Barcode, PersonID, Project, Broken) VALUES ('$barcode', '$indivdual', '$group', '$broken')";
+		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
+		echo $SUCCESS_RESPONSE;
+		mysqli_close($con);
+	}
+
+	function get_list($con){
+		$list_type = $_POST["LIST_TYPE"];
+		if($list_type == "BROKEN"){
+			reclaimed_objects_list($con);
+		}
+		else if($list_type == "ATTACHED"){
+			broken_objects_list($con);
+		}
+		else if($list_type == "RECLAIMED"){
+			attached_objects_list($con);
+		}
+		else{
+			echo 5;
+		}
+	}
+
+	function reclaimed_objects_list($con){
+		$date = $_POST["DATE"];
+		$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate < '$date' OR o.Project IS NULL";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		if (mysqli_num_rows($ret) == 0) {
+			echo $OBJECT_NOT_FOUND;
+		} else {
+			echo $OBJECT_FOUND . "#";
+			$rows = mysqli_fetch_all($ret);
+			foreach($rows as $row) {
+				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
+			}
+		}
+		mysqli_close($con);
+	}
+
+	function broken_objects_list($con){
+		$sql = "SELECT * FROM Object o WHERE o.Broken = 1";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		if (mysqli_num_rows($ret) == 0) {
+			echo $OBJECT_NOT_FOUND;
+		} else {
+			echo $OBJECT_FOUND . "#";
+			$rows = mysqli_fetch_all($ret);
+			foreach($rows as $row) {
+				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
+			}
+		}
+		mysqli_close($con);
+	}
+
+	function attached_objects_list($con) {
+		$date = $_POST["DATE"];
+		$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate > '$date' AND o.Project IS NOT NULL";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		if (mysqli_num_rows($ret) == 0) {
+			echo OBJECT_NOT_FOUND;
+		} else {
+			echo OBJECT_FOUND;
+			$rows = mysqli_fetch_all($ret);
+			foreach($rows as $row) {
+				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
+			}
+		}
+		mysqli_close($con);
+	}
 	//
 	//
 
