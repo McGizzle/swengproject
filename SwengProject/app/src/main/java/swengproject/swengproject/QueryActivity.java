@@ -102,8 +102,10 @@ public class QueryActivity extends AppCompatActivity {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                 String line;
                 while ((line = reader.readLine()) != null) {
+                    Log.d("TAG",line);
                     result.append(line);
                 }
+                return result.toString();
 
             } else {
                 Log.d("Tag 1", "Failure");
@@ -115,7 +117,7 @@ public class QueryActivity extends AppCompatActivity {
             return null;
         }
 
-        return result.toString();
+       // return result.toString();
     }
 
     /* insertSuccess()
@@ -213,6 +215,7 @@ public class QueryActivity extends AppCompatActivity {
                 startActivity(i);
             }
             else if(result[0].equals(OBJECT_NOT_FOUND)){
+                Log.d("TAG","OBJECT NOT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",result);
                 i.putExtra("FOUND",false);

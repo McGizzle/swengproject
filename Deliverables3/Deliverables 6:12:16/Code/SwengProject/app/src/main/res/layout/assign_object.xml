@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="swengproject.swengproject.MainActivity">
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Object Name"
+        android:ems="10"
+        android:id="@+id/objectId"
+        app:layout_constraintBottom_toTopOf="@+id/button7"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="40dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Group Name"
+        android:ems="10"
+        android:id="@+id/groupId"
+        android:layout_marginStart="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+
+    <Button
+        android:text="Submit"
+        android:background="#cc3f35"
+        android:textColor="#ffffff"
+        android:layout_width="168dp"
+        android:layout_height="51dp"
+        android:id="@+id/button7"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/groupId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintVertical_bias="0.78" />
+
+    <Button
+
+        android:layout_width="48dp"
+        android:layout_height="40dp"
+        android:background="@drawable/home_button2"
+        android:id="@+id/homeButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="1.0" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="choose date"
+        android:ems="10"
+        tools:layout_editor_absoluteX="40dp"
+        android:id="@+id/chooseDate"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/groupId"
+        app:layout_constraintBottom_toTopOf="@+id/objectId"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Person Name"
+        android:ems="10"
+        tools:layout_editor_absoluteX="40dp"
+        android:id="@+id/personID"
+        android:layout_marginTop="136dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
