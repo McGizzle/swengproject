@@ -16,6 +16,9 @@ import static swengproject.swengproject.R.layout.assigned_obj;
 import static swengproject.swengproject.R.layout.broken_obj;
 import static swengproject.swengproject.R.layout.list_options;
 import static swengproject.swengproject.R.layout.reclaim_obj;
+
+
+import static swengproject.swengproject.R.layout.scan_page;
 import static swengproject.swengproject.R.layout.show_list;
 
 
