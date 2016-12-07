@@ -1,0 +1,35 @@
+The inventory tracking app is required perform the following functions:
+
+1) Add projects. Each project has a name, individuals attached to it, and an end-date.
+
+2) Add individuals. Each individual has a name. An individual may be attached to none, one
+
+or many projects.
+
+3) Attach individuals to projects.
+
+4) Scan and identify a barcode identifying an object.
+
+5) Assign object to either an individual or a project
+
+     ? If assigned to a project, then a person from that project must be made
+
+       responsible for the project.
+
+6) Generate a list of objects that must be re-claimed, as of a user-specified date.
+
+7) Generate a list of objects, attached to an individual or a project, as of a user-specified
+
+   date.
+
+8) Scan a barcode of an object already existing in the system, and identify the individual or
+
+project it is assigned to. If assigned to a project, identify the individual on the project who
+
+is responsible for the object.
+
+9) Mark an object as 'Damaged'. When an object is marked as 'damaged', it does not need to be reclaimed anymore. This means that it will
+   also not show up in any re-claim list that is generated. However, it will still show as being assigned to an individual or a project,
+   as the case may be, with an additional UI indication that it has been damaged. The UI indication is up to the team (text/image/any other mechanism)
+
+10) Generate a list of 'damaged' objects, as of a user-specified date.

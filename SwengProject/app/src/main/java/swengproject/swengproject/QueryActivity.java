@@ -102,8 +102,10 @@ public class QueryActivity extends AppCompatActivity {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                 String line;
                 while ((line = reader.readLine()) != null) {
+                    Log.d("TAG",line);
                     result.append(line);
                 }
+                return result.toString();
 
             } else {
                 Log.d("Tag 1", "Failure");
@@ -115,7 +117,7 @@ public class QueryActivity extends AppCompatActivity {
             return null;
         }
 
-        return result.toString();
+       // return result.toString();
     }
 
     /* insertSuccess()
@@ -131,8 +133,8 @@ public class QueryActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent =  new Intent(QueryActivity.this , PREV_ACTIVITY);
-                        finish();
                         startActivity(intent);
+                        finish();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -190,7 +192,7 @@ public class QueryActivity extends AppCompatActivity {
             String r = null;
             try {
                 r =  insertMySQLPost();
-                Log.d("TAG",r);
+                Log.d("RESULT",r);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -201,6 +203,7 @@ public class QueryActivity extends AppCompatActivity {
 
             String[] result = r.split("#");
             pb.setVisibility(View.GONE);
+            Log.d("RESULT",result[0]);
 
             if(result[0].equals(SUCCESS_RESPONSE)){
                 insertSuccess();
@@ -212,6 +215,7 @@ public class QueryActivity extends AppCompatActivity {
                 startActivity(i);
             }
             else if(result[0].equals(OBJECT_NOT_FOUND)){
+                Log.d("TAG","OBJECT NOT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",result);
                 i.putExtra("FOUND",false);

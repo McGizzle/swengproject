@@ -43,15 +43,16 @@ public class AssignObjectActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String[] info = extras.getStringArray("INFO");
-        barcode = info[1];
         boolean found = extras.getBoolean("FOUND");
         if(found)
         {
+            barcode = info[2];
           found_object();
         }
 
         else
         {
+            barcode = info[1];
             add_clicked();
         }
 
@@ -172,9 +173,11 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("BROKEN");
         data.add("false");
 
+        meta.add("TYPE");
+        data.add(""+TYPE);
+
 
         Intent passData = (new Intent(AssignObjectActivity.this, QueryActivity.class));
-        passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
         passData.putExtra("ACTIVITY",assign_object);
