@@ -1,14 +1,20 @@
 package swengproject.swengproject;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static swengproject.swengproject.R.layout.add_project;
 
@@ -20,11 +26,21 @@ public class AddProjectActivity extends AppCompatActivity {
 
     final int TYPE = 1;
     private ProgressBar pb;
+    Button datePick;
+    int yearX, dayX, monthX;
+    static final int dialog = 0;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(add_project);
+
+        final Calendar cal = Calendar.getInstance();
+        yearX = cal.get(Calendar.YEAR);
+        monthX = cal.get(Calendar.MONTH);
+        dayX = cal.get(Calendar.DAY_OF_MONTH);
+        showDialogOnButtonClick();
 
         pb = (ProgressBar) findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
@@ -48,6 +64,42 @@ public class AddProjectActivity extends AppCompatActivity {
         });
     }
 
+    public void showDialogOnButtonClick()
+    {
+        datePick = (Button) findViewById(R.id.endDate);
+        datePick.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                showDialog(dialog);
+            }
+        });
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id)
+    {
+        if(id == dialog)
+        {
+            return new DatePickerDialog(this, dPickerListner, yearX, monthX, dayX);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private DatePickerDialog.OnDateSetListener dPickerListner
+            = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+            yearX = i;
+            monthX = i1 + 1;
+            dayX = i2;
+            Toast.makeText(AddProjectActivity.this, dayX + "/" + monthX + "/" + yearX, Toast.LENGTH_LONG).show();
+        }
+    };
     public void gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
@@ -70,8 +122,10 @@ public class AddProjectActivity extends AppCompatActivity {
             data.add(separated[x]);
         }
 
-        EditText e = (EditText) (findViewById(R.id.editText3));
-        String end_date = e.getText().toString();
+//        EditText e = (EditText) (findViewById(R.id.editText3));
+//        String end_date = e.getText().toString();
+
+        String end_date = "" + dayX + monthX + yearX;
         meta.add("END_DATE");
         data.add(end_date);
 

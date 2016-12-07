@@ -170,10 +170,6 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("BARCODE");
         data.add(barcode);
 
-        EditText p = (EditText) (findViewById(R.id.personID));
-        String person = p.getText().toString();
-        meta.add("INDIVIDUAL");
-        data.add(person);
 
         meta.add("BROKEN");
         data.add("false");
