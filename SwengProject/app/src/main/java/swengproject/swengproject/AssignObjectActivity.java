@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import static swengproject.swengproject.R.layout.generate_list_obj;
 public class AssignObjectActivity extends AppCompatActivity {
     final int TYPE = 4;
     private ProgressBar pb;
-    EditText datePick;
+    Button datePick;
     int yearX, dayX, monthX;
     static final int dialog = 0;
     private String barcode;
@@ -110,7 +111,7 @@ public class AssignObjectActivity extends AppCompatActivity {
 
     public void showDialogOnButtonClick()
     {
-        datePick = (EditText) findViewById(R.id.chooseDate);
+        datePick = (Button) findViewById(R.id.chooseDate);
         datePick.setOnClickListener( new View.OnClickListener()
         {
             @Override
@@ -154,8 +155,10 @@ public class AssignObjectActivity extends AppCompatActivity {
 
         EditText fn = (EditText) (findViewById(R.id.objectId));
         String name = fn.getText().toString();
-        EditText ln = (EditText) findViewById(R.id.chooseDate);
-        String date = ln.getText().toString();
+
+        String date = "" + dayX + "/" + monthX + "/" + yearX;
+        TextView dateShow = (TextView) findViewById(R.id.dateShow);
+        dateShow.setText(date);
         meta.add("NAME");
         data.add(name);
         meta.add("DATE");

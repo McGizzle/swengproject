@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -125,7 +126,9 @@ public class AddProjectActivity extends AppCompatActivity {
 //        EditText e = (EditText) (findViewById(R.id.editText3));
 //        String end_date = e.getText().toString();
 
-        String end_date = "" + dayX + monthX + yearX;
+        String end_date = "" + dayX + "/" + monthX + "/" + yearX;
+        TextView dateShow = (TextView) findViewById(R.id.dateShow);
+        dateShow.setText(end_date);
         meta.add("END_DATE");
         data.add(end_date);
 
