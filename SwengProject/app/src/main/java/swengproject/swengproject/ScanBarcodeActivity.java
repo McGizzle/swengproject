@@ -23,6 +23,7 @@ import static swengproject.swengproject.R.layout.scan_page;
 public class ScanBarcodeActivity extends AppCompatActivity implements View.OnClickListener {
 
     final private int TYPE = 3;
+    private final String TAG = "ScanBarcodeActivity";
     private Button scanBtn;
     private ArrayList<String> DATA = new ArrayList<String>();
     private ArrayList<String> META_DATA = new ArrayList<String>();
@@ -66,6 +67,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
 
             META_DATA.add("BARCODE_INFO");
             DATA.add(scanContent);
+            Log.d(TAG,scanContent);
 
             META_DATA.add("BARCODE_FORMAT");
             DATA.add(scanFormat);

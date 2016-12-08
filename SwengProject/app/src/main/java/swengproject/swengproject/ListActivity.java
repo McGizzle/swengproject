@@ -171,7 +171,7 @@ public class ListActivity extends AppCompatActivity {
                 setContentView(show_list);
                 Bundle extras = getIntent().getExtras();
                 final String[] info = extras.getStringArray("INFO");
-                tv = (TextView) findViewById(R.id.textViewList);
+                tv = (TextView) findViewById(R.id.listTextView);
                 String output="List\n\n";
                 for(int i=1;i<info.length;i++){
                     Log.d("ListActivity",info[i]);

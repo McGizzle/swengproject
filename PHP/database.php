@@ -101,7 +101,7 @@
 			echo "3" . "#";
 			$rows = mysqli_fetch_all($ret);
 			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#" . "%" . "#";
+				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
 			}
 			echo "!" . "#";
 		}
