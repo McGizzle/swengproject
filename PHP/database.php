@@ -15,7 +15,7 @@
 	// $DUPLICATE=  "5";
 
 
-	$con = mysqli_connect($host,$uname,$pwd,$db) or die("connection failed");
+	$con = mysqli_connect($host,$uname,$pwd,$db) or die(mysqli_error($con));
 	//
 	// foreach ($_POST as $key => $value) {
 	//
@@ -56,14 +56,14 @@
 			$indvs[$i] = $_POST["INDIVIDUALS" . $i];
 		}
 
-
 		// ADD the new project into the database
-		$sql = "INSERT INTO Project (Name, EndDate) VALUES ('$projectName', '$endDate') ";
+		$sql = "INSERT INTO Project (ProjectName, EndDate) VALUES ('$projectName', '$endDate') ";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
 
 	  //Attach individuals to each projects
 		for($i=0;$i<$num;$i++){
-			$sql = "INSERT INTO ProjectGroup (ProjectName,MemberName) VALUES ('$projectName','$indvs[$i]')";
+		  check_person_exists($con,$indvs[i]);
+			$sql = "INSERT INTO ProjectGroup (ProjectName,PersonName) VALUES ('$projectName','$indvs[$i]')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
 		echo "1" . "#";
@@ -79,15 +79,52 @@
 			$projects[$i] = $_POST["TEAM".$i];
 		}
 
-		$sql = "INSERT INTO Person (Name) VALUES ('$name')";
+		$sql = "INSERT INTO Person (PersonName) VALUES ('$name')";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 
 		for($i=0;$i<$num;$i++){
-			$sql = "INSERT INTO ProjectGroup (ProjectName,MemberName) VALUES ('$projects[$i]','$name')";
+			check_project_exists($con,$projects[i]);
+			$sql = "INSERT INTO ProjectGroup (ProjectName,PersonName) VALUES ('$projects[$i]','$name')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
 		echo "1" . "#";
 		mysqli_close($con);
+	}
+
+
+	function check_person_exists($con,$person_name){
+		$sql = "SELECT * FROM Person WHERE PersonName = '$person_name'";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		if (mysqli_num_rows($ret) == 0) {
+			$sql = "INSERT INTO Person (PersonName) VALUES ('$person_name')";
+			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		}
+	}
+	function check_project_exists($con,$project_name){
+		$sql = "SELECT * FROM Project WHERE ProjectName = '$project_name'";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		if (mysqli_num_rows($ret) == 0) {
+			$sql = "INSERT INTO Project (ProjectName) VALUES ('$project_name')";
+			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		}
+	}
+
+	function attach_project_person($con){
+		$project_name = $_POST["PROJECT_NAME"];
+		$person_name = $_POST["PERSON_NAME"];
+
+		$sql = "SELECT * FROM Project WHERE ProjectName = '$project_name'";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		$sql = "SELECT * FROM Person WHERE PersonName = '$person_name'";
+		$ret2 = mysqli_query($con,$sql) or die(mysqli_error($con));
+
+		if (mysqli_num_rows($ret) == 0 || mysqli_num_rows($ret2) == 0) {
+			echo "0" . "#" . "Person or Project does not exist in system";
+		} else {
+			$sql = "INSERT INTO ProjectGroup (ProjectName, PersonName) VALUES ('$project_name','$person_name')";
+			mysqli_query($con,$sql) or die(mysqli_error($con));
+			echo "1" . "#";
+		}
 	}
 
 	function search_object($con){
@@ -101,7 +138,7 @@
 			echo "3" . "#";
 			$rows = mysqli_fetch_all($ret);
 			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#" . "%" . "#";
+				echo $row["ObjectID"] . "#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" . $row["PersonName"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#" . "%" . "#";
 			}
 			echo "!" . "#";
 		}
@@ -116,7 +153,8 @@
 		$individual = $_POST['INDIVIDUAL'];
 		$broken = $_POST['DAMAGED'];
 
-		$sql = "INSERT into Object (Barcode, PersonID, Project, Broken) VALUES ('$barcode', '$indivdual', '$group', '$broken')";
+		$sql = "INSERT into Object (Barcode, PersonName, ProjectName, ObjectName, Broken)
+		VALUES ('$barcode', '$indivdual', '$group', '$name' , '$broken')";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
 		echo "1" . "#";
 		mysqli_close($con);
@@ -134,7 +172,7 @@
 			attached_objects_list($con);
 		}
 		else{
-			echo 5;
+			echo "0" . "#" . "Unavailable List type selected";
 		}
 	}
 
@@ -143,12 +181,12 @@
 		$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate < '$date' OR o.Project IS NULL";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo $OBJECT_NOT_FOUND;
+			echo "0" . "#" . "No Objects to be returned by this date.";
 		} else {
-			echo $OBJECT_FOUND . "#";
+			echo "2" . "#";
 			$rows = mysqli_fetch_all($ret);
 			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
+				echo $row["ObjectID"] ."#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" . $row["PersonName"] . "#" . $row["ProjectName"] . "#" . $row["Broken"] . "#";
 			}
 		}
 		mysqli_close($con);
@@ -158,12 +196,12 @@
 		$sql = "SELECT * FROM Object o WHERE o.Broken = 1";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "3" . "#";
+			echo "3" . "#" . "No broken Objects found that must be returned by specified date.";
 		} else {
 			echo "2" . "#";
 			$rows = mysqli_fetch_all($ret);
 			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
+				echo $row["ObjectID"] . "#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" . $row["PersonName"] . "#" . $row["ProjectName"] . "#" . $row["Broken"] . "#";
 			}
 		}
 		mysqli_close($con);
@@ -174,12 +212,12 @@
 		$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate > '$date' AND o.Project IS NOT NULL";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "3" . "#";
+			echo "3" . "#" . "No Objects attahced to this project/person that must be returned by the specified date.";
 		} else {
 			echo "2" . "#";
 			$rows = mysqli_fetch_all($ret);
 			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
+				echo $row["ObjectID"] . "#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" . $row["PersonName"] . "#" . $row["ProjectName"] . "#" . $row["Broken"] . "#";
 			}
 		}
 		mysqli_close($con);
