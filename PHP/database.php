@@ -158,9 +158,9 @@
 		$sql = "SELECT * FROM Object o WHERE o.Broken = 1";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo $OBJECT_NOT_FOUND;
+			echo "3" . "#";
 		} else {
-			echo $OBJECT_FOUND . "#";
+			echo "2" . "#";
 			$rows = mysqli_fetch_all($ret);
 			foreach($rows as $row) {
 				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
@@ -174,9 +174,9 @@
 		$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate > '$date' AND o.Project IS NOT NULL";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo OBJECT_NOT_FOUND;
+			echo "3" . "#";
 		} else {
-			echo OBJECT_FOUND;
+			echo "2" . "#";
 			$rows = mysqli_fetch_all($ret);
 			foreach($rows as $row) {
 				echo $row["ObjectID"] . "#" . $row["Barcode"] . "#" . $row["PersonID"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#";
