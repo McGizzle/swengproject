@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
+import static swengproject.swengproject.R.layout.indiv_to_project;
+
 
 /**
  * Created by McGroarty on 07/12/2016.
@@ -47,7 +49,7 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
         Intent passData = (new Intent(AttachProjectToIndividualActivity.this, QueryActivity.class));
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
-        passData.putExtra("ACTIVITY",attach_proj_indiv);
+        passData.putExtra("ACTIVITY",indiv_to_project);
         passData.putExtra("PREVIOUS_ACTIVITY",AttachProjectToIndividualActivity.class);
         startActivity(passData);
     }
