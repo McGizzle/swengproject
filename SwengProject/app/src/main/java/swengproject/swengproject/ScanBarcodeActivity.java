@@ -41,6 +41,7 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
         IntentIntegrator scanIntegrator = new IntentIntegrator(this);
         scanIntegrator.initiateScan();
 
+
 //        Button home = (Button) findViewById(R.id.homeButton);
 //        home.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -88,10 +89,6 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
             toast.show();
         }
     }
-
-
-
-
 
 
 

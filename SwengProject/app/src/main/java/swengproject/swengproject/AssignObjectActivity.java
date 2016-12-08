@@ -64,7 +64,14 @@ public class AssignObjectActivity extends AppCompatActivity {
 
         while(!info[i].equals("!"))
         {
-
+            String btemp = info[i];
+            if(btemp==barcode)
+            {
+                String person=info[++i];
+                String group=info[++i];
+                String broken=info[++i];
+            }
+               i+=2;
         }
         EditText t = (EditText) findViewById(R.id.editText2);
 
