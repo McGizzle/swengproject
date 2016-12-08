@@ -15,17 +15,8 @@
         android:hint="Object Name"
         android:ems="10"
         android:id="@+id/objectId"
-<<<<<<< HEAD
-        tools:layout_editor_absoluteX="30dp"
-        android:layout_marginTop="88dp"
-        app:layout_constraintTop_toTopOf="parent" />
-=======
-        app:layout_constraintBottom_toTopOf="@+id/submitButton"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="40dp" />
->>>>>>> 957b6ad6262a04a81a5cc08fea0e9fb4d1c4d4aa
+        tools:layout_editor_absoluteY="136dp"
+        tools:layout_editor_absoluteX="30dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -34,49 +25,31 @@
         android:hint="Group Name"
         android:ems="10"
         android:id="@+id/groupId"
-<<<<<<< HEAD
         tools:layout_editor_absoluteX="30dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintTop_toBottomOf="@+id/objectId" />
-=======
+        tools:layout_editor_absoluteY="353dp"
         android:layout_marginStart="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@+id/nameET" />
->>>>>>> 957b6ad6262a04a81a5cc08fea0e9fb4d1c4d4aa
 
     <Button
-        android:text="Submit"
+        android:text="SUBMIT"
+        android:layout_width="89dp"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
         android:background="#cc3f35"
         android:textColor="#ffffff"
-<<<<<<< HEAD
-        android:layout_width="99dp"
-        android:layout_height="54dp"
-        android:id="@+id/button7"
-=======
-        android:layout_width="168dp"
-        android:layout_height="51dp"
         android:id="@+id/submitButton"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/groupId"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
->>>>>>> 957b6ad6262a04a81a5cc08fea0e9fb4d1c4d4aa
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
-        app:layout_constraintHorizontal_bias="0.57"
-        android:layout_marginTop="144dp"
-        app:layout_constraintTop_toBottomOf="@+id/personID"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintVertical_bias="0.66" />
 
     <Button
 
@@ -105,8 +78,7 @@
         android:ems="10"
         tools:layout_editor_absoluteX="30dp"
         android:id="@+id/personID"
-        android:layout_marginTop="56dp"
-        app:layout_constraintTop_toBottomOf="@+id/groupId" />
+        tools:layout_editor_absoluteY="245dp" />
 
     <Button
         android:text="Choose Date"
@@ -116,39 +88,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/chooseDate"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="88dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp"
-        app:layout_constraintHorizontal_bias="0.06"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/personID"
-        app:layout_constraintVertical_bias="0.78" />
-
-<<<<<<< HEAD
-    <TextView
-        android:text="date"
-        android:textSize="18dp"
-        android:textAlignment="center"
-        android:layout_width="109dp"
-        android:layout_height="23dp"
-        tools:layout_editor_absoluteY="367dp"
-        tools:layout_editor_absoluteX="155dp"
-        android:id="@+id/dateShow" />
-=======
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Person Name"
-        android:ems="10"
-        tools:layout_editor_absoluteX="40dp"
-        android:id="@+id/nameET"
-        android:layout_marginTop="136dp"
-        app:layout_constraintTop_toTopOf="parent" />
->>>>>>> 957b6ad6262a04a81a5cc08fea0e9fb4d1c4d4aa
+        app:layout_constraintHorizontal_bias="0.11" />
 
 </android.support.constraint.ConstraintLayout>
