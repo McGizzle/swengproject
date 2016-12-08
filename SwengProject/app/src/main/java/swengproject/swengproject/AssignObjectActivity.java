@@ -65,7 +65,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         while(!info[i].equals("!"))
         {
             String btemp = info[i];
-            if(btemp==barcode)
+            if(btemp.equals(barcode))
             {
                 String person=info[++i];
                 String group=info[++i];
