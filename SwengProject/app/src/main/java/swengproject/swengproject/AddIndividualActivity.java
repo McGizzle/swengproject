@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 import static swengproject.swengproject.R.layout.add_individual;
-import static swengproject.swengproject.R.layout.add_project;
 
 /**
  * Created by McGroarty on 15/11/2016.
@@ -75,7 +74,6 @@ public class AddIndividualActivity extends AppCompatActivity {
 
 
         Intent passData = (new Intent(AddIndividualActivity.this, QueryActivity.class));
-        passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
         passData.putExtra("ACTIVITY",add_individual);

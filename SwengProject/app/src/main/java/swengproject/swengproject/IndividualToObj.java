@@ -10,8 +10,6 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-import static swengproject.swengproject.R.layout.add_individual;
-import static swengproject.swengproject.R.layout.add_project;
 import static swengproject.swengproject.R.layout.indiv_to_obj;
 
 /**
@@ -57,7 +55,7 @@ public class IndividualToObj extends AppCompatActivity {
         data.add(TYPE+"");
 
 
-        EditText fn = (EditText) (findViewById(R.id.personID));
+        EditText fn = (EditText) (findViewById(R.id.nameET));
         String fname = fn.getText().toString();
         meta.add("NAME");
         data.add(fname);

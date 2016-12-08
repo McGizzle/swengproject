@@ -5,8 +5,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,6 +30,7 @@ public class AssignObjectActivity extends AppCompatActivity {
     int yearX, dayX, monthX;
     static final int dialog = 0;
     private String barcode;
+    private String[] info;
 
 
     @Override
@@ -38,11 +39,10 @@ public class AssignObjectActivity extends AppCompatActivity {
 
 
         Bundle extras = getIntent().getExtras();
-        String[] info = extras.getStringArray("INFO");
+        info = extras.getStringArray("INFO");
         boolean found = extras.getBoolean("FOUND");
         if(found)
         {
-            barcode = info[2];
           found_object();
         }
 
@@ -58,8 +58,14 @@ public class AssignObjectActivity extends AppCompatActivity {
     public void found_object()
     {
         setContentView(generate_list_obj);
-        pb = (ProgressBar)findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
+
+        int i=1;
+
+        while(!info[i].equals("!"))
+        {
+
+        }
+        EditText t = (EditText) findViewById(R.id.editText2);
 
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setOnClickListener(new View.OnClickListener() {

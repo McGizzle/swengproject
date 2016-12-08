@@ -31,12 +31,12 @@ public class QueryActivity extends AppCompatActivity {
     ArrayList<String> META_DATA;
     private MyAsyncTask task;
     private Class PREV_ACTIVITY;
-    private final String OBJECT_NOT_FOUND = "0";
+    private final String FAIL_RESPONSE = "0";
     private final String SUCCESS_RESPONSE = "1";
     private final String OBJECT_FOUND = "2";
-    private final String LIST = "3";
-    private final String DUPLICATE = "4";
-    private final String FAILED_RESPONSE_LIST = "5";
+    private final String OBJECT_NOT_FOUND = "3";
+    private final String LIST = "4";
+    private final String DUPLICATE = "5";
     private final String TAG = "QueryActivity";
 
 
@@ -79,13 +79,14 @@ public class QueryActivity extends AppCompatActivity {
         String x = URLEncoder.encode(META_DATA.get(0), "UTF-8")
                 + "=" + URLEncoder.encode(DATA.get(0), "UTF-8");
         send.append(x);
+        Log.d(TAG,"Meta = "+META_DATA.get(0) + "  Data = "+DATA.get(0));
 
         for(int i=1;i<META_DATA.size()&&i<DATA.size();i++) {
 
             x += "&" + URLEncoder.encode(META_DATA.get(i), "UTF-8") + "="
                     + URLEncoder.encode(DATA.get(i), "UTF-8");
             send.append(x);
-            Log.d(TAG,"Meta = "+META_DATA.get(i) + " Data = "+DATA.get(i));
+            Log.d(TAG,"Meta = "+META_DATA.get(i) + "  Data = "+DATA.get(i));
         }
 
         // Send data
@@ -209,45 +210,44 @@ public class QueryActivity extends AppCompatActivity {
             String[] result = r.split("#");
             pb.setVisibility(View.GONE);
             Log.d(TAG,"RESPONSE CODE = "+result[0]);
-
-            if(result[0].equals(SUCCESS_RESPONSE)){
+            if(result[0].equals(FAIL_RESPONSE)){
+                Log.d(TAG,"FAIL RESPONSE");
+                insertFail();
+            }
+            else if(result[0].equals(SUCCESS_RESPONSE)){
+                Log.d(TAG,"SUCCESS RESPONSE");
                 insertSuccess();
             }
             else if(result[0].equals(OBJECT_FOUND)){
+                Log.d(TAG,"OBJECT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",result);
                 i.putExtra("FOUND",true);
                 startActivity(i);
             }
             else if(result[0].equals(OBJECT_NOT_FOUND)){
-                Log.d("TAG","OBJECT NOT FOUND");
+                Log.d(TAG,"OBJECT NOT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",result);
                 i.putExtra("FOUND",false);
                 startActivity(i);
             }
             else if(result[0].equals(LIST)){
-                Log.d("TAG","LIST FOUND");
+                Log.d(TAG,"LIST FOUND");
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("INFO",result);
                 setResult(ListActivity.RESULT_OK,returnIntent);
                 finish();
-            }
-            else if(result[0].equals(FAILED_RESPONSE_LIST)){
-                Log.d(TAG,"FAILED LIST");
-                insertFail();
             }
             else if(result[0].equals(DUPLICATE)){
                 Log.d(TAG,"DUPLICATE");
                 insertDuplicate();
             }
             else {
-                insertFail();
+                Log.d(TAG,"UNKNOWN RESPONSE CODE");
             }
 
         }
-        protected void onProgressUpdate(Integer... progress){
 
-        }
 }
 }
