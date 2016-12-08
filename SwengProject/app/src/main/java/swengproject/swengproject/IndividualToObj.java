@@ -43,9 +43,13 @@ public class IndividualToObj extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(IndividualToObj.this, MainActivity.class);
                 startActivity(i);
+
             }
         });
     }
+
+
+
 
     public void gather_info() {
 
