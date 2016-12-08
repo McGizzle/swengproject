@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Button scanBtn = (Button) findViewById(R.id.button4);
         Button add_idv = (Button) findViewById(R.id.new_indv_btn);
         Button listBttn = (Button) findViewById(R.id.listBttn);
-
+        Button individuals = (Button) findViewById(R.id.individual);
 
         add_proj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        individuals.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(MainActivity.this, IndividualOptionsActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 

@@ -20,6 +20,7 @@ import java.util.Calendar;
 import static swengproject.swengproject.R.layout.assign_object;
 import static swengproject.swengproject.R.layout.generate_list_obj;
 
+
 /**
  * Created by Dervla on 28/11/2016.
  */
@@ -65,7 +66,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         while(!info[i].equals("!"))
         {
             String btemp = info[i];
-            if(btemp==barcode)
+            if(btemp.equals(barcode))
             {
                 String person=info[++i];
                 String group=info[++i];
