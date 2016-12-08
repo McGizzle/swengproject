@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import static swengproject.swengproject.R.layout.add_project;
 
@@ -134,7 +133,6 @@ public class AddProjectActivity extends AppCompatActivity {
 
 
         Intent passData = (new Intent(AddProjectActivity.this, QueryActivity.class));
-        passData.putExtra("TYPE",TYPE);
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
         passData.putExtra("ACTIVITY",add_project);

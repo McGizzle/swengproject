@@ -88,7 +88,7 @@ if ( !empty($_POST) ) {
 			$sql = "INSERT INTO ProjectGroup (ProjectName,MemberName) VALUES ('$projects[$i]','$name')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
-		echo $SUCCESS_RESPONSE;
+		echo 1;
 		mysqli_close($con);
 	}
 

@@ -10,22 +10,21 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-import static swengproject.swengproject.R.layout.add_individual;
-import static swengproject.swengproject.R.layout.add_project;
+import static swengproject.swengproject.R.layout.indiv_to_obj;
 
 /**
  * Created by McGroarty on 15/11/2016.
  */
 
-public class AddIndividualActivity extends AppCompatActivity {
+public class IndividualToObj extends AppCompatActivity {
 
-    final int TYPE = 2;
+    final int TYPE = 6;
     private ProgressBar pb;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(add_individual);
+        setContentView(indiv_to_obj);
 
         pb = (ProgressBar)findViewById(R.id.progressBar);
         pb.setVisibility(View.GONE);
@@ -42,7 +41,7 @@ public class AddIndividualActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(AddIndividualActivity.this, MainActivity.class);
+                Intent i = new Intent(IndividualToObj.this, MainActivity.class);
                 startActivity(i);
             }
         });
@@ -56,30 +55,21 @@ public class AddIndividualActivity extends AppCompatActivity {
         data.add(TYPE+"");
 
 
-        EditText fn = (EditText) (findViewById(R.id.firstName));
+        EditText fn = (EditText) (findViewById(R.id.nameET));
         String fname = fn.getText().toString();
-        EditText ln = (EditText) findViewById(R.id.secondName);
-        String lname = ln.getText().toString();
         meta.add("NAME");
-        data.add(fname+" "+lname);
-
-        EditText i = (EditText) (findViewById(R.id.teamName));
-        String list = i.getText().toString();
-        String[] separated = list.split(",");
-        meta.add("TEAM_NUM");
-        data.add(""+separated.length);
-        for(int x=0;x<separated.length;x++){
-            meta.add("TEAM"+x);
-            data.add(separated[x]);
-        }
+        data.add(fname);
+        EditText i = (EditText) (findViewById(R.id.objectET));
+        String obj = i.getText().toString();
+        meta.add("OBJECT");
+        data.add(obj);
 
 
-        Intent passData = (new Intent(AddIndividualActivity.this, QueryActivity.class));
-        passData.putExtra("TYPE",TYPE);
+        Intent passData = (new Intent(IndividualToObj.this, QueryActivity.class));
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
-        passData.putExtra("ACTIVITY",add_individual);
-        passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
+        passData.putExtra("ACTIVITY",indiv_to_obj);
+        passData.putExtra("PREVIOUS_ACTIVITY",IndividualToObj.class);
 
         startActivity(passData);
 
