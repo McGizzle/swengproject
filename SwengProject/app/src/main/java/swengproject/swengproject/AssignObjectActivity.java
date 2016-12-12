@@ -29,7 +29,9 @@ import static swengproject.swengproject.R.layout.generate_list_obj;
  */
 
 public class AssignObjectActivity extends AppCompatActivity {
-    final int TYPE = 4;
+    final int TYPE1 = 4;
+    final int TYPE2 = 7;
+
     private ProgressBar pb;
     Button datePick;
     int yearX, dayX, monthX;
@@ -42,8 +44,6 @@ public class AssignObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(assign_object);
-
 
         ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
         if(pb != null) {
@@ -91,10 +91,19 @@ public class AssignObjectActivity extends AppCompatActivity {
         while(!info[i].equals("!"))
         {
             tmp="";
+            String person = info[++i];
+            if(person.length()==0)
+                tmp += "unassigned | ";
 
-            tmp +=info[++i] +" | "; //personName
-            tmp +=info[++i] +" | ";//projectName
-            tmp +=info[++i] +" | "; //ObjectName
+            else
+                tmp +=person+" | ";
+
+            String project = info[++i];
+            if(person.length()==0)
+                tmp += "unassigned | ";
+            else
+                tmp +=project+" | ";
+
             tmp +=info[++i] +" "; //ObjectID
             i++;
             test[j]=tmp;
@@ -128,6 +137,33 @@ public class AssignObjectActivity extends AppCompatActivity {
 //        });
 
     }
+
+    public void markBroken(String id)
+    {
+        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> meta = new ArrayList<String>();
+        meta.add("TYPE");
+        data.add(TYPE2+"");
+
+
+        meta.add("OBJECT_ID");
+        data.add(id);
+
+
+        meta.add("BROKEN");
+        data.add("true");
+
+
+
+        Intent passData = (new Intent(AssignObjectActivity.this, QueryActivity.class));
+        passData.putExtra("DATA",data);
+        passData.putExtra("META_DATA",meta);
+        passData.putExtra("ACTIVITY",generate_list_obj);
+        passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
+
+        startActivity(passData);
+    }
+
 
     public void add_clicked()
     {
@@ -203,7 +239,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
         meta.add("TYPE");
-        data.add(TYPE+"");
+        data.add(TYPE1+"");
 
         EditText fn = (EditText) (findViewById(R.id.objectId));
         if( fn.getText().toString().length() == 0 ) {
@@ -237,7 +273,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         data.add("false");
 
         meta.add("TYPE");
-        data.add(""+TYPE);
+        data.add(""+TYPE1);
 
 
         Intent passData = (new Intent(AssignObjectActivity.this, QueryActivity.class));

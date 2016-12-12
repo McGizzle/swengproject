@@ -88,7 +88,7 @@ public class AddIndividualActivity extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivity(passData);
-    return true;
-        
+          return true;
+
     }
 }
