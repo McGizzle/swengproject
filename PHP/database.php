@@ -140,8 +140,8 @@
 			$person_name = $_POST['PERSON_NAME'];
 			check_person_exists($con,$person_name);
 		}
-		
-		check_person_in_project($con, $project, $person);
+
+		check_person_in_project($con, $project_name, $person_name);
 		$broken = $_POST['BROKEN'];
 
 		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken)" .
@@ -150,12 +150,12 @@
 		echo "1" . "#";
 		mysqli_close($con);
 	}
-	
+
 	function break_object($con) {
 		$object_id = $_POST['OBJECT_ID'];
-		$sql = "UPDATE Object SET Broken = 1 WHERE ObjectID = '$object_id';";
+		$sql = "UPDATE Object SET Broken = 1 WHERE ObjectID = '$object_id'";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
-		ehco "1" . "#";		
+		echo "1" . "#";
 		mysqli_close($con);
 	}
 
@@ -221,13 +221,13 @@
 		}
 		mysqli_close($con);
 	}
-	
+
 	function check_person_in_project($con, $project, $person) {
-		$sql = "SELECT * FROM ProjectGroup WHERE PersonName = '$person' AND ProjectName = '$project';";
+		$sql = "SELECT * FROM ProjectGroup WHERE PersonName = '$person' AND ProjectName = '$project'";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
 			echo "0" . "#" . "Persons/project are not attahced.";
-			die();
-		} 
+		
+		}
 	}
 ?>
