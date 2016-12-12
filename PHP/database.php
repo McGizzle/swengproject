@@ -66,7 +66,7 @@
 		$sql = "SELECT * FROM Person WHERE PersonName = '$name'";
 		$ret = mysqli_query($con,$sql);
 		if (mysqli_num_rows($ret) != 0) {
-			echo "0" . "#" . "A Person with this name already exists. Please choose another name.";
+			echo "0" . "#" . "A Person with the name ". $name ." already exists. Please choose another name.";
 			die();
 		}
 		$sql = "INSERT INTO Person (PersonName) VALUES ('$name')";
@@ -95,8 +95,10 @@
 		$sql = "SELECT * FROM Project WHERE ProjectName = '$project_name'";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			$sql = "INSERT INTO Project (ProjectName) VALUES ('$project_name')";
-			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+			echo "0" . "#" . "A project with the name ". $project_name ." does not exist :( Please create it first.
+			 Any Projects after it have not been added due to this error.";
+			// $sql = "INSERT INTO Project (ProjectName) VALUES ('$project_name')";
+			// $ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
 	}
 
@@ -142,7 +144,7 @@
 
 		$project_name = NULL;
 		if (isset($_POST['PROJECT_NAME'])) {
-			echo "Project set";
+			echo "Project set " . $project_name;
 			$project_name = $_POST['PROJECT_NAME'];
 			check_project_exists($con,$project_name);
 		}
