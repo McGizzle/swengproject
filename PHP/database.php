@@ -39,9 +39,9 @@
 		break;
 		case 5: get_list($con);
 		break;
-		case 6: date_objects_list($con);
+		case 6: attach_project_person($con);
 		break;
-		case 7: other_objects_list($con);
+		case 7:
 		break;
 		case 8:
 		break;
@@ -133,28 +133,29 @@
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 
 		if (mysqli_num_rows($ret) == 0) {
-			echo "2" . "#" . $barcode;
+			echo "3" . "#" . $barcode;
 		} else {
-			echo "3" . "#";
-			$rows = mysqli_fetch_all($ret);
-			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" . $row["PersonName"] . "#" . $row["Project"] . "#" . $row["Broken"] . "#" . "%" . "#";
+			echo "2" . "#";
+			while ($row = mysqli_fetch_row($ret)){
+				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
+				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
 			}
 			echo "!" . "#";
 		}
 		mysqli_close($con);
 	}
 
-	function assign_object($con){
-		$name = $_POST['NAME']; //not used
-		$date = $_POST['DATE'];//not used
-		$group = $_POST['GROUP'];
-		$barcode = $_POST['BARCODE'];
-		$individual = $_POST['INDIVIDUAL'];
-		$broken = $_POST['DAMAGED'];
 
-		$sql = "INSERT into Object (Barcode, PersonName, ProjectName, ObjectName, Broken)
-		VALUES ('$barcode', '$indivdual', '$group', '$name' , '$broken')";
+	function assign_object($con){
+		$date = $_POST['DATE'];//not used
+		$project_name = $_POST['PROJECT_NAME'];
+		$object_name = $_POST['OBJECT_NAME']; //not used
+		$barcode = $_POST['BARCODE'];
+		$person_name = $_POST['PERSON_NAME'];
+		$broken = $_POST['BROKEN'];
+
+		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken, EndDate)
+												VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken','$date')";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
 		echo "1" . "#";
 		mysqli_close($con);
@@ -184,10 +185,11 @@
 			echo "0" . "#" . "No Objects to be returned by this date.";
 		} else {
 			echo "2" . "#";
-			$rows = mysqli_fetch_all($ret);
-			foreach($rows as $row) {
-				echo $row["ObjectID"] ."#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" . $row["PersonName"] . "#" . $row["ProjectName"] . "#" . $row["Broken"] . "#";
+			while ($row = mysqli_fetch_row($ret)){
+				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
+				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
 			}
+			echo "!" . "#";
 		}
 		mysqli_close($con);
 	}
@@ -199,10 +201,11 @@
 			echo "3" . "#" . "No broken Objects found that must be returned by specified date.";
 		} else {
 			echo "2" . "#";
-			$rows = mysqli_fetch_all($ret);
-			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" . $row["PersonName"] . "#" . $row["ProjectName"] . "#" . $row["Broken"] . "#";
+			while ($row = mysqli_fetch_row($ret)){
+				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
+				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
 			}
+			echo "!" . "#";
 		}
 		mysqli_close($con);
 	}
@@ -215,15 +218,13 @@
 			echo "3" . "#" . "No Objects attahced to this project/person that must be returned by the specified date.";
 		} else {
 			echo "2" . "#";
-			$rows = mysqli_fetch_all($ret);
-			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" . $row["PersonName"] . "#" . $row["ProjectName"] . "#" . $row["Broken"] . "#";
+			while ($row = mysqli_fetch_row($ret)){
+				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
+				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
 			}
+			echo "!" . "#";
 		}
 		mysqli_close($con);
 	}
-	//
-	//
-
 
 ?>
