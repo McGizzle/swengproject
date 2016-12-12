@@ -133,7 +133,7 @@ public class QueryActivity extends AppCompatActivity {
         new AlertDialog.Builder(QueryActivity.this)
                 .setTitle("Success!")
                 .setMessage("Your Information was successfully submitted.")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setNeutralButton("Done", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
 
