@@ -39,6 +39,8 @@ public class AddProjectActivity extends AppCompatActivity {
         monthX = cal.get(Calendar.MONTH);
         dayX = cal.get(Calendar.DAY_OF_MONTH);
         showDialogOnButtonClick();
+        TextView dateTV = (TextView) findViewById(R.id.dateShowTV);
+        dateTV.setText(dayX+"/"+monthX+"/"+yearX);
 
 
         Button submit = (Button) findViewById(R.id.submitButton);
@@ -125,12 +127,10 @@ public class AddProjectActivity extends AppCompatActivity {
 //        EditText e = (EditText) (findViewById(R.id.editText3));
 //        String end_date = e.getText().toString();
 
-        String end_date = "" + dayX + "/" + monthX + "/" + yearX;
-        TextView dateShow = (TextView) findViewById(R.id.dateShow);
-        dateShow.setText(end_date);
+        String end_date = yearX + "-" + monthX + "-" + dayX;
+
         meta.add("END_DATE");
         data.add(end_date);
-
 
         Intent passData = (new Intent(AddProjectActivity.this, QueryActivity.class));
         passData.putExtra("DATA",data);

@@ -30,7 +30,6 @@
         <activity android:name=".IndividualOptionsActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".AttachProjectToIndividualActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".IndividualToObj" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".ProjectOptions" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
     </application>
 

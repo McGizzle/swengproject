@@ -87,7 +87,7 @@ public class ListActivity extends AppCompatActivity {
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();
-                date += day + "/"+ month + "/" +year;
+                date += year + "-"+ month + "-" +day;
                 ArrayList<String> data = new ArrayList<String>();
                 ArrayList<String> meta = new ArrayList<String>();
                 meta.add("TYPE");
@@ -120,7 +120,7 @@ public class ListActivity extends AppCompatActivity {
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();
-                date += day + "/"+ month + "/" +year;
+                date += year + "-"+ month + "-" +day;
                 ArrayList<String> data = new ArrayList<String>();
                 ArrayList<String> meta = new ArrayList<String>();
                 meta.add("TYPE");

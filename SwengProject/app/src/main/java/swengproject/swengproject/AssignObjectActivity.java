@@ -103,11 +103,6 @@ public class AssignObjectActivity extends AppCompatActivity {
 
         }
 
-
-
-
-
-
         int j=0;
        final ArrayList<String> obj_ids = new ArrayList<>();
         String tmp;
@@ -115,24 +110,25 @@ public class AssignObjectActivity extends AppCompatActivity {
             tmp="";
             String person = info[++i];
             if(person.length()==0)
-                tmp += "unassigned | ";
+                tmp += "Person = unassigned \n ";
 
             else
-                tmp +=person+" | ";
+                tmp += "Person = " + person+" \n" ;
 
             String project = info[++i];
             if(person.length()==0)
-                tmp += "unassigned | ";
+                tmp += "Project = unassigned \n";
             else
-                tmp +=project+" | ";
+                tmp += "Project = " + project+" \n";
 
-            tmp +=info[++i] +" "; //ObjectName
-            tmp +=info[++i] +" "; //ObjectID
-
+            tmp += "Object Name = " + info[++i] +" \n"; //ObjectName
+            tmp += "Object ID = " + info[++i] +" \n"; //ObjectID
+            tmp += "\n\n";
             obj_ids.add(info[i]);
             i++;
             test[j]=tmp;
             j++;
+
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
@@ -168,10 +164,6 @@ public class AssignObjectActivity extends AppCompatActivity {
                     dropdown.setSelection(items.length-1);
             }
         });
-
-
-
-
     }
 
     public void markBroken(String id)
