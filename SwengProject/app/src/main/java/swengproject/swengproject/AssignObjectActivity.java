@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,6 +34,7 @@ public class AssignObjectActivity extends AppCompatActivity {
     static final int dialog = 0;
     private String barcode;
     private String[] info;
+    String TAG = "AssignObjectActivity";
 
 
     @Override
@@ -40,6 +42,11 @@ public class AssignObjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(assign_object);
 
+
+        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
+        if(pb != null) {
+            pb.setVisibility(View.GONE);
+        }
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
         boolean found = extras.getBoolean("FOUND");
@@ -61,20 +68,31 @@ public class AssignObjectActivity extends AppCompatActivity {
     {
         setContentView(generate_list_obj);
 
-        int i=1;
 
+        for(int m=0;!info[m].equals("!");m++)
+        {
+            Log.d(TAG, info.toString());
+        }
+        TextView bc = (TextView) findViewById(R.id.barcodeName);
+        bc.setText("Barcode Number "+barcode);
+        TextView tv = (TextView) findViewById(R.id.displayList);
+        StringBuilder sb = new StringBuilder();
+        sb.append("Person   Group   Broken");
+        int i=1;
         while(!info[i].equals("!"))
         {
-            String btemp = info[i];
-            if(btemp.equals(barcode))
-            {
-                String person=info[++i];
-                String group=info[++i];
-                String broken=info[++i];
-            }
-               i+=2;
+            sb.append(info[++i]+"\n"); //barcode
+            sb.append(info[++i]+"\n"); //personName
+            sb.append(info[++i]+"\n");//projectName
+            sb.append(info[++i]+"\n");// objectID
+            sb.append(info[++i]+"\n"); //Broken?
+            sb.append(info[++i]+"\n"); //Date
+            sb.append(info[++i]+"\n"); //ObjectName
         }
+
         EditText t = (EditText) findViewById(R.id.displayList);
+
+        tv.setText(sb.toString());
 
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setOnClickListener(new View.OnClickListener() {
@@ -84,14 +102,14 @@ public class AssignObjectActivity extends AppCompatActivity {
             }
         });
 
-        Button home = (Button) findViewById(R.id.homeButton);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(AssignObjectActivity.this, MainActivity.class);
-                startActivity(i);
-            }
-        });
+//        Button home = (Button) findViewById(R.id.homeButton);
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(AssignObjectActivity.this, MainActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
     }
 
@@ -175,16 +193,21 @@ public class AssignObjectActivity extends AppCompatActivity {
         String name = fn.getText().toString();
 
         String date = "" + dayX + "/" + monthX + "/" + yearX;
-        TextView dateShow = (TextView) findViewById(R.id.dateShow);
-        dateShow.setText(date);
-        meta.add("NAME");
+      //  TextView dateShow = (TextView) findViewById(R.id.dateShow);
+      //  dateShow.setText(date);
+        meta.add("OBJECT_NAME");
         data.add(name);
         meta.add("DATE");
         data.add(date);
 
-        EditText i = (EditText) (findViewById(R.id.groupId));
-        String group = i.getText().toString();
-        meta.add("GROUP");
+        EditText i = (EditText) (findViewById(R.id.personET));
+        String person = i.getText().toString();
+        meta.add("PERSON_NAME");
+        data.add(person);
+
+        EditText p = (EditText) (findViewById(R.id.groupId));
+        String group = p.getText().toString();
+        meta.add("PROJECT_NAME");
         data.add(group);
 
         meta.add("BARCODE");
