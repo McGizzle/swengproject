@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,8 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -93,11 +91,11 @@ public class AssignObjectActivity extends AppCompatActivity {
 //    }
         TextView bc = (TextView) findViewById(R.id.barcodeName);
         bc.setText("Barcode Number "+barcode);
-        TextView tv = (TextView) findViewById(R.id.displayList);
+       // TextView tv = (TextView) findViewById(R.id.displayList);
         StringBuilder sb = new StringBuilder();
         sb.append("Person  Project  Object ");
-        tv.append(sb+"\n");
-        tv.append("\n");
+    //    tv.append(sb+"\n");
+   //     tv.append("\n");
 
         int i=1;
         while(!info[i].equals("!"))
@@ -106,12 +104,12 @@ public class AssignObjectActivity extends AppCompatActivity {
 
             i++; //barcode
             tmp.append(info[++i]+"\n"); //personName
-            tmp.append(info[++i]+"\n");//projectName
+            tmp.append(info[++i]+"\n"); //projectName
             i++;// objectID
             i++; //Broken?
             i++; //Date
             tmp.append(info[++i]+"\n"); //ObjectName
-            tv.append("\n"+tmp+"\n");
+     //       tv.append("\n"+tmp+"\n");
 
         }
 

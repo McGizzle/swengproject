@@ -6,28 +6,9 @@
 	$uname="u1429550_sweng";
 	$pwd="sw3ngproject?";
 	$db="db1429550_swengproject";
-	//
-	// $OBJECT_NOT_FOUND = "0";
-	// $SUCCESS_RESPONSE = "1";
-	// $OBJECT_FOUND = "2";
-	// $LIST_PROJECTS = "3";
-	// $LIST_PERSON = "4";
-	// $DUPLICATE=  "5";
-
-
 	$con = mysqli_connect($host,$uname,$pwd,$db) or die(mysqli_error($con));
-	//
-	// foreach ($_POST as $key => $value) {
-	//
-	// 	 echo "Key = " . $key . " ";
-	//
-	// 	 echo "Value = " . $value;
-	//  }
 
-
-	 $type = $_POST["TYPE"];
-
-
+	$type = $_POST["TYPE"];
 	switch($type){
 		case 1: add_project($con);
 		break;
@@ -40,10 +21,6 @@
 		case 5: get_list($con);
 		break;
 		case 6: attach_project_person($con);
-		break;
-		case 7:
-		break;
-		case 8:
 		break;
 	}
 
@@ -100,6 +77,7 @@
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
 	}
+	
 	function check_project_exists($con,$project_name){
 		$sql = "SELECT * FROM Project WHERE ProjectName = '$project_name'";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));

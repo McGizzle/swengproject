@@ -36,7 +36,6 @@ public class QueryActivity extends AppCompatActivity {
     private final String OBJECT_FOUND = "2";
     private final String OBJECT_NOT_FOUND = "3";
     private final String LIST = "4";
-    private final String DUPLICATE = "5";
     private final String TAG = "QueryActivity";
 
 
@@ -112,6 +111,7 @@ public class QueryActivity extends AppCompatActivity {
 
             } else {
                 Log.d(TAG, "Failure");
+                insertFail("No internet connection :(");
                 return null;
             }
 
@@ -136,7 +136,6 @@ public class QueryActivity extends AppCompatActivity {
                 .setNeutralButton("Done", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
-
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -144,7 +143,7 @@ public class QueryActivity extends AppCompatActivity {
     }
 
     /* insertFail()
-     * Param: None
+     * Param: String error message
      * Description: Function is called when the information is not successfully sent to the database
      * Return: None
      */
@@ -167,21 +166,6 @@ public class QueryActivity extends AppCompatActivity {
             }
         });
 
-    }
-    public void insertDuplicate(){
-        new AlertDialog.Builder(QueryActivity.this)
-                .setTitle("Sorry :(")
-                .setMessage("A project with this name already exists.")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent =  new Intent(QueryActivity.this , PREV_ACTIVITY);
-                        finish();
-                        startActivity(intent);
-
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
     }
 
     private class MyAsyncTask extends AsyncTask<String, Integer, String> {
@@ -240,10 +224,7 @@ public class QueryActivity extends AppCompatActivity {
                 setResult(ListActivity.RESULT_OK,returnIntent);
                 finish();
             }
-            else if(response_code.equals(DUPLICATE)){
-                Log.d(TAG,"DUPLICATE");
-                insertDuplicate();
-            }
+
             else {
                 Log.d(TAG,"UNKNOWN RESPONSE CODE =["+response_code+"]");
             }
