@@ -151,13 +151,13 @@
 		$object_name = $_POST['OBJECT_NAME']; //not used
 		$barcode = $_POST['BARCODE'];
 
-		$project_name = NULL
+		$project_name = NULL:
 		if (isset($_POST['PROJECT_NAME'])) {
 			$project_name = $_POST['PROJECT_NAME'];
 			check_project_exists($con,$project_name);
 		}
 
-		$person_name = NULL
+		$person_name = NULL:
 		if (isset($_POST['PERSON_NAME'])) {
 			$person_name = $_POST['PERSON_NAME'];
 			check_person_exists($con,$person_name);
