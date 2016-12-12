@@ -212,13 +212,11 @@
 			echo "3" . "#" . "No broken Objects found that must be returned by specified date.";
 		} else {
 			echo "2" . "#";
-
-			$rows = mysqli_fetch_all($ret);
-			foreach($rows as $row) {
-				echo $row["ObjectID"] . "#" . $row["ObjectName"] . "#" . $row["Barcode"] . "#" .
-				$row["PersonName"] . "#" . $row["ProjectName"] . "#" . $row["Broken"] . "#";
+			while ($row = mysqli_fetch_row($ret)){
+				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
+				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
 			}
-			echo "!" . "#";
+		echo "!" . "#";
 		}
 		mysqli_close($con);
 	}
