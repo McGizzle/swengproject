@@ -20,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by McGroarty on 08/11/16.
@@ -191,6 +192,7 @@ public class QueryActivity extends AppCompatActivity {
         protected void onPostExecute(String r){
 
             String[] result = r.split("#");
+            String[] object_info = Arrays.copyOfRange(result, 1, result.length);
             String response_code = result[0].replaceAll("\\s+","");
             pb.setVisibility(View.GONE);
             Log.d(TAG,"RESPONSE CODE ="+response_code);
@@ -206,21 +208,21 @@ public class QueryActivity extends AppCompatActivity {
             else if(response_code.equals(OBJECT_FOUND)){
                 Log.d(TAG,"OBJECT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
-                i.putExtra("INFO",result);
+                i.putExtra("INFO",object_info);
                 i.putExtra("FOUND",true);
                 startActivity(i);
             }
             else if(response_code.equals(OBJECT_NOT_FOUND)){
                 Log.d(TAG,"OBJECT NOT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
-                i.putExtra("INFO",result);
+                i.putExtra("INFO",object_info);
                 i.putExtra("FOUND",false);
                 startActivity(i);
             }
             else if(response_code.equals(LIST)){
                 Log.d(TAG,"LIST FOUND");
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("INFO",result);
+                returnIntent.putExtra("INFO",object_info);
                 setResult(ListActivity.RESULT_OK,returnIntent);
                 finish();
             }
