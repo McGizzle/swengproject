@@ -146,12 +146,21 @@
 	}
 
 
-	function assign_object($con){
+	function add_object($con){
 		$date = $_POST['DATE'];//not used
-		$project_name = $_POST['PROJECT_NAME'];
 		$object_name = $_POST['OBJECT_NAME']; //not used
 		$barcode = $_POST['BARCODE'];
-		$person_name = $_POST['PERSON_NAME'];
+		
+		$project_name = NULL
+		if (isset($_POST['PROJECT_NAME'])) {
+			$project_name = $_POST['PROJECT_NAME'];
+		}
+
+		$person_name = NULL
+		if (isset($_POST['PERSON_NAME'])) {
+			$person_name = $_POST['PERSON_NAME'];
+		}
+		
 		$broken = $_POST['BROKEN'];
 
 		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken, EndDate)
