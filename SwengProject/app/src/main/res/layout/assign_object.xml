@@ -35,14 +35,14 @@
         app:layout_constraintRight_toLeftOf="@+id/homeButton"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/personET"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/chooseDate"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="24dp" />
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="16dp" />
 
 
     <Button
@@ -76,22 +76,6 @@
         android:layout_marginRight="16dp" />
 
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Person Name"
-        android:ems="10"
-        android:id="@+id/personID"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="91dp"
-        app:layout_constraintTop_toBottomOf="@+id/personET"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/groupId"
-        android:layout_marginLeft="2dp" />
-
-
     <Button
         android:text="Choose Date"
         android:background="#cc3f35"
@@ -100,13 +84,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/chooseDate"
 
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/personID"
+        android:layout_marginStart="32dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="32dp"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="56dp"
+        app:layout_constraintTop_toBottomOf="@+id/groupId" />
 
 
     <TextView
@@ -132,12 +116,12 @@
         android:ems="10"
         android:id="@+id/personET"
         tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/personID"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/objectId"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/groupId"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/personID" />
+        app:layout_constraintLeft_toLeftOf="@+id/groupId" />
 
     <ProgressBar
         style="?android:attr/progressBarStyle"
