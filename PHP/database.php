@@ -182,7 +182,7 @@
 		if (mysqli_num_rows($ret) == 0) {
 			echo "0" . "#" . "No Objects to be returned by this date.";
 		} else {
-			echo "4" . "#";
+			echo "4" . "#" . "RECLAIMED" . "#";
 			while ($row = mysqli_fetch_row($ret)){
 				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
 			}
@@ -195,9 +195,9 @@
 		$sql = "SELECT * FROM Object o WHERE o.Broken = 1";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "3" . "#" . "No broken Objects found that must be returned by specified date.";
+			echo "0" . "#" . "No broken Objects found that must be returned by specified date.";
 		} else {
-			echo "4" . "#";
+			echo "4" . "#" . "BROKEN" . "#";
 			while ($row = mysqli_fetch_row($ret)){
 				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
 			}
@@ -211,9 +211,9 @@
 		$sql = "SELECT * FROM Object WHERE Object.ProjectName IN (SELECT ProjectName FROM Project WHERE Project.EndDate > '$date');";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "4" . "#" . "No Objects attahced to this project/person that must be returned by the specified date.";
+			echo "0" . "#" . "No Objects attahced to this project/person that must be returned by the specified date.";
 		} else {
-			echo "2" . "#";
+			echo "4" . "#" . "ATTACHED" . "#";
 			while ($row = mysqli_fetch_row($ret)){
 				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
 			}
