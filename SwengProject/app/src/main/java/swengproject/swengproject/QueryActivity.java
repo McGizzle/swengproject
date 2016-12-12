@@ -232,6 +232,7 @@ public class QueryActivity extends AppCompatActivity {
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",object_info);
                 i.putExtra("LIST_TYPE",result[1]);
+                i.putExtra("FOUND",true);
                 startActivity(i);
             }
 
