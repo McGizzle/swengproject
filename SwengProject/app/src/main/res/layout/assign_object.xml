@@ -58,8 +58,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginBottom="96dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chooseDate"
+        app:layout_constraintVertical_bias="0.93" />
 
     <Button
 
@@ -100,12 +102,10 @@
         android:layout_width="109dp"
         android:layout_height="23dp"
         android:id="@+id/dateShow"
-        android:layout_marginStart="1dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/chooseDate"
         tools:layout_constraintBaseline_creator="1"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/progressBar"
-        android:layout_marginLeft="1dp" />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 
     <EditText
@@ -122,19 +122,6 @@
         app:layout_constraintRight_toRightOf="@+id/groupId"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/groupId" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/submitButton"
-        android:layout_marginStart="20dp"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintLeft_toLeftOf="@+id/submitButton"
-        android:layout_marginLeft="20dp" />
 
 
 </android.support.constraint.ConstraintLayout>

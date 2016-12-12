@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,6 @@ import static swengproject.swengproject.R.layout.add_project;
 public class AddProjectActivity extends AppCompatActivity {
 
     final int TYPE = 1;
-    private ProgressBar pb;
     Button datePick;
     int yearX, dayX, monthX;
     static final int dialog = 0;
@@ -42,8 +40,6 @@ public class AddProjectActivity extends AppCompatActivity {
         dayX = cal.get(Calendar.DAY_OF_MONTH);
         showDialogOnButtonClick();
 
-        pb = (ProgressBar) findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
 
         Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {

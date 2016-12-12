@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -19,15 +18,11 @@ import static swengproject.swengproject.R.layout.indiv_to_obj;
 public class IndividualToObj extends AppCompatActivity {
 
     final int TYPE = 6;
-    private ProgressBar pb;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(indiv_to_obj);
-
-        pb = (ProgressBar)findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
 
         Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
