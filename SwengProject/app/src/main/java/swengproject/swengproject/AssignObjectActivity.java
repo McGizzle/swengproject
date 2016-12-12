@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,7 +15,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -50,11 +52,11 @@ public class AssignObjectActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
         boolean found = extras.getBoolean("FOUND");
-        barcode = info[1];
+        barcode = info[0];
 
         if(found)
         {
-          found_object();
+            found_object();
         }
 
         else
@@ -75,43 +77,37 @@ public class AssignObjectActivity extends AppCompatActivity {
             Log.d(TAG, info.toString());
         }
 
-//
-//        String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry",
-//                "WebOS","Ubuntu","Windows7","Max OS X"};
-//
-//        @Override
-//        protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-//                R.layout.activity_listview, mobileArray);
-//
-//        ListView listView = (ListView) findViewById(R.id.mobile_list);
-//        listView.setAdapter(adapter);
-//    }
+
+
+        String[] test = new String[info.length/4];
+
         TextView bc = (TextView) findViewById(R.id.barcodeName);
         bc.setText("Barcode Number "+barcode);
-       // TextView tv = (TextView) findViewById(R.id.displayList);
-        StringBuilder sb = new StringBuilder();
-        sb.append("Person  Project  Object ");
-    //    tv.append(sb+"\n");
-   //     tv.append("\n");
 
-        int i=1;
+
+        int i=0;
+        int j=0;
+        String tmp;
         while(!info[i].equals("!"))
         {
-            StringBuilder tmp = new StringBuilder();
+            tmp="";
 
-            i++; //barcode
-            tmp.append(info[++i]+"\n"); //personName
-            tmp.append(info[++i]+"\n"); //projectName
-            i++;// objectID
-            i++; //Broken?
-            i++; //Date
-            tmp.append(info[++i]+"\n"); //ObjectName
-     //       tv.append("\n"+tmp+"\n");
+            tmp +=info[++i] +" | "; //personName
+            tmp +=info[++i] +" | ";//projectName
+            tmp +=info[++i] +" | "; //ObjectName
+            tmp +=info[++i] +" "; //ObjectID
+            i++;
+            test[j]=tmp;
+            j++;
 
         }
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                R.layout.activity_listview, test);
+
+        ListView listView = (ListView) findViewById(R.id.listview);
+        listView.setAdapter(adapter);
+
 
 
         Button addObj = (Button) findViewById(R.id.addButton);
@@ -213,8 +209,8 @@ public class AssignObjectActivity extends AppCompatActivity {
         String name = fn.getText().toString();
 
         String date = "" + dayX + "/" + monthX + "/" + yearX;
-      //  TextView dateShow = (TextView) findViewById(R.id.dateShow);
-      //  dateShow.setText(date);
+        //  TextView dateShow = (TextView) findViewById(R.id.dateShow);
+        //  dateShow.setText(date);
         meta.add("OBJECT_NAME");
         data.add(name);
         meta.add("DATE");
