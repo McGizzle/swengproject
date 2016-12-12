@@ -177,7 +177,7 @@
 
 	function reclaimed_objects_list($con){
 		$date = $_POST["DATE"];
-		$sql = "SELECT * FROM Object WHERE Object.ProjectName NOT IN (SELECT ProjectName FROM Project WHERE Project.EndDate > '$date')";
+		$sql = "SELECT * FROM Object WHERE Object.ProjectName NOT IN (SELECT ProjectName FROM Project WHERE Project.EndDate > '$date') AND Object.Broken = 0";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
 			echo "0" . "#" . "No Objects to be returned by this date.";
@@ -215,7 +215,7 @@
 		} else {
 			echo "4" . "#" . "ATTACHED" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
+				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#" . $row[5] . "#";
 			}
 			echo "!" . "#";
 		}
