@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -19,15 +18,12 @@ import static swengproject.swengproject.R.layout.add_individual;
 public class AddIndividualActivity extends AppCompatActivity {
 
     final int TYPE = 2;
-    private ProgressBar pb;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(add_individual);
 
-        pb = (ProgressBar)findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
 
         Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +43,7 @@ public class AddIndividualActivity extends AppCompatActivity {
         });
     }
 
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -57,7 +53,15 @@ public class AddIndividualActivity extends AppCompatActivity {
 
         EditText fn = (EditText) (findViewById(R.id.firstName));
         String fname = fn.getText().toString();
+        if( fn.getText().toString().length() == 0 ) {
+            fn.setError("First name is required!");
+            return false;
+        }
         EditText ln = (EditText) findViewById(R.id.secondName);
+        if( ln.getText().toString().length() == 0 ) {
+            ln.setError("Last name is required!");
+            return false;
+        }
         String lname = ln.getText().toString();
         meta.add("NAME");
         data.add(fname+" "+lname);
@@ -80,6 +84,7 @@ public class AddIndividualActivity extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivity(passData);
+          return true;
 
     }
 }

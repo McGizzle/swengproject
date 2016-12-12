@@ -31,10 +31,26 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
                 get_info();
             }
         });
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AttachProjectToIndividualActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
-    public void get_info(){
+    public boolean get_info(){
         EditText proj  = (EditText) findViewById(R.id.projectET);
+        if( proj.getText().toString().length() == 0 ) {
+            proj.setError("Project name is required!");
+            return false;
+        }
         EditText nam  = (EditText) findViewById(R.id.personET);
+        if( nam.getText().toString().length() == 0 ) {
+            nam.setError("Person name is required!");
+            return false;
+        }
         String project = proj.getText().toString();
         String name = nam.getText().toString();
         ArrayList<String> data = new ArrayList<String>();
@@ -52,5 +68,7 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
         passData.putExtra("ACTIVITY",indiv_to_project);
         passData.putExtra("PREVIOUS_ACTIVITY",AttachProjectToIndividualActivity.class);
         startActivity(passData);
+        return true;
+        
     }
 }

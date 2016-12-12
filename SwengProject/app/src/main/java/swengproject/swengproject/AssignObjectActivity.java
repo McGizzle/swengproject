@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +29,9 @@ import static swengproject.swengproject.R.layout.generate_list_obj;
  */
 
 public class AssignObjectActivity extends AppCompatActivity {
-    final int TYPE = 4;
-    private ProgressBar pb;
+
+    final int TYPE1 = 4;
+    final int TYPE2 = 7;
     Button datePick;
     int yearX, dayX, monthX;
     static final int dialog = 0;
@@ -40,29 +43,20 @@ public class AssignObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(assign_object);
 
 
-        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-        if(pb != null) {
-            pb.setVisibility(View.GONE);
-        }
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
         boolean found = extras.getBoolean("FOUND");
-        barcode = info[1];
+        barcode = info[0];
 
-        if(found)
-        {
-          found_object();
+        if(found){
+            found_object();
         }
 
-        else
-        {
+        else {
             add_clicked();
         }
-
-
     }
 
     public void found_object()
@@ -70,48 +64,66 @@ public class AssignObjectActivity extends AppCompatActivity {
         setContentView(generate_list_obj);
 
 
-        for(int m=0;!info[m].equals("!");m++)
-        {
+        for(int m=0;!info[m].equals("!");m++) {
             Log.d(TAG, info.toString());
         }
 
-//
-//        String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry",
-//                "WebOS","Ubuntu","Windows7","Max OS X"};
-//
-//        @Override
-//        protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-//                R.layout.activity_listview, mobileArray);
-//
-//        ListView listView = (ListView) findViewById(R.id.mobile_list);
-//        listView.setAdapter(adapter);
-//    }
+
+
+        String[] test = new String[info.length/4];
         TextView bc = (TextView) findViewById(R.id.barcodeName);
         bc.setText("Barcode Number "+barcode);
-       // TextView tv = (TextView) findViewById(R.id.displayList);
-        StringBuilder sb = new StringBuilder();
-        sb.append("Person  Project  Object ");
-    //    tv.append(sb+"\n");
-   //     tv.append("\n");
 
-        int i=1;
-        while(!info[i].equals("!"))
-        {
-            StringBuilder tmp = new StringBuilder();
 
-            i++; //barcode
-            tmp.append(info[++i]+"\n"); //personName
-            tmp.append(info[++i]+"\n"); //projectName
-            i++;// objectID
-            i++; //Broken?
-            i++; //Date
-            tmp.append(info[++i]+"\n"); //ObjectName
-     //       tv.append("\n"+tmp+"\n");
 
+        int i=0;
+        int j=0;
+       ArrayList<String> obj_ids = new ArrayList<>();
+        String tmp;
+        while(!info[i].equals("!")) {
+            tmp="";
+            String person = info[++i];
+            if(person.length()==0)
+                tmp += "unassigned | ";
+
+            else
+                tmp +=person+" | ";
+
+            String project = info[++i];
+            if(person.length()==0)
+                tmp += "unassigned | ";
+            else
+                tmp +=project+" | ";
+
+            tmp +=info[++i] +" "; //ObjectID
+            obj_ids.add(info[i]);
+            i++;
+            test[j]=tmp;
+            j++;
         }
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+                R.layout.activity_listview, test);
+
+        ListView listView = (ListView) findViewById(R.id.listview);
+        listView.setAdapter(adapter);
+
+
+        final Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
+        String[] items = new String[obj_ids.size()];
+        for(int x=0;x<obj_ids.size();x++){
+            items[x] = obj_ids.get(x);
+        }
+        ArrayAdapter<String> adapterS = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapterS);
+
+        dropdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String broken_id = dropdown.getItemAtPosition(dropdown.getSelectedItemPosition()).toString();
+               markBroken(broken_id);
+            }
+        });
 
 
         Button addObj = (Button) findViewById(R.id.addButton);
@@ -122,16 +134,34 @@ public class AssignObjectActivity extends AppCompatActivity {
             }
         });
 
-//        Button home = (Button) findViewById(R.id.homeButton);
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(AssignObjectActivity.this, MainActivity.class);
-//                startActivity(i);
-//            }
-//        });
 
     }
+
+    public void markBroken(String id)
+    {
+        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> meta = new ArrayList<String>();
+        meta.add("TYPE");
+        data.add(TYPE2+"");
+
+
+        meta.add("OBJECT_ID");
+        data.add(id);
+
+
+        meta.add("BROKEN");
+        data.add("true");
+        
+
+        Intent passData = (new Intent(AssignObjectActivity.this, QueryActivity.class));
+        passData.putExtra("DATA",data);
+        passData.putExtra("META_DATA",meta);
+        passData.putExtra("ACTIVITY",generate_list_obj);
+        passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
+
+        startActivity(passData);
+    }
+
 
     public void add_clicked()
     {
@@ -202,19 +232,22 @@ public class AssignObjectActivity extends AppCompatActivity {
     };
 
 
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
         meta.add("TYPE");
-        data.add(TYPE+"");
+        data.add(TYPE1+"");
 
         EditText fn = (EditText) (findViewById(R.id.objectId));
+        if( fn.getText().toString().length() == 0 ) {
+            fn.setError("Object name is required!");
+            return false;
+        }
         String name = fn.getText().toString();
 
         String date = "" + dayX + "/" + monthX + "/" + yearX;
-      //  TextView dateShow = (TextView) findViewById(R.id.dateShow);
-      //  dateShow.setText(date);
+
         meta.add("OBJECT_NAME");
         data.add(name);
         meta.add("DATE");
@@ -238,7 +271,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         data.add("false");
 
         meta.add("TYPE");
-        data.add(""+TYPE);
+        data.add(""+TYPE1);
 
 
         Intent passData = (new Intent(AssignObjectActivity.this, QueryActivity.class));
@@ -248,6 +281,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivity(passData);
+        return true;
 
     }
 }

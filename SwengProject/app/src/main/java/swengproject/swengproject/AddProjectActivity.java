@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +24,6 @@ import static swengproject.swengproject.R.layout.add_project;
 public class AddProjectActivity extends AppCompatActivity {
 
     final int TYPE = 1;
-    private ProgressBar pb;
     Button datePick;
     int yearX, dayX, monthX;
     static final int dialog = 0;
@@ -42,8 +40,6 @@ public class AddProjectActivity extends AppCompatActivity {
         dayX = cal.get(Calendar.DAY_OF_MONTH);
         showDialogOnButtonClick();
 
-        pb = (ProgressBar) findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
 
         Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +96,7 @@ public class AddProjectActivity extends AppCompatActivity {
             Toast.makeText(AddProjectActivity.this, dayX + "/" + monthX + "/" + yearX, Toast.LENGTH_LONG).show();
         }
     };
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -108,6 +104,10 @@ public class AddProjectActivity extends AppCompatActivity {
         data.add(TYPE+"");
 
         EditText n = (EditText) (findViewById(R.id.editText));
+        if( n.getText().toString().length() == 0 ) {
+            n.setError("Project name is required!");
+            return false;
+        }
         String name = n.getText().toString();
         meta.add("NAME");
         data.add(name);
@@ -139,6 +139,7 @@ public class AddProjectActivity extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivityForResult(passData,0);
+        return true;
 
     }
     @Override

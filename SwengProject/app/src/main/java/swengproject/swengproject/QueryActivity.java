@@ -1,5 +1,6 @@
 package swengproject.swengproject;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,8 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -20,13 +19,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by McGroarty on 08/11/16.
  */
 public class QueryActivity extends AppCompatActivity {
     final String SERVER_URL = "http://humancentredmovement.ie/database.php";
-    private ProgressBar pb;
+    private ProgressDialog pd;
     ArrayList<String> DATA;
     ArrayList<String> META_DATA;
     private MyAsyncTask task;
@@ -48,8 +48,7 @@ public class QueryActivity extends AppCompatActivity {
         setContentView(activity);
         PREV_ACTIVITY = (Class) extras.get("PREVIOUS_ACTIVITY");
 
-        pb = (ProgressBar) findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
+
         DATA  = extras.getStringArrayList("DATA");
         META_DATA = extras.getStringArrayList("META_DATA");
         if(DATA.get(0)==null){
@@ -172,7 +171,9 @@ public class QueryActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            pb.setVisibility(View.VISIBLE);
+         //   pb.setVisibility(View.VISIBLE);
+            pd = ProgressDialog.show(QueryActivity.this, "Submitting Information",
+                    "Sending...", true);
             Log.d(TAG,"PRE EXECUTION");
         }
 
@@ -191,8 +192,10 @@ public class QueryActivity extends AppCompatActivity {
         protected void onPostExecute(String r){
 
             String[] result = r.split("#");
+            String[] object_info = Arrays.copyOfRange(result, 1, result.length);
             String response_code = result[0].replaceAll("\\s+","");
-            pb.setVisibility(View.GONE);
+       //   pb.setVisibility(View.GONE);
+            pd.dismiss();
             Log.d(TAG,"RESPONSE CODE ="+response_code);
             if(response_code.equals(FAIL_RESPONSE)){
                 Log.d(TAG,"FAIL RESPONSE");
@@ -206,27 +209,26 @@ public class QueryActivity extends AppCompatActivity {
             else if(response_code.equals(OBJECT_FOUND)){
                 Log.d(TAG,"OBJECT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
-                i.putExtra("INFO",result);
+                i.putExtra("INFO",object_info);
                 i.putExtra("FOUND",true);
                 startActivity(i);
             }
             else if(response_code.equals(OBJECT_NOT_FOUND)){
                 Log.d(TAG,"OBJECT NOT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
-                i.putExtra("INFO",result);
+                i.putExtra("INFO",object_info);
                 i.putExtra("FOUND",false);
                 startActivity(i);
             }
             else if(response_code.equals(LIST)){
                 Log.d(TAG,"LIST FOUND");
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("INFO",result);
-                setResult(ListActivity.RESULT_OK,returnIntent);
-                finish();
+                Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
+                i.putExtra("INFO",object_info);
+                i.putExtra("LIST_TYPE","BROKEN");
             }
 
             else {
-                Log.d(TAG,"UNKNOWN RESPONSE CODE =["+response_code+"]");
+                Log.d(TAG,"UNKNOWN RESPONSE CODE =["+result[0]+"]");
             }
 
         }

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -19,15 +18,11 @@ import static swengproject.swengproject.R.layout.indiv_to_obj;
 public class IndividualToObj extends AppCompatActivity {
 
     final int TYPE = 6;
-    private ProgressBar pb;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(indiv_to_obj);
-
-        pb = (ProgressBar)findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
 
         Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +46,7 @@ public class IndividualToObj extends AppCompatActivity {
 
 
 
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -60,10 +55,18 @@ public class IndividualToObj extends AppCompatActivity {
 
 
         EditText fn = (EditText) (findViewById(R.id.personET));
+        if( fn.getText().toString().length() == 0 ) {
+            fn.setError("Person name is required!");
+            return false;
+        }
         String fname = fn.getText().toString();
         meta.add("NAME");
         data.add(fname);
         EditText i = (EditText) (findViewById(R.id.objectET));
+        if( i.getText().toString().length() == 0 ) {
+            i.setError("Object name is required!");
+            return false;
+        }
         String obj = i.getText().toString();
         meta.add("OBJECT");
         data.add(obj);
@@ -76,6 +79,7 @@ public class IndividualToObj extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",IndividualToObj.class);
 
         startActivity(passData);
+        return true;
 
     }
 }

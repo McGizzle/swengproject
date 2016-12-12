@@ -36,6 +36,8 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(scan_page);
 
+
+
         scanBtn = (Button) findViewById(R.id.scanBtn);
         scanBtn.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -50,15 +52,15 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         scanIntegrator.initiateScan();
 
 
-//        Button home = (Button) findViewById(R.id.homeButton);
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(ScanBarcodeActivity.this, MainActivity.class);
-//                startActivity(i);
-//            }
-//
-//        });
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ScanBarcodeActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+
+        });
     }
 
 
@@ -94,6 +96,13 @@ public class ScanBarcodeActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text, duration);
             toast.setMargin(toast.getHorizontalMargin() / 2, toast.getVerticalMargin() / 2);
             toast.show();
+            scanBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    IntentIntegrator scanIntegrator = new IntentIntegrator(ScanBarcodeActivity.this);
+                    scanIntegrator.initiateScan();
+                }
+            });
         }
     }
 
