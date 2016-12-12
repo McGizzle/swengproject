@@ -22,6 +22,8 @@
 		break;
 		case 6: attach_project_person($con);
 		break;
+		case 7: break_object($con);
+		break
 	}
 
 	function add_project($con){
@@ -125,8 +127,7 @@
 
 
 	function add_object($con){
-		$date = $_POST['DATE'];//not used
-		$object_name = $_POST['OBJECT_NAME']; //not used
+		$object_name = $_POST['OBJECT_NAME'];
 		$barcode = $_POST['BARCODE'];
 
 		$project_name = NULL;
@@ -140,13 +141,22 @@
 			$person_name = $_POST['PERSON_NAME'];
 			check_person_exists($con,$person_name);
 		}
-
+		
+		check_person_in_project($con, $project, $person);
 		$broken = $_POST['BROKEN'];
 
-		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken, EndDate)
-												VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken','$date')";
+		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken)" .
+												" VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken')";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
 		echo "1" . "#";
+		mysqli_close($con);
+	}
+	
+	function break_object($con) {
+		$object_id = $_POST['OBJECT_ID'];
+		$sql = "UPDATE Object SET Broken = 1 WHERE ObjectID = '$object_id';";
+		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
+		ehco "1" . "#";		
 		mysqli_close($con);
 	}
 
@@ -168,12 +178,12 @@
 
 	function reclaimed_objects_list($con){
 		$date = $_POST["DATE"];
-		$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate < '$date' OR o.Project IS NULL";
+		$sql = "SELECT * FROM Object WHERE Object.ProjectName NOT IN (SELECT ProjectName FROM Project WHERE Project.EndDate > '$date');";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
 			echo "0" . "#" . "No Objects to be returned by this date.";
 		} else {
-			echo "2" . "#";
+			echo "4" . "#";
 			while ($row = mysqli_fetch_row($ret)){
 				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
 				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
@@ -189,10 +199,9 @@
 		if (mysqli_num_rows($ret) == 0) {
 			echo "3" . "#" . "No broken Objects found that must be returned by specified date.";
 		} else {
-			echo "2" . "#";
+			echo "4" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
-				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
+				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0];
 			}
 		echo "!" . "#";
 		}
@@ -204,17 +213,23 @@
 		$sql = "SELECT * FROM Object WHERE Object.ProjectName IN (SELECT ProjectName FROM Project WHERE Project.EndDate > '$date');";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "3" . "#" . "No Objects attahced to this project/person that must be returned by the specified date.";
+			echo "4" . "#" . "No Objects attahced to this project/person that must be returned by the specified date.";
 		} else {
 			echo "2" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
-				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
-
+				echo $row[0] . "#";
 			}
 			echo "!" . "#";
 		}
 		mysqli_close($con);
 	}
-
+	
+	function check_person_in_project($con, $project, $person) {
+		$sql = "SELECT * FROM ProjectGroup WHERE PersonName = '$person' AND ProjectName = '$project';";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		if (mysqli_num_rows($ret) == 0) {
+			echo "0" . "#" . "Persons/project are not attahced.";
+			die();
+		} 
+	}
 ?>
