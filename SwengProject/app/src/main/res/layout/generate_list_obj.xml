@@ -48,15 +48,15 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text=""
-            android:lines="2"
-            android:maxLines="500"
-            android:ems="10"
-            android:id="@+id/displayList" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:text=""-->
+            <!--android:lines="2"-->
+            <!--android:maxLines="500"-->
+            <!--android:ems="10"-->
+            <!--android:id="@+id/displayList" />-->
 
         <ListView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/listview"

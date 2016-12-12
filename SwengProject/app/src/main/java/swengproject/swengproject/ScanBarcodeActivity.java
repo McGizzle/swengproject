@@ -20,7 +20,7 @@ import static swengproject.swengproject.R.layout.scan_page;
 /**
  * Created by McGroarty on 15/11/2016.
  */
-public class ScanBarcodeActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScanBarcodeActivity extends AppCompatActivity {
 
     final private int TYPE = 3;
     private final String TAG = "ScanBarcodeActivity";
@@ -37,7 +37,14 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
         setContentView(scan_page);
 
         scanBtn = (Button) findViewById(R.id.scanBtn);
-        scanBtn.setOnClickListener(this);
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               IntentIntegrator scanIntegrator = new IntentIntegrator(ScanBarcodeActivity.this);
+               scanIntegrator.initiateScan();
+           }
+       });
+
 
         IntentIntegrator scanIntegrator = new IntentIntegrator(this);
         scanIntegrator.initiateScan();
@@ -54,13 +61,11 @@ public class ScanBarcodeActivity extends AppCompatActivity implements View.OnCli
 //        });
     }
 
-    public void onClick(View v) {
-        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-        scanIntegrator.initiateScan();
-    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        Log.d(TAG,"Scan result = "+scanningResult);
         if (scanningResult != null) {
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
