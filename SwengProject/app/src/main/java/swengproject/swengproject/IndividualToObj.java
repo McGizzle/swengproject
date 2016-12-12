@@ -68,6 +68,10 @@ public class IndividualToObj extends AppCompatActivity {
         meta.add("NAME");
         data.add(fname);
         EditText i = (EditText) (findViewById(R.id.objectET));
+        if( i.getText().toString().length() == 0 ) {
+            i.setError("Object name is required!");
+            return false;
+        }
         String obj = i.getText().toString();
         meta.add("OBJECT");
         data.add(obj);
