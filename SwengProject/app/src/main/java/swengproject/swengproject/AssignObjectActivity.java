@@ -276,6 +276,10 @@ public class AssignObjectActivity extends AppCompatActivity {
         data.add(date);
 
         EditText i = (EditText) (findViewById(R.id.personET));
+        if( i.getText().toString().length() == 0 ) {
+            i.setError("Person name is required!");
+            return false;
+        }
         String person = i.getText().toString();
         meta.add("PERSON_NAME");
         data.add(person);
