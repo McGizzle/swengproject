@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -26,7 +25,6 @@ public class ScanBarcodeActivity extends AppCompatActivity {
     final private int TYPE = 3;
     private final String TAG = "ScanBarcodeActivity";
     private Button scanBtn;
-    private ProgressBar pb;
     private ArrayList<String> DATA = new ArrayList<String>();
     private ArrayList<String> META_DATA = new ArrayList<String>();
     final String SERVER_URL = "SERVER URL";
@@ -38,8 +36,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(scan_page);
 
-        pb = (ProgressBar) findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
+
 
         scanBtn = (Button) findViewById(R.id.scanBtn);
         scanBtn.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +90,6 @@ public class ScanBarcodeActivity extends AppCompatActivity {
             startActivityForResult(passData,0);
 
         } else {
-            pb.setVisibility(View.GONE);
             Context context = getApplicationContext();
             CharSequence text = "Error. Could not scan.";
             int duration = Toast.LENGTH_LONG;

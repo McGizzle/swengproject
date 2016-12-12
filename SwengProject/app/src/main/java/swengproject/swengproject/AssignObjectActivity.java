@@ -7,16 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -30,7 +29,6 @@ import static swengproject.swengproject.R.layout.generate_list_obj;
 
 public class AssignObjectActivity extends AppCompatActivity {
     final int TYPE = 4;
-    private ProgressBar pb;
     Button datePick;
     int yearX, dayX, monthX;
     static final int dialog = 0;
@@ -45,10 +43,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         setContentView(assign_object);
 
 
-        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-        if(pb != null) {
-            pb.setVisibility(View.GONE);
-        }
+
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
         boolean found = extras.getBoolean("FOUND");

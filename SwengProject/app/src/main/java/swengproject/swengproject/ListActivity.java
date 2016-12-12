@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,6 +41,7 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
 
         Button reclaimBttn = (Button) findViewById(R.id.reclaimButton);
         Button attachedBttn = (Button) findViewById(R.id.assignedButton);
@@ -79,8 +79,6 @@ public class ListActivity extends AppCompatActivity {
     public void reclaimed(){
         setContentView(reclaim_obj);
         final Button findBttn = (Button) findViewById(R.id.findBttn);
-        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
         findBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,8 +112,6 @@ public class ListActivity extends AppCompatActivity {
     public void attached(){
         setContentView(assigned_obj);
         final Button findBttn = (Button) findViewById(R.id.findBttn);
-        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
         findBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,8 +141,6 @@ public class ListActivity extends AppCompatActivity {
     }
     public void broken(){
         setContentView(broken_obj);
-        ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-        pb.setVisibility(View.GONE);
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
         meta.add("TYPE");
