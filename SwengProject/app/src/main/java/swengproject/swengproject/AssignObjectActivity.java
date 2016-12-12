@@ -42,6 +42,15 @@ public class AssignObjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(assign_object);
 
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AssignObjectActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
 
         ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
         if(pb != null) {

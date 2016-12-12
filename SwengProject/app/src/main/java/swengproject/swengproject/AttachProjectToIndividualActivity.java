@@ -31,6 +31,14 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
                 get_info();
             }
         });
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AttachProjectToIndividualActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
     public void get_info(){
         EditText proj  = (EditText) findViewById(R.id.projectET);
