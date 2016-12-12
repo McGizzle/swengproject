@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,24 +43,18 @@ public class AssignObjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(assign_object);
 
-
-
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
         boolean found = extras.getBoolean("FOUND");
         barcode = info[0];
 
-        if(found)
-        {
+        if(found){
             found_object();
         }
 
-        else
-        {
+        else {
             add_clicked();
         }
-
-
     }
 
     public void found_object()
@@ -67,34 +62,33 @@ public class AssignObjectActivity extends AppCompatActivity {
         setContentView(generate_list_obj);
 
 
-        for(int m=0;!info[m].equals("!");m++)
-        {
+        for(int m=0;!info[m].equals("!");m++) {
             Log.d(TAG, info.toString());
         }
 
 
 
         String[] test = new String[info.length/4];
-
         TextView bc = (TextView) findViewById(R.id.barcodeName);
         bc.setText("Barcode Number "+barcode);
 
 
+
         int i=0;
         int j=0;
+       ArrayList<String> obj_ids = new ArrayList<>();
         String tmp;
-        while(!info[i].equals("!"))
-        {
+        while(!info[i].equals("!")) {
             tmp="";
 
             tmp +=info[++i] +" | "; //personName
             tmp +=info[++i] +" | ";//projectName
             tmp +=info[++i] +" | "; //ObjectName
             tmp +=info[++i] +" "; //ObjectID
+            obj_ids.add(info[i]);
             i++;
             test[j]=tmp;
             j++;
-
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
@@ -103,6 +97,22 @@ public class AssignObjectActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
 
+
+        final Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
+        String[] items = new String[obj_ids.size()];
+        for(int x=0;x<obj_ids.size();x++){
+            items[x] = obj_ids.get(x);
+        }
+        ArrayAdapter<String> adapterS = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapterS);
+
+        dropdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String broken_id = dropdown.getItemAtPosition(dropdown.getSelectedItemPosition()).toString();
+               markBroken(broken_id);
+            }
+        });
 
 
         Button addObj = (Button) findViewById(R.id.addButton);
@@ -113,14 +123,6 @@ public class AssignObjectActivity extends AppCompatActivity {
             }
         });
 
-//        Button home = (Button) findViewById(R.id.homeButton);
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(AssignObjectActivity.this, MainActivity.class);
-//                startActivity(i);
-//            }
-//        });
 
     }
 
