@@ -55,7 +55,7 @@ public class ProjectToObjActivity extends AppCompatActivity {
         data.add(TYPE+"");
 
 
-        EditText fn = (EditText) (findViewById(R.id.nameET));
+        EditText fn = (EditText) (findViewById(R.id.personET));
         String fname = fn.getText().toString();
         meta.add("OBJECT");
         data.add(fname);

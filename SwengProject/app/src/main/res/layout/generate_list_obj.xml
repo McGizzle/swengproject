@@ -8,27 +8,6 @@
     tools:context="swengproject.swengproject.MainActivity">
 
 
-    <ScrollView
-        android:layout_width="388dp"
-        android:layout_height="421dp"
-        tools:layout_editor_absoluteX="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="144dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text=""
-                android:ems="10"
-                android:id="@+id/displayList" />
-        </LinearLayout>
-    </ScrollView>
 
     <Button
         android:text="add"
@@ -38,4 +17,38 @@
         tools:layout_editor_absoluteY="466dp"
         tools:layout_editor_absoluteX="144dp"
         android:id="@+id/addButton" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/barcodeName"
+        tools:layout_editor_absoluteY="24dp"
+        tools:layout_editor_absoluteX="16dp" />
+
+
+
+    <ScrollView
+        android:layout_width="376dp"
+        android:layout_height="438dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="32dp"
+        android:id="@+id/scrollView2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/displayList" />
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>
+

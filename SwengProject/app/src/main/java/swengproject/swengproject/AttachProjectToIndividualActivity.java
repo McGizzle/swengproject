@@ -34,7 +34,7 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
     }
     public void get_info(){
         EditText proj  = (EditText) findViewById(R.id.projectET);
-        EditText nam  = (EditText) findViewById(R.id.nameET);
+        EditText nam  = (EditText) findViewById(R.id.personET);
         String project = proj.getText().toString();
         String name = nam.getText().toString();
         ArrayList<String> data = new ArrayList<String>();
@@ -43,7 +43,7 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
         data.add(TYPE+"");
         meta.add("PROJECT_NAME");
         data.add(project);
-        meta.add("NAME");
+        meta.add("PERSON_NAME");
         data.add(name);
 
         Intent passData = (new Intent(AttachProjectToIndividualActivity.this, QueryActivity.class));

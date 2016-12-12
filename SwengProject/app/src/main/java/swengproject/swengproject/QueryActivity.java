@@ -148,11 +148,10 @@ public class QueryActivity extends AppCompatActivity {
      * Description: Function is called when the information is not successfully sent to the database
      * Return: None
      */
-    public void insertFail(){
+    public void insertFail(String error){
        AlertDialog x = new AlertDialog.Builder(QueryActivity.this)
                 .setTitle("Uh Oh!")
-                .setMessage("Something went wrong and it probably was not our fault." +
-                        " Check your internet connection and try again")
+                .setMessage(error)
                 .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -212,7 +211,8 @@ public class QueryActivity extends AppCompatActivity {
             Log.d(TAG,"RESPONSE CODE = "+result[0]);
             if(result[0].equals(FAIL_RESPONSE)){
                 Log.d(TAG,"FAIL RESPONSE");
-                insertFail();
+                String error = result[1];
+                insertFail(error);
             }
             else if(result[0].equals(SUCCESS_RESPONSE)){
                 Log.d(TAG,"SUCCESS RESPONSE");
