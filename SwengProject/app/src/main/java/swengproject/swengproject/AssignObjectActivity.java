@@ -1,5 +1,6 @@
 package swengproject.swengproject;
 
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,7 +15,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -48,6 +50,8 @@ public class AssignObjectActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
         boolean found = extras.getBoolean("FOUND");
+        barcode = info[1];
+
         if(found)
         {
           found_object();
@@ -55,7 +59,6 @@ public class AssignObjectActivity extends AppCompatActivity {
 
         else
         {
-            barcode = info[1];
             add_clicked();
         }
 
@@ -71,23 +74,44 @@ public class AssignObjectActivity extends AppCompatActivity {
         {
             Log.d(TAG, info.toString());
         }
+
+//
+//        String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry",
+//                "WebOS","Ubuntu","Windows7","Max OS X"};
+//
+//        @Override
+//        protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+//                R.layout.activity_listview, mobileArray);
+//
+//        ListView listView = (ListView) findViewById(R.id.mobile_list);
+//        listView.setAdapter(adapter);
+//    }
         TextView bc = (TextView) findViewById(R.id.barcodeName);
         bc.setText("Barcode Number "+barcode);
         TextView tv = (TextView) findViewById(R.id.displayList);
         StringBuilder sb = new StringBuilder();
-        sb.append("Person   Group   Broken");
+        sb.append("Person  Project  Object ");
+        tv.append(sb+"\n");
+        tv.append("\n");
+
         int i=1;
         while(!info[i].equals("!"))
         {
-            sb.append(info[++i]+"\n"); //barcode
-            sb.append(info[++i]+"\n"); //personName
-            sb.append(info[++i]+"\n");//projectName
-            sb.append(info[++i]+"\n");// objectID
-            sb.append(info[++i]+"\n"); //Broken?
-            sb.append(info[++i]+"\n"); //Date
-            sb.append(info[++i]+"\n"); //ObjectName
+            StringBuilder tmp = new StringBuilder();
+
+            i++; //barcode
+            tmp.append(info[++i]+"\n"); //personName
+            tmp.append(info[++i]+"\n");//projectName
+            i++;// objectID
+            i++; //Broken?
+            i++; //Date
+            tmp.append(info[++i]+"\n"); //ObjectName
+            tv.append("\n"+tmp+"\n");
+
         }
-        tv.setText(sb.toString());
 
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setOnClickListener(new View.OnClickListener() {
