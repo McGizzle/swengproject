@@ -206,11 +206,12 @@ public class AssignObjectActivity extends AppCompatActivity {
         data.add(TYPE+"");
 
         EditText fn = (EditText) (findViewById(R.id.objectId));
+        if( fn.getText().toString().length() == 0 )
+            fn.setError( "Object name is required!" );
         String name = fn.getText().toString();
 
         String date = "" + dayX + "/" + monthX + "/" + yearX;
-        //  TextView dateShow = (TextView) findViewById(R.id.dateShow);
-        //  dateShow.setText(date);
+
         meta.add("OBJECT_NAME");
         data.add(name);
         meta.add("DATE");

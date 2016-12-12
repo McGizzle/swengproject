@@ -16,9 +16,6 @@ import static swengproject.swengproject.R.layout.assigned_obj;
 import static swengproject.swengproject.R.layout.broken_obj;
 import static swengproject.swengproject.R.layout.list_options;
 import static swengproject.swengproject.R.layout.reclaim_obj;
-
-
-import static swengproject.swengproject.R.layout.scan_page;
 import static swengproject.swengproject.R.layout.show_list;
 
 
@@ -36,6 +33,15 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(list_options);
+
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ListActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         Button reclaimBttn = (Button) findViewById(R.id.reclaimButton);
         Button attachedBttn = (Button) findViewById(R.id.assignedButton);
