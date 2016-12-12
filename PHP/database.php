@@ -77,7 +77,7 @@
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
 	}
-	
+
 	function check_project_exists($con,$project_name){
 		$sql = "SELECT * FROM Project WHERE ProjectName = '$project_name'";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
@@ -115,8 +115,7 @@
 		} else {
 			echo "2" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
-				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
+				echo $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
 			}
 			echo "!" . "#";
 		}
@@ -175,8 +174,7 @@
 		} else {
 			echo "2" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
-				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
+				echo $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
 			}
 			echo "!" . "#";
 		}
@@ -191,8 +189,7 @@
 		} else {
 			echo "2" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
-				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
+				echo $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
 			}
 		echo "!" . "#";
 		}
@@ -208,9 +205,7 @@
 		} else {
 			echo "2" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[0] . "#" . $row[1] . "#" . $row[2] . "#" .
-				$row[3] . "#" . $row[4] . "#" . $row[5] . "#"  . $row[6] . "#";
-
+				echo $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
 			}
 			echo "!" . "#";
 		}
