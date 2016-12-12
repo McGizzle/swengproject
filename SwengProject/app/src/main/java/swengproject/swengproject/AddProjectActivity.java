@@ -96,7 +96,7 @@ public class AddProjectActivity extends AppCompatActivity {
             Toast.makeText(AddProjectActivity.this, dayX + "/" + monthX + "/" + yearX, Toast.LENGTH_LONG).show();
         }
     };
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -104,6 +104,10 @@ public class AddProjectActivity extends AppCompatActivity {
         data.add(TYPE+"");
 
         EditText n = (EditText) (findViewById(R.id.editText));
+        if( n.getText().toString().length() == 0 ) {
+            n.setError("Project name is required!");
+            return false;
+        }
         String name = n.getText().toString();
         meta.add("NAME");
         data.add(name);
@@ -135,6 +139,7 @@ public class AddProjectActivity extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivityForResult(passData,0);
+        return true;
 
     }
     @Override

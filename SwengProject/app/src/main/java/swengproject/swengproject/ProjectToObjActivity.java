@@ -43,7 +43,7 @@ public class ProjectToObjActivity extends AppCompatActivity {
         });
     }
 
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -52,10 +52,18 @@ public class ProjectToObjActivity extends AppCompatActivity {
 
 
         EditText fn = (EditText) (findViewById(R.id.personET));
+        if( fn.getText().toString().length() == 0 ) {
+            fn.setError("Object name is required!");
+            return false;
+        }
         String fname = fn.getText().toString();
         meta.add("OBJECT");
         data.add(fname);
         EditText i = (EditText) (findViewById(R.id.objectET));
+        if( i.getText().toString().length() == 0 ) {
+            i.setError("Project name is required!");
+            return false;
+        }
         String pro = i.getText().toString();
         meta.add("PROJECT");
         data.add(pro);
@@ -68,6 +76,7 @@ public class ProjectToObjActivity extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",IndividualToObj.class);
 
         startActivity(passData);
+        return true;
 
     }
 }

@@ -43,7 +43,7 @@ public class AddIndividualActivity extends AppCompatActivity {
         });
     }
 
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -53,7 +53,15 @@ public class AddIndividualActivity extends AppCompatActivity {
 
         EditText fn = (EditText) (findViewById(R.id.firstName));
         String fname = fn.getText().toString();
+        if( fn.getText().toString().length() == 0 ) {
+            fn.setError("First name is required!");
+            return false;
+        }
         EditText ln = (EditText) findViewById(R.id.secondName);
+        if( ln.getText().toString().length() == 0 ) {
+            ln.setError("Last name is required!");
+            return false;
+        }
         String lname = ln.getText().toString();
         meta.add("NAME");
         data.add(fname+" "+lname);
@@ -76,6 +84,7 @@ public class AddIndividualActivity extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivity(passData);
-
+    return true;
+        
     }
 }
