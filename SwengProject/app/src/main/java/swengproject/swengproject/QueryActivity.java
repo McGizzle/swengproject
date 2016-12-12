@@ -128,17 +128,24 @@ public class QueryActivity extends AppCompatActivity {
      * Return: None
      *
      */
-    public void insertSuccess(){
+    public void insertSuccess(String message){
         new AlertDialog.Builder(QueryActivity.this)
                 .setTitle("Success!")
-                .setMessage("Your Information was successfully submitted.")
+                .setMessage(message)
                 .setNeutralButton("Done", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        finish();
+                    }
+                })
                 .show();
+
     }
 
     /* insertFail()
@@ -172,8 +179,8 @@ public class QueryActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
          //   pb.setVisibility(View.VISIBLE);
-            pd = ProgressDialog.show(QueryActivity.this, "Submitting Information",
-                    "Sending...", true);
+            pd = ProgressDialog.show(QueryActivity.this, "Loading",
+                    "1 2 3...", true);
             Log.d(TAG,"PRE EXECUTION");
         }
 
@@ -204,7 +211,7 @@ public class QueryActivity extends AppCompatActivity {
             }
             else if(response_code.equals(SUCCESS_RESPONSE)){
                 Log.d(TAG,"SUCCESS RESPONSE");
-                insertSuccess();
+                insertSuccess(result[1]);
             }
             else if(response_code.equals(OBJECT_FOUND)){
                 Log.d(TAG,"OBJECT FOUND");
@@ -224,7 +231,8 @@ public class QueryActivity extends AppCompatActivity {
                 Log.d(TAG,"LIST FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",object_info);
-                i.putExtra("LIST_TYPE","BROKEN");
+                i.putExtra("LIST_TYPE",result[1]);
+                startActivity(i);
             }
 
             else {

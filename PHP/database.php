@@ -45,7 +45,7 @@
 			$sql = "INSERT INTO ProjectGroup (ProjectName,PersonName) VALUES ('$projectName','$indvs[$i]')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
-		echo "1" . "#";
+		echo "1" . "#" . "Project successfully added :)";
 		mysqli_close($con);
 
 	}
@@ -66,7 +66,7 @@
 			$sql = "INSERT INTO ProjectGroup (ProjectName,PersonName) VALUES ('$projects[$i]','$name')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
-		echo "1" . "#";
+		echo "1" . "#" . "Person successfully added :)";
 		mysqli_close($con);
 	}
 
@@ -103,7 +103,7 @@
 		} else {
 			$sql = "INSERT INTO ProjectGroup (ProjectName, PersonName) VALUES ('$project_name','$person_name')";
 			mysqli_query($con,$sql) or die(mysqli_error($con));
-			echo "1" . "#";
+			echo "1" . "#" . "Person and Project successfully attached :)";
 		}
 	}
 
@@ -147,7 +147,7 @@
 		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken)" .
 												" VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken')";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
-		echo "1" . "#";
+		echo "1" . "#" . "Object successfully added :)";
 		mysqli_close($con);
 	}
 
@@ -155,7 +155,7 @@
 		$object_id = $_POST['OBJECT_ID'];
 		$sql = "UPDATE Object SET Broken = 1 WHERE ObjectID = '$object_id'";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
-		echo "1" . "#";
+		echo "1" . "#" . "The Object has been set as broken :(";
 		mysqli_close($con);
 	}
 

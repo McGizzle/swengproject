@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -78,7 +79,7 @@ public class AssignObjectActivity extends AppCompatActivity {
 
         int i=0;
         int j=0;
-       ArrayList<String> obj_ids = new ArrayList<>();
+       final ArrayList<String> obj_ids = new ArrayList<>();
         String tmp;
         while(!info[i].equals("!")) {
             tmp="";
@@ -95,7 +96,9 @@ public class AssignObjectActivity extends AppCompatActivity {
             else
                 tmp +=project+" | ";
 
+            tmp +=info[++i] +" "; //ObjectName
             tmp +=info[++i] +" "; //ObjectID
+
             obj_ids.add(info[i]);
             i++;
             test[j]=tmp;
@@ -110,21 +113,31 @@ public class AssignObjectActivity extends AppCompatActivity {
 
 
         final Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
-        String[] items = new String[obj_ids.size()];
+        final String[] items = new String[obj_ids.size()+1];
         for(int x=0;x<obj_ids.size();x++){
             items[x] = obj_ids.get(x);
+
         }
+        items[items.length-1] = "";
+
         ArrayAdapter<String> adapterS = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapterS);
+        dropdown.setSelection(items.length-1);
 
-        dropdown.setOnClickListener(new View.OnClickListener() {
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-               String broken_id = dropdown.getItemAtPosition(dropdown.getSelectedItemPosition()).toString();
-               markBroken(broken_id);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG,"Pos = "+position);
+                if(position!=items.length-1) {
+                    markBroken(obj_ids.get(position));
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                    dropdown.setSelected(false);
+                    dropdown.setSelection(items.length-1);
             }
         });
-
 
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setOnClickListener(new View.OnClickListener() {
@@ -144,14 +157,8 @@ public class AssignObjectActivity extends AppCompatActivity {
         meta.add("TYPE");
         data.add(TYPE2+"");
 
-
         meta.add("OBJECT_ID");
         data.add(id);
-
-
-        meta.add("BROKEN");
-        data.add("true");
-        
 
         Intent passData = (new Intent(AssignObjectActivity.this, QueryActivity.class));
         passData.putExtra("DATA",data);
