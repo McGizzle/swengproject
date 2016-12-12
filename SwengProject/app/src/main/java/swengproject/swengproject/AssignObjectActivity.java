@@ -33,9 +33,6 @@ public class AssignObjectActivity extends AppCompatActivity {
 
     final int TYPE1 = 4;
     final int TYPE2 = 7;
-    Button datePick;
-    int yearX, dayX, monthX;
-    static final int dialog = 0;
     private String barcode;
     private String[] info;
     private String listType;
@@ -188,11 +185,6 @@ public class AssignObjectActivity extends AppCompatActivity {
     public void add_clicked()
     {
         setContentView(assign_object);
-        final Calendar cal = Calendar.getInstance();
-        yearX = cal.get(Calendar.YEAR);
-        monthX = cal.get(Calendar.MONTH);
-        dayX = cal.get(Calendar.DAY_OF_MONTH);
-        showDialogOnButtonClick();
 
         Log.d("TAG", barcode);
 
@@ -214,44 +206,9 @@ public class AssignObjectActivity extends AppCompatActivity {
         });
     }
 
-    public void showDialogOnButtonClick()
-    {
-        datePick = (Button) findViewById(R.id.chooseDate);
-        datePick.setOnClickListener( new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                showDialog(dialog);
-            }
-        });
-    }
 
-    @Override
-    protected Dialog onCreateDialog(int id)
-    {
-        if(id == dialog)
-        {
-            return new DatePickerDialog(this, dPickerListner, yearX, monthX, dayX);
-        }
-        else
-        {
-            return null;
-        }
-    }
-    private DatePickerDialog.OnDateSetListener dPickerListner
-            = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-            yearX = i;
-            monthX = i1 + 1;
-            dayX = i2;
-            Toast.makeText(AssignObjectActivity.this, dayX + "/" + monthX + "/" + yearX, Toast.LENGTH_LONG).show();
-            String showDate =  "" + dayX + "/" + monthX + "/" + yearX;
-            TextView dateShow = (TextView) findViewById(R.id.dateShow);
-            dateShow.setText(showDate);
-        }
-    };
+
+
 
 
     public boolean gather_info() {
@@ -268,12 +225,9 @@ public class AssignObjectActivity extends AppCompatActivity {
         }
         String name = fn.getText().toString();
 
-        String date = "" + dayX + "/" + monthX + "/" + yearX;
 
         meta.add("OBJECT_NAME");
         data.add(name);
-        meta.add("DATE");
-        data.add(date);
 
         EditText i = (EditText) (findViewById(R.id.personET));
         if( i.getText().toString().length() == 0 ) {
