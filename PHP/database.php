@@ -223,7 +223,7 @@
 
 	function attached_objects_list($con) {
 		$date = $_POST["DATE"];
-		$sql = "SELECT * FROM Object o LEFT OUTER JOIN Project p ON o.Project = p.Name WHERE p.EndDate > '$date' AND o.Project IS NOT NULL";
+		$sql = "SELECT * FROM Object WHERE Object.ProjectName IN (SELECT ProjectName FROM Project WHERE Project.EndDate > '$date');";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
 			echo "3" . "#" . "No Objects attahced to this project/person that must be returned by the specified date.";
