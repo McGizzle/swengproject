@@ -103,10 +103,19 @@
         android:layout_width="109dp"
         android:layout_height="23dp"
         android:id="@+id/dateShow"
-        app:layout_constraintBaseline_toBaselineOf="@+id/chooseDate"
-        tools:layout_constraintBaseline_creator="1"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="176dp"
+        android:layout_marginLeft="176dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/groupId"
+        app:layout_constraintBottom_toTopOf="@+id/submitButton"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintVertical_bias="0.53" />
 
 
     <EditText

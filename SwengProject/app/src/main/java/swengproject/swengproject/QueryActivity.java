@@ -201,7 +201,7 @@ public class QueryActivity extends AppCompatActivity {
             String[] result = r.split("#");
             String[] object_info = Arrays.copyOfRange(result, 1, result.length);
             String response_code = result[0].replaceAll("\\s+","");
-       //   pb.setVisibility(View.GONE);
+
             pd.dismiss();
             Log.d(TAG,"RESPONSE CODE ="+response_code);
             if(response_code.equals(FAIL_RESPONSE)){
@@ -232,6 +232,7 @@ public class QueryActivity extends AppCompatActivity {
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",object_info);
                 i.putExtra("LIST_TYPE",result[1]);
+                i.putExtra("FOUND",true);
                 startActivity(i);
             }
 

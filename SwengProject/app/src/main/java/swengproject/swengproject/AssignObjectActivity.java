@@ -38,6 +38,7 @@ public class AssignObjectActivity extends AppCompatActivity {
     static final int dialog = 0;
     private String barcode;
     private String[] info;
+    private String listType;
     String TAG = "AssignObjectActivity";
 
 
@@ -48,11 +49,12 @@ public class AssignObjectActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
+        listType = extras.getString("LIST_TYPE");
         boolean found = extras.getBoolean("FOUND");
         barcode = info[0];
 
         if(found){
-            found_object();
+            found_object(listType);
         }
 
         else {
@@ -60,7 +62,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         }
     }
 
-    public void found_object()
+    public void found_object(String listType)
     {
         setContentView(generate_list_obj);
 
@@ -69,15 +71,37 @@ public class AssignObjectActivity extends AppCompatActivity {
             Log.d(TAG, info.toString());
         }
 
+        Button addObj = (Button) findViewById(R.id.addButton);
+        addObj.setVisibility(View.INVISIBLE);
+        addObj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_clicked();
+            }
+        });
 
 
-        String[] test = new String[info.length/4];
+        String[] details = new String[info.length/4];
         TextView bc = (TextView) findViewById(R.id.barcodeName);
-        bc.setText("Barcode Number "+barcode);
 
+        int i=1;
+        switch (listType)
+        {
+            case "BROKEN":
+                bc.setText("List of Broken Objects");
+                break;
+            case "ATTACHED":
+                bc.setText("List of Objects Attached as of a User Specified Date");
+                break;
+            case "RECLAIMED":
+                bc.setText("List of Objects to be Reclaimed");
+                break;
+            default:bc.setText("Barcode Number "+barcode);
+                addObj.setVisibility(View.VISIBLE);
+                i=0;
 
+        }
 
-        int i=0;
         int j=0;
        final ArrayList<String> obj_ids = new ArrayList<>();
         String tmp;
@@ -85,28 +109,29 @@ public class AssignObjectActivity extends AppCompatActivity {
             tmp="";
             String person = info[++i];
             if(person.length()==0)
-                tmp += "unassigned | ";
+                tmp += "Person = unassigned \n ";
 
             else
-                tmp +=person+" | ";
+                tmp += "Person = " + person+" \n" ;
 
             String project = info[++i];
             if(person.length()==0)
-                tmp += "unassigned | ";
+                tmp += "Project = unassigned \n";
             else
-                tmp +=project+" | ";
+                tmp += "Project = " + project+" \n";
 
-            tmp +=info[++i] +" "; //ObjectName
-            tmp +=info[++i] +" "; //ObjectID
-
+            tmp += "Object Name = " + info[++i] +" \n"; //ObjectName
+            tmp += "Object ID = " + info[++i] +" \n"; //ObjectID
+            tmp += "\n\n";
             obj_ids.add(info[i]);
             i++;
-            test[j]=tmp;
+            details[j]=tmp;
             j++;
+
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                R.layout.activity_listview, test);
+                R.layout.activity_listview, details);
 
         ListView listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
@@ -138,16 +163,6 @@ public class AssignObjectActivity extends AppCompatActivity {
                     dropdown.setSelection(items.length-1);
             }
         });
-
-        Button addObj = (Button) findViewById(R.id.addButton);
-        addObj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                add_clicked();
-            }
-        });
-
-
     }
 
     public void markBroken(String id)
