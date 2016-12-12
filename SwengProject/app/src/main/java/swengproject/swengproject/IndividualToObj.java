@@ -51,7 +51,7 @@ public class IndividualToObj extends AppCompatActivity {
 
 
 
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -60,6 +60,10 @@ public class IndividualToObj extends AppCompatActivity {
 
 
         EditText fn = (EditText) (findViewById(R.id.personET));
+        if( fn.getText().toString().length() == 0 ) {
+            fn.setError("Person name is required!");
+            return false;
+        }
         String fname = fn.getText().toString();
         meta.add("NAME");
         data.add(fname);
@@ -76,6 +80,7 @@ public class IndividualToObj extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",IndividualToObj.class);
 
         startActivity(passData);
+        return true;
 
     }
 }
