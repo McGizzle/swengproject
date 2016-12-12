@@ -23,7 +23,7 @@
 		case 6: attach_project_person($con);
 		break;
 		case 7: break_object($con);
-		break
+		break;
 	}
 
 	function add_project($con){
@@ -153,9 +153,9 @@
 	
 	function break_object($con) {
 		$object_id = $_POST['OBJECT_ID'];
-		$sql = "UPDATE Object SET Broken = 1 WHERE ObjectID = '$object_id';";
+		$sql = "UPDATE Object SET Broken = 1 WHERE ObjectID = '$object_id'";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
-		ehco "1" . "#";		
+		echo "1" . "#";		
 		mysqli_close($con);
 	}
 
@@ -177,7 +177,7 @@
 
 	function reclaimed_objects_list($con){
 		$date = $_POST["DATE"];
-		$sql = "SELECT * FROM Object WHERE Object.ProjectName NOT IN (SELECT ProjectName FROM Project WHERE Project.EndDate > '$date');";
+		$sql = "SELECT * FROM Object WHERE Object.ProjectName NOT IN (SELECT ProjectName FROM Project WHERE Project.EndDate > '$date')";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
 			echo "0" . "#" . "No Objects to be returned by this date.";
