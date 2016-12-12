@@ -8,6 +8,15 @@
     tools:context="swengproject.swengproject.MainActivity">
 
 
+    <Button
+        android:text="add"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="466dp"
+        tools:layout_editor_absoluteX="144dp"
+        android:id="@+id/addButton" />
+
     <ScrollView
         android:layout_width="388dp"
         android:layout_height="421dp"
@@ -29,13 +38,4 @@
                 android:id="@+id/displayList" />
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:text="add"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="466dp"
-        tools:layout_editor_absoluteX="144dp"
-        android:id="@+id/addButton" />
 </android.support.constraint.ConstraintLayout>

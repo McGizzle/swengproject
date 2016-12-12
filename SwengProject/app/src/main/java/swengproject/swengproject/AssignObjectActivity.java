@@ -38,7 +38,7 @@ public class AssignObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(assign_object);
 
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
@@ -74,7 +74,7 @@ public class AssignObjectActivity extends AppCompatActivity {
             }
                i+=2;
         }
-        EditText t = (EditText) findViewById(R.id.editText2);
+        EditText t = (EditText) findViewById(R.id.displayList);
 
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +157,9 @@ public class AssignObjectActivity extends AppCompatActivity {
             monthX = i1 + 1;
             dayX = i2;
             Toast.makeText(AssignObjectActivity.this, dayX + "/" + monthX + "/" + yearX, Toast.LENGTH_LONG).show();
+            String showDate =  "" + dayX + "/" + monthX + "/" + yearX;
+            TextView dateShow = (TextView) findViewById(R.id.dateShow);
+            dateShow.setText(showDate);
         }
     };
 
