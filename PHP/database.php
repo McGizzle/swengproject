@@ -131,6 +131,7 @@
 
 		$project_name = NULL;
 		if (isset($_POST['PROJECT_NAME'])) {
+			echo "Project set";
 			$project_name = $_POST['PROJECT_NAME'];
 			check_project_exists($con,$project_name);
 		}
@@ -192,10 +193,10 @@
 	}
 
 	function broken_objects_list($con){
-		$sql = "SELECT * FROM Object o WHERE o.Broken = 1";
+		$sql = "SELECT * FROM Object WHERE Object.Broken = 1";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "0" . "#" . "No broken Objects found that must be returned by specified date.";
+			echo "0" . "#" . "No broken objects found.";
 		} else {
 			echo "4" . "#" . "BROKEN" . "#";
 			while ($row = mysqli_fetch_row($ret)){
