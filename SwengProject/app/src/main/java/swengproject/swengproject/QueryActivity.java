@@ -197,7 +197,7 @@ public class QueryActivity extends AppCompatActivity {
             String r = null;
             try {
                 r =  insertMySQLPost();
-                Log.d(TAG,"RETURN FROM SERVER = "+r);
+                Log.d(TAG,"RETURN FROM SERVER ="+r);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -207,44 +207,45 @@ public class QueryActivity extends AppCompatActivity {
         protected void onPostExecute(String r){
 
             String[] result = r.split("#");
+            String response_code = result[0].replaceAll("\\s+","");
             pb.setVisibility(View.GONE);
-            Log.d(TAG,"RESPONSE CODE = "+result[0]);
-            if(result[0].equals(FAIL_RESPONSE)){
+            Log.d(TAG,"RESPONSE CODE ="+response_code);
+            if(response_code.equals(FAIL_RESPONSE)){
                 Log.d(TAG,"FAIL RESPONSE");
                 String error = result[1];
                 insertFail(error);
             }
-            else if(result[0].equals(SUCCESS_RESPONSE)){
+            else if(response_code.equals(SUCCESS_RESPONSE)){
                 Log.d(TAG,"SUCCESS RESPONSE");
                 insertSuccess();
             }
-            else if(result[0].equals(OBJECT_FOUND)){
+            else if(response_code.equals(OBJECT_FOUND)){
                 Log.d(TAG,"OBJECT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",result);
                 i.putExtra("FOUND",true);
                 startActivity(i);
             }
-            else if(result[0].equals(OBJECT_NOT_FOUND)){
+            else if(response_code.equals(OBJECT_NOT_FOUND)){
                 Log.d(TAG,"OBJECT NOT FOUND");
                 Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
                 i.putExtra("INFO",result);
                 i.putExtra("FOUND",false);
                 startActivity(i);
             }
-            else if(result[0].equals(LIST)){
+            else if(response_code.equals(LIST)){
                 Log.d(TAG,"LIST FOUND");
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("INFO",result);
                 setResult(ListActivity.RESULT_OK,returnIntent);
                 finish();
             }
-            else if(result[0].equals(DUPLICATE)){
+            else if(response_code.equals(DUPLICATE)){
                 Log.d(TAG,"DUPLICATE");
                 insertDuplicate();
             }
             else {
-                Log.d(TAG,"UNKNOWN RESPONSE CODE");
+                Log.d(TAG,"UNKNOWN RESPONSE CODE =["+response_code+"]");
             }
 
         }

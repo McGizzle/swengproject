@@ -151,13 +151,13 @@
 		$object_name = $_POST['OBJECT_NAME']; //not used
 		$barcode = $_POST['BARCODE'];
 
-		$project_name = NULL:
+		$project_name = NULL;
 		if (isset($_POST['PROJECT_NAME'])) {
 			$project_name = $_POST['PROJECT_NAME'];
 			check_project_exists($con,$project_name);
 		}
 
-		$person_name = NULL:
+		$person_name = NULL;
 		if (isset($_POST['PERSON_NAME'])) {
 			$person_name = $_POST['PERSON_NAME'];
 			check_person_exists($con,$person_name);
@@ -175,13 +175,13 @@
 	function get_list($con){
 		$list_type = $_POST["LIST_TYPE"];
 		if($list_type == "BROKEN"){
-			reclaimed_objects_list($con);
-		}
-		else if($list_type == "ATTACHED"){
 			broken_objects_list($con);
 		}
-		else if($list_type == "RECLAIMED"){
+		else if($list_type == "ATTACHED"){
 			attached_objects_list($con);
+		}
+		else if($list_type == "RECLAIMED"){
+			reclaimed_objects_list($con);
 		}
 		else{
 			echo "0" . "#" . "Unavailable List type selected";
