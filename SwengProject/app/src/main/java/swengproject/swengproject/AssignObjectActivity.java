@@ -198,7 +198,7 @@ public class AssignObjectActivity extends AppCompatActivity {
     };
 
 
-    public void gather_info() {
+    public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
@@ -206,8 +206,10 @@ public class AssignObjectActivity extends AppCompatActivity {
         data.add(TYPE+"");
 
         EditText fn = (EditText) (findViewById(R.id.objectId));
-        if( fn.getText().toString().length() == 0 )
-            fn.setError( "Object name is required!" );
+        if( fn.getText().toString().length() == 0 ) {
+            fn.setError("Object name is required!");
+            return false;
+        }
         String name = fn.getText().toString();
 
         String date = "" + dayX + "/" + monthX + "/" + yearX;
@@ -245,6 +247,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         passData.putExtra("PREVIOUS_ACTIVITY",AddProjectActivity.class);
 
         startActivity(passData);
+        return true;
 
     }
 }
