@@ -8,6 +8,16 @@
     tools:context="swengproject.swengproject.MainActivity">
 
 
+
+    <Button
+        android:text="add"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="466dp"
+        tools:layout_editor_absoluteX="144dp"
+        android:id="@+id/addButton" />
+
     <TextView
         android:layout_width="232dp"
         android:layout_height="51dp"
@@ -25,29 +35,18 @@
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:text="add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addButton"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp" />
+
 
     <ScrollView
         android:layout_width="376dp"
         android:layout_height="438dp"
-        tools:layout_editor_absoluteX="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="32dp"
-        android:id="@+id/scrollView2">
+        android:id="@+id/scrollView2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -64,4 +63,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </ScrollView>
+
 </android.support.constraint.ConstraintLayout>
+

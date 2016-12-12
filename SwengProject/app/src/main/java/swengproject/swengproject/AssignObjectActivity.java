@@ -42,6 +42,8 @@ public class AssignObjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(assign_object);
+
 
         ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
         if(pb != null) {
@@ -112,6 +114,7 @@ public class AssignObjectActivity extends AppCompatActivity {
             tv.append("\n"+tmp+"\n");
 
         }
+
 
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +197,9 @@ public class AssignObjectActivity extends AppCompatActivity {
             monthX = i1 + 1;
             dayX = i2;
             Toast.makeText(AssignObjectActivity.this, dayX + "/" + monthX + "/" + yearX, Toast.LENGTH_LONG).show();
+            String showDate =  "" + dayX + "/" + monthX + "/" + yearX;
+            TextView dateShow = (TextView) findViewById(R.id.dateShow);
+            dateShow.setText(showDate);
         }
     };
 

@@ -18,7 +18,7 @@ import static swengproject.swengproject.R.layout.indiv_to_project;
 
 public class AttachProjectToIndividualActivity extends AppCompatActivity {
 
-    protected String TYPE = "";
+    protected String TYPE = "6";
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
