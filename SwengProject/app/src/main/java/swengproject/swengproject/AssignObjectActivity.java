@@ -81,7 +81,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         });
 
 
-        String[] test = new String[info.length/4];
+        String[] details = new String[info.length/4];
         TextView bc = (TextView) findViewById(R.id.barcodeName);
 
         int i=1;
@@ -99,7 +99,6 @@ public class AssignObjectActivity extends AppCompatActivity {
             default:bc.setText("Barcode Number "+barcode);
                 addObj.setVisibility(View.VISIBLE);
                 i=0;
-
 
         }
 
@@ -126,13 +125,13 @@ public class AssignObjectActivity extends AppCompatActivity {
             tmp += "\n\n";
             obj_ids.add(info[i]);
             i++;
-            test[j]=tmp;
+            details[j]=tmp;
             j++;
 
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
-                R.layout.activity_listview, test);
+                R.layout.activity_listview, details);
 
         ListView listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
