@@ -36,18 +36,12 @@
 		}
 
 		// ADD the new project into the database
-		$sql = "SELECT * FROM Project WHERE ProjectName = '$projectName'";
-		$ret = mysqli_query($con,$sql);
-		if (mysqli_num_rows($ret) != 0) {
-			echo "0" . "#" . "A project with this name already exists. Please choose another name.";
-			die();
-		}
 		$sql = "INSERT INTO Project (ProjectName, EndDate) VALUES ('$projectName', '$endDate') ";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
 
 	  //Attach individuals to each projects
 		for($i=0;$i<$num;$i++){
-		  check_person_exists($con,$indvs[$i]);
+		  check_person_exists($con,$indvs[i]);
 			$sql = "INSERT INTO ProjectGroup (ProjectName,PersonName) VALUES ('$projectName','$indvs[$i]')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
@@ -142,9 +136,8 @@
 		$object_name = $_POST['OBJECT_NAME'];
 		$barcode = $_POST['BARCODE'];
 
-
 		$project_name = $_POST['PROJECT_NAME'];
-		if($project_name ==""){
+		if($project_name == ""){
 		}
 		else{
 			check_project_exists($con,$project_name);
