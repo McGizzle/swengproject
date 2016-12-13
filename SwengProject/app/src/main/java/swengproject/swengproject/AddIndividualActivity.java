@@ -54,17 +54,12 @@ public class AddIndividualActivity extends AppCompatActivity {
         EditText fn = (EditText) (findViewById(R.id.firstName));
         String fname = fn.getText().toString();
         if( fn.getText().toString().length() == 0 ) {
-            fn.setError("First name is required!");
+            fn.setError("Name is required!");
             return false;
         }
-        EditText ln = (EditText) findViewById(R.id.secondName);
-        if( ln.getText().toString().length() == 0 ) {
-            ln.setError("Last name is required!");
-            return false;
-        }
-        String lname = ln.getText().toString();
+
         meta.add("NAME");
-        data.add(fname+" "+lname);
+        data.add(fname);
 
         EditText i = (EditText) (findViewById(R.id.teamName));
         if( i.getText().toString().length() != 0 ) {
