@@ -71,11 +71,6 @@ public class AssignObjectActivity extends AppCompatActivity {
     {
         setContentView(generate_list_obj);
 
-
-        for(int m=0;!info[m].equals("!");m++) {
-            Log.d(TAG, info.toString());
-        }
-
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setVisibility(View.INVISIBLE);
         addObj.setOnClickListener(new View.OnClickListener() {

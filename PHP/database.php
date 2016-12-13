@@ -112,7 +112,7 @@
 		$ret2 = mysqli_query($con,$sql) or die(mysqli_error($con));
 
 		if (mysqli_num_rows($ret) == 0 || mysqli_num_rows($ret2) == 0) {
-			echo "0" . "#" . "Person or Project does not exist in system";
+			echo "0" . "#" . "Person or Project does not exist in system. Please add them first before attaching.";
 		} else {
 			$sql = "INSERT INTO ProjectGroup (ProjectName, PersonName) VALUES ('$project_name','$person_name')";
 			mysqli_query($con,$sql) or die(mysqli_error($con));
