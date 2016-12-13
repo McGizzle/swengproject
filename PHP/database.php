@@ -251,25 +251,71 @@
 		}
 		mysqli_close($con);
 	}
+	
+	function check_assigned_person($con, $object_id) {
+		$sql = "SELECT * FROM Object WHERE ObjectID = '$object_id' AND LEN(PersonName) > 0";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		if (mysqli_num_rows($ret) == 0) {
+			return 0;
+		}
+		return 1;
+	}
+	
+	function check_assigned_project($con, $object_id) {
+		$sql = "SELECT * FROM Object WHERE ObjectID = '$object_id' AND LEN(ProjectName) > 0";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		if (mysqli_num_rows($ret) == 0) {
+			return 0;
+		}
+		return 1;
+	}
+
+	function get_person_from_object($con, $object_id) {
+		$sql = "SELECT PersonName FROM Object WHERE ObjectID = '$object_id'";
+		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+		$row = mysqli_fetch_row($ret);
+		return $row[0];
+	}
 
 	function assign_object($con) {
 		$object_id = $_POST['OBJECT_ID'];
-		$person = $_POST['PERSON_NAME'];
-		check_person_exists($con, $person);
+		$assignedPerson = check_assigned_person($con, $object_id);
+		$assignedProject = check_assigned_project($con, $object_id);
+		
 
-		$project = $_POST['PROJECT_NAME'];
-		if ($project != "") {
-			if (check_project_group($con, $person, $project) == 1) {
-				$sql = "UPDATE Object SET PersonName = '$person', ProjectName = '$project' WHERE ObjectID = '$object_id'";
-				$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
-				echo "1" . "#" . "Object[" . $object_id . "] has been assigned to project '" . $project . "' and person '" . $person . "'";  
+		if ($assignedPerson == 0) {
+			
+			$person = $_POST['PERSON_NAME'];
+			check_person_exists($con, $person);
+			
+			$project = $_POST['PROJECT_NAME'];
+			if ($project != "") {
+				if (check_project_group($con, $person, $project) == 1) {
+					$sql = "UPDATE Object SET PersonName = '$person', ProjectName = '$project' WHERE ObjectID = '$object_id'";
+					$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+					echo "1" . "#" . "Object[" . $object_id . "] has been assigned to project '" . $project . "' and person '" . $person . "'";  
+				} else {
+					echo "0" . "#'" . $person . "' is not assigned to project '" . $project . "'";
+				}
 			} else {
-				echo "0" . "#'" . $person . "' is not assigned to project '" . $project . "'";
+				$sql = "UPDATE Object SET PersonName = '$person' WHERE ObjectID = '$object_id'";
+				$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+				echo "1" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "'";  
 			}
 		} else {
-			$sql = "UPDATE Object SET PersonName = '$person' WHERE ObjectID = '$object_id'";
-			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
-			echo "1" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "'";  
+			$person = get_person_from_object($con, $object_id);
+			if (assignedProject == 1) {
+				echo "0" . "#" . "Object[" . $object_id . "] is already assigned a person and project.";
+			} else {
+				if (check_project_group($con, $person, $project) == 1) {
+					$sql = "UPDATE Object SET ProjectName = '$project' WHERE ObjectID = '$object_id'";
+					$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+					echo "1" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "'";
+				} else {
+					echo "0" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "', who is not " .
+						"assigned to project '" . $project . "'. Please assign '" . $person "' to '" $project "' first.";
+				}
+			}
 		}
 		mysqli_close($con);
 	}
