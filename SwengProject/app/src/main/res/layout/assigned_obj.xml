@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Project Name"
+        android:hint="Project Name"
         android:ems="10"
         android:id="@+id/projectName"
         android:layout_marginEnd="16dp"

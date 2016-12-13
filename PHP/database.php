@@ -57,7 +57,12 @@
 		for($i=0;$i<$num;$i++){
 			$projects[$i] = $_POST["TEAM".$i];
 		}
-
+		$sql = "SELECT * FROM Person WHERE PersonName = '$name'";
+		$ret = mysqli_query($con,$sql);
+		if (mysqli_num_rows($ret) != 0) {
+			echo "0" . "#" . "A Person with the name ". $name ." already exists. Please choose another name.";
+			die();
+		}
 		$sql = "INSERT INTO Person (PersonName) VALUES ('$name')";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 
@@ -84,8 +89,10 @@
 		$sql = "SELECT * FROM Project WHERE ProjectName = '$project_name'";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			$sql = "INSERT INTO Project (ProjectName) VALUES ('$project_name')";
-			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+			echo "0" . "#" . "A project with the name ". $project_name ." does not exist :( Please create it first.
+			 Any Projects after it have not been added due to this error.";
+			// $sql = "INSERT INTO Project (ProjectName) VALUES ('$project_name')";
+			// $ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
 	}
 
@@ -99,7 +106,7 @@
 		$ret2 = mysqli_query($con,$sql) or die(mysqli_error($con));
 
 		if (mysqli_num_rows($ret) == 0 || mysqli_num_rows($ret2) == 0) {
-			echo "0" . "#" . "Person or Project does not exist in system";
+			echo "0" . "#" . "Person or Project does not exist in system. Please add them first before attaching.";
 		} else {
 			$sql = "INSERT INTO ProjectGroup (ProjectName, PersonName) VALUES ('$project_name','$person_name')";
 			mysqli_query($con,$sql) or die(mysqli_error($con));
@@ -117,7 +124,7 @@
 		} else {
 			echo "2" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
+				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#" . $row[5] . "#";
 			}
 			echo "!" . "#";
 		}
@@ -129,26 +136,25 @@
 		$object_name = $_POST['OBJECT_NAME'];
 		$barcode = $_POST['BARCODE'];
 
-		$project_name = NULL;
-		if ($_POST['PROJECT_NAME'] == "") {
-			echo "Project set";
-			$project_name = $_POST['PROJECT_NAME'];
+		$project_name = $_POST['PROJECT_NAME'];
+		if($project_name == ""){
+		}
+		else{
 			check_project_exists($con,$project_name);
 		}
 
-		$person_name = NULL;
-		if (isset($_POST['PERSON_NAME'])) {
-			$person_name = $_POST['PERSON_NAME'];
-			check_person_exists($con,$person_name);
-		}
+		$person_name = $_POST['PERSON_NAME'];
+		check_person_exists($con,$person_name);
 
-		check_person_in_project($con, $project_name, $person_name);
+		if($project_name != ""){
+			check_person_in_project($con, $project_name, $person_name);
+		}
 		$broken = $_POST['BROKEN'];
 
-		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken)" .
-												" VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken')";
+		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken)
+												 VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken')";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
-		echo "1" . "#" . "Object successfully added :)";
+		echo "1" . "#" . "Object successfully added :) Barcode = " . $barcode;
 		mysqli_close($con);
 	}
 
@@ -185,7 +191,7 @@
 		} else {
 			echo "4" . "#" . "RECLAIMED" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
+				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#" . $row[5] . "#";
 			}
 			echo "!" . "#";
 		}
@@ -200,7 +206,7 @@
 		} else {
 			echo "4" . "#" . "BROKEN" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
+				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#" . $row[5] . "#";
 			}
 		echo "!" . "#";
 		}

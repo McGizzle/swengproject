@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static swengproject.swengproject.R.layout.assigned_obj;
-import static swengproject.swengproject.R.layout.broken_obj;
 import static swengproject.swengproject.R.layout.list_options;
 import static swengproject.swengproject.R.layout.reclaim_obj;
 import static swengproject.swengproject.R.layout.show_list;
@@ -78,6 +77,14 @@ public class ListActivity extends AppCompatActivity {
     }
     public void reclaimed(){
         setContentView(reclaim_obj);
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ListActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
         final Button findBttn = (Button) findViewById(R.id.findBttn);
         findBttn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +118,15 @@ public class ListActivity extends AppCompatActivity {
     }
     public void attached(){
         setContentView(assigned_obj);
+        Button home = (Button) findViewById(R.id.homeButton);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ListActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
         final Button findBttn = (Button) findViewById(R.id.findBttn);
         findBttn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +142,7 @@ public class ListActivity extends AppCompatActivity {
                 meta.add("TYPE");
                 data.add(TYPE+"");
                 meta.add("LIST_TYPE");
-                data.add("RECLAIMED");
+                data.add("ATTACHED");
                 meta.add("DATE");
                 data.add(date);
                 Intent i = new Intent(ListActivity.this,QueryActivity.class);
@@ -140,7 +156,6 @@ public class ListActivity extends AppCompatActivity {
 
     }
     public void broken(){
-        setContentView(broken_obj);
         ArrayList<String> data = new ArrayList<String>();
         ArrayList<String> meta = new ArrayList<String>();
         meta.add("TYPE");
@@ -151,7 +166,6 @@ public class ListActivity extends AppCompatActivity {
         i.putExtra("DATA", data);
         i.putExtra("META_DATA", meta);
         i.putExtra("PREVIOUS_ACTIVITY", ListActivity.class);
-        i.putExtra("ACTIVITY", broken_obj);
         startActivityForResult(i,1);
         final Button retryBttn = (Button) findViewById(R.id.retryBttn);
         if(retryBttn != null) {

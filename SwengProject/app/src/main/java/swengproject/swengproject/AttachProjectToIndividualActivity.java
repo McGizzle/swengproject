@@ -65,7 +65,6 @@ public class AttachProjectToIndividualActivity extends AppCompatActivity {
         Intent passData = (new Intent(AttachProjectToIndividualActivity.this, QueryActivity.class));
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
-        passData.putExtra("ACTIVITY",indiv_to_project);
         passData.putExtra("PREVIOUS_ACTIVITY",AttachProjectToIndividualActivity.class);
         startActivity(passData);
         return true;

@@ -95,7 +95,7 @@ public class ScanBarcodeActivity extends AppCompatActivity {
             int duration = Toast.LENGTH_LONG;
             Toast toast = Toast.makeText(context, text, duration);
             toast.setMargin(toast.getHorizontalMargin() / 2, toast.getVerticalMargin() / 2);
-            toast.show();
+           // toast.show();
             scanBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

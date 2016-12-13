@@ -67,16 +67,18 @@ public class AddIndividualActivity extends AppCompatActivity {
         data.add(fname+" "+lname);
 
         EditText i = (EditText) (findViewById(R.id.teamName));
-        String list = i.getText().toString();
-        String[] separated = list.split(",");
-        meta.add("TEAM_NUM");
-        data.add(""+separated.length);
-        for(int x=0;x<separated.length;x++){
-            meta.add("TEAM"+x);
-            data.add(separated[x]);
+        if( i.getText().toString().length() != 0 ) {
+
+            String list = i.getText().toString();
+            String[] separated = list.split(",");
+            meta.add("TEAM_NUM");
+            data.add("" + separated.length);
+            for (int x = 0; x < separated.length; x++) {
+                meta.add("TEAM" + x);
+                data.add(separated[x]);
+            }
+
         }
-
-
         Intent passData = (new Intent(AddIndividualActivity.this, QueryActivity.class));
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
