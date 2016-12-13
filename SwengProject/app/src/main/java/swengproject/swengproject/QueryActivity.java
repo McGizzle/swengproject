@@ -192,54 +192,54 @@ public class QueryActivity extends AppCompatActivity {
             return r;
         }
         @Override
-        protected void onPostExecute(String r){
+        protected void onPostExecute(String r) {
 
-            String[] result = r.split("#");
-            String[] object_info = Arrays.copyOfRange(result, 1, result.length);
-            String response_code = result[0].replaceAll("\\s+","");
+            if (r == null) {
+                Log.d(TAG, "Failed to connect to server");
+                insertFail("Failed to connect to server. Please check your internet connection and try again");
 
-            pd.dismiss();
-            Log.d(TAG,"RESPONSE CODE ="+response_code);
-            if(response_code.equals(FAIL_RESPONSE)){
-                Log.d(TAG,"FAIL RESPONSE");
-                String error = result[1];
-                insertFail(error);
-            }
-            else if(response_code.equals(SUCCESS_RESPONSE)){
-                Log.d(TAG,"SUCCESS RESPONSE");
-                insertSuccess(result[1]);
-            }
-            else if(response_code.equals(OBJECT_FOUND)){
-                Log.d(TAG,"OBJECT FOUND");
-                Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
-                i.putExtra("INFO",object_info);
-                i.putExtra("FOUND",true);
-                startActivity(i);
-                finish();
+            } else {
+                String[] result = r.split("#");
+                String[] object_info = Arrays.copyOfRange(result, 1, result.length);
+                String response_code = result[0].replaceAll("\\s+", "");
 
-            }
-            else if(response_code.equals(OBJECT_NOT_FOUND)){
-                Log.d(TAG,"OBJECT NOT FOUND");
-                Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
-                i.putExtra("INFO",object_info);
-                i.putExtra("FOUND",false);
-                startActivity(i);
-                finish();
+                pd.dismiss();
+                Log.d(TAG, "RESPONSE CODE =" + response_code);
+                if (response_code.equals(FAIL_RESPONSE)) {
+                    Log.d(TAG, "FAIL RESPONSE");
+                    String error = result[1];
+                    insertFail(error);
+                } else if (response_code.equals(SUCCESS_RESPONSE)) {
+                    Log.d(TAG, "SUCCESS RESPONSE");
+                    insertSuccess(result[1]);
+                } else if (response_code.equals(OBJECT_FOUND)) {
+                    Log.d(TAG, "OBJECT FOUND");
+                    Intent i = new Intent(QueryActivity.this, AssignObjectActivity.class);
+                    i.putExtra("INFO", object_info);
+                    i.putExtra("FOUND", true);
+                    startActivity(i);
+                    finish();
 
-            }
-            else if(response_code.equals(LIST)){
-                Log.d(TAG,"LIST FOUND");
-                Intent i = new Intent(QueryActivity.this,AssignObjectActivity.class);
-                i.putExtra("INFO",object_info);
-                i.putExtra("LIST_TYPE",result[1]);
-                i.putExtra("FOUND",true);
-                startActivity(i);
-                finish();
+                } else if (response_code.equals(OBJECT_NOT_FOUND)) {
+                    Log.d(TAG, "OBJECT NOT FOUND");
+                    Intent i = new Intent(QueryActivity.this, AssignObjectActivity.class);
+                    i.putExtra("INFO", object_info);
+                    i.putExtra("FOUND", false);
+                    startActivity(i);
+                    finish();
 
-            }
+                } else if (response_code.equals(LIST)) {
+                    Log.d(TAG, "LIST FOUND");
+                    Intent i = new Intent(QueryActivity.this, AssignObjectActivity.class);
+                    i.putExtra("INFO", object_info);
+                    i.putExtra("LIST_TYPE", result[1]);
+                    i.putExtra("FOUND", true);
+                    startActivity(i);
+                    finish();
 
-            else {
-                Log.d(TAG,"UNKNOWN RESPONSE CODE =["+result[0]+"]");
+                } else {
+                    Log.d(TAG, "UNKNOWN RESPONSE CODE =[" + result[0] + "]");
+                }
             }
         }
 
