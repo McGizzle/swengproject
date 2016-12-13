@@ -55,7 +55,8 @@
 		mysqli_close($con);
 
 	}
-	fucntion check_project_group($con,$person_name,$project_name){
+	
+	function check_project_group($con,$person_name,$project_name){
 			$sql = "SELECT * FROM ProjectGroup WHERE ProjectName = '$project_name' AND PersonName = '$person_name'";
 			$ret = mysqli_query($con,$sql);
 			if(mysqli_num_rows($ret) == 0){
@@ -263,13 +264,16 @@
 			if (check_project_group($con, $person, $project) == 1) {
 				$sql = "UPDATE Object SET PersonName = '$person', ProjectName = '$project' WHERE ObjectID = '$object_id'";
 				$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+				echo "1" . "#" . "Object[" . $object_id . "] has been assigned to project '" . $project . "' and person '" . $person . "'";  
 			} else {
 				echo "0" . "#'" . $person . "' is not assigned to project '" . $project . "'";
 			}
 		} else {
 			$sql = "UPDATE Object SET PersonName = '$person' WHERE ObjectID = '$object_id'";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+			echo "1" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "'";  
 		}
+		mysqli_close($con);
 	}
 
 	function check_person_in_project($con, $project, $person) {
