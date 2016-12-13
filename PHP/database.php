@@ -43,8 +43,7 @@
 		for($i=0;$i<$num;$i++){
 		  check_person_exists($con,$indvs[$i]);
 		  if(check_project_group($con,$indvs[$i],$projectName)==0){
-				$sql = "INSERT INTO ProjectGroup (ProjectName,PersonName)
-				VALUES ('$projectName','$indvs[$i]')";
+				$sql = "INSERT INTO ProjectGroup (ProjectName,PersonName) VALUES ('$projectName','$indvs[$i]')";
 				$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 			}
 		}
@@ -58,7 +57,6 @@
 			if(mysqli_num_rows($ret) == 0){
 				return 0;
 			}
-			else
 				return 1;
 	}
 
