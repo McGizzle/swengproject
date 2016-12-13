@@ -118,7 +118,7 @@ public class AddProjectActivity extends AppCompatActivity {
 
         if( i.getText().toString().length() != 0 ) {
             String list = i.getText().toString();
-            String[] separated = list.split(",");
+            String[] separated = list.split(", ");
             meta.add("INDIVIDUALS_NUM");
             data.add("" + separated.length);
             for (int x = 0; x < separated.length; x++) {
