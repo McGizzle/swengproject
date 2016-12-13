@@ -256,7 +256,7 @@ public class AssignObjectActivity extends AppCompatActivity {
         EditText i = (EditText) (findViewById(R.id.personET));
 
         if( fn.getText().toString().length() > 0 &&i.getText().toString().length() == 0) {
-            fn.setError("Person name is required if Project is Entered!");
+            fn.setError("Person name is required if project is entered!");
             return false;
         }
 
