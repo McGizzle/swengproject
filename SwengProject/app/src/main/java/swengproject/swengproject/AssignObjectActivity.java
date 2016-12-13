@@ -252,9 +252,13 @@ public class AssignObjectActivity extends AppCompatActivity {
             data.add(person);
         }
         EditText p = (EditText) (findViewById(R.id.groupId));
-        String group = p.getText().toString();
-        meta.add("PROJECT_NAME");
-        data.add(group);
+        if( p.getText().toString().length() != 0 ) {
+
+
+            String group = p.getText().toString();
+            meta.add("PROJECT_NAME");
+            data.add(group);
+        }
 
         meta.add("BARCODE");
         data.add(barcode);
