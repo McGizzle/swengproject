@@ -28,8 +28,8 @@
         android:layout_marginLeft="16dp" />
 
     <Button
-        android:layout_width="88dp"
-        android:layout_height="48dp"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
         android:background="@drawable/home_button2"
         android:id="@+id/homeButton"
         android:layout_marginTop="16dp"

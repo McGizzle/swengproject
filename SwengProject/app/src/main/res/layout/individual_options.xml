@@ -59,8 +59,8 @@
         app:layout_constraintTop_toBottomOf="@+id/objToIndividule" />
     <Button
 
-        android:layout_width="88dp"
-        android:layout_height="48dp"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
         android:background="@drawable/home_button2"
         android:id="@+id/homeButton"
         tools:layout_constraintTop_creator="1"
