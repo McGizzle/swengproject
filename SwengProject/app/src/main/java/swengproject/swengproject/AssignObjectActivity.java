@@ -1,8 +1,10 @@
 package swengproject.swengproject;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -75,8 +76,6 @@ public class AssignObjectActivity extends AppCompatActivity {
             Log.d(TAG, info.toString());
         }
 
-        final Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
-
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setVisibility(View.INVISIBLE);
         addObj.setOnClickListener(new View.OnClickListener() {
@@ -95,9 +94,6 @@ public class AssignObjectActivity extends AppCompatActivity {
             switch (listType) {
                 case "BROKEN":
                     bc.setText("List of Broken Objects");
-                    dropdown.setVisibility(View.INVISIBLE);
-                    TextView t = (TextView) findViewById(R.id.brokenSetTV);
-                    t.setVisibility(View.INVISIBLE);
                     break;
                 case "ATTACHED":
                     bc.setText("List of Objects Attached as of a User Specified Date");
@@ -131,12 +127,23 @@ public class AssignObjectActivity extends AppCompatActivity {
                 project = "Unassigned";
             }
 
+
             tmp.append("Person = " + person+" \n");
             tmp.append("Project = " + project+" \n");
             tmp.append("Object Name = " + info[++i] +" \n"); //ObjectName
             tmp.append("Object ID = " + info[++i] +" \n"); //ObjectID
-            tmp.append("\n\n");
             obj_ids.add(info[i]);
+            String broken;
+            if(info[++i].equals("0")){
+                broken = "false";
+            }
+            else
+                broken = "true";
+
+            Log.d(TAG,"Broken = " +info[i]);
+
+            tmp.append("Broken: "+broken);
+            tmp.append("\n\n");
             i++;
             details.add(tmp.toString());
         }
@@ -148,35 +155,34 @@ public class AssignObjectActivity extends AppCompatActivity {
         if(adapter!=null)
             listView.setAdapter(adapter);
 
-
-
-        final String[] items = new String[obj_ids.size()+1];
-        for(int x=0;x<obj_ids.size();x++){
-            items[x] = obj_ids.get(x);
-
-        }
-        items[items.length-1] = "";
-
-        adapterS = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items);
-        if(adapterS!=null) {
-            dropdown.setAdapter(adapterS);
-            dropdown.setSelection(items.length - 1);
-        }
-
-        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG,"Pos = "+position);
-                if(position!=items.length-1) {
-                    markBroken(obj_ids.get(position));
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                   // dropdown.setSelected(false);
-                  //  dropdown.setSelection(items.length-1);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                new AlertDialog.Builder(AssignObjectActivity.this)
+                        .setTitle("Select an option")
+
+                        .setPositiveButton("Assign", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                add_clicked();
+                            }
+                        })
+                        .setNegativeButton("Break Object", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                markBroken(obj_ids.get(position));
+                            }
+                        })
+                        .setNeutralButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
+
     }
 
     public void markBroken(String id)
@@ -261,7 +267,7 @@ public class AssignObjectActivity extends AppCompatActivity {
 
 
         meta.add("BROKEN");
-        data.add("1");
+        data.add("0");
 
         meta.add("TYPE");
         data.add(""+TYPE1);

@@ -130,7 +130,7 @@
 		} else {
 			echo "2" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
+				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#" . $row[5] . "#";
 			}
 			echo "!" . "#";
 		}
@@ -161,7 +161,7 @@
 		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken)
 												 VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken')";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
-		echo "1" . "#" . "Object successfully added :)";
+		echo "1" . "#" . "Object successfully added :) Barcode = " . $barcode;
 		mysqli_close($con);
 	}
 
@@ -198,7 +198,7 @@
 		} else {
 			echo "4" . "#" . "RECLAIMED" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
+				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#" . $row[5] . "#";
 			}
 			echo "!" . "#";
 		}
@@ -213,7 +213,7 @@
 		} else {
 			echo "4" . "#" . "BROKEN" . "#";
 			while ($row = mysqli_fetch_row($ret)){
-				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#";
+				echo $row[2] . "#" . $row[3] . "#" . $row[4] . "#" . $row[1] . "#" . $row[0] . "#" . $row[5] . "#";
 			}
 		echo "!" . "#";
 		}
