@@ -54,7 +54,7 @@
 		mysqli_close($con);
 
 	}
-	fucntion check_project_group($con,$person_name,$project_name){
+	function check_project_group($con,$person_name,$project_name){
 			$sql = "SELECT * FROM ProjectGroup WHERE ProjectName = '$project_name' AND PersonName = '$person_name'";
 			$ret = mysqli_query($con,$sql);
 			if(mysqli_num_rows($ret) == 0){
