@@ -251,18 +251,18 @@
 		}
 		mysqli_close($con);
 	}
-	
+
 	function check_assigned_person($con, $object_id) {
-		$sql = "SELECT * FROM Object WHERE ObjectID = '$object_id' AND LEN(PersonName) > 0";
+		$sql = "SELECT * FROM Object WHERE ObjectID = '$object_id' AND PersonName IS NOT NULL";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
 			return 0;
 		}
 		return 1;
 	}
-	
+
 	function check_assigned_project($con, $object_id) {
-		$sql = "SELECT * FROM Object WHERE ObjectID = '$object_id' AND LEN(ProjectName) > 0";
+		$sql = "SELECT * FROM Object WHERE ObjectID = '$object_id' AND ProjectName IS NOT NULL ";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
 			return 0;
@@ -281,30 +281,30 @@
 		$object_id = $_POST['OBJECT_ID'];
 		$assignedPerson = check_assigned_person($con, $object_id);
 		$assignedProject = check_assigned_project($con, $object_id);
-		
+
 
 		if ($assignedPerson == 0) {
-			
+
 			$person = $_POST['PERSON_NAME'];
 			check_person_exists($con, $person);
-			
+
 			$project = $_POST['PROJECT_NAME'];
 			if ($project != "") {
 				if (check_project_group($con, $person, $project) == 1) {
 					$sql = "UPDATE Object SET PersonName = '$person', ProjectName = '$project' WHERE ObjectID = '$object_id'";
 					$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
-					echo "1" . "#" . "Object[" . $object_id . "] has been assigned to project '" . $project . "' and person '" . $person . "'";  
+					echo "1" . "#" . "Object[" . $object_id . "] has been assigned to project '" . $project . "' and person '" . $person . "'";
 				} else {
 					echo "0" . "#'" . $person . "' is not assigned to project '" . $project . "'";
 				}
 			} else {
 				$sql = "UPDATE Object SET PersonName = '$person' WHERE ObjectID = '$object_id'";
 				$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
-				echo "1" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "'";  
+				echo "1" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "'";
 			}
 		} else {
 			$person = get_person_from_object($con, $object_id);
-			if (assignedProject == 1) {
+			if ($assignedProject == 1) {
 				echo "0" . "#" . "Object[" . $object_id . "] is already assigned a person and project.";
 			} else {
 				if (check_project_group($con, $person, $project) == 1) {
@@ -313,7 +313,7 @@
 					echo "1" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "'";
 				} else {
 					echo "0" . "#" . "Object[" . $object_id . "] has been assigned to '" . $person . "', who is not " .
-						"assigned to project '" . $project . "'. Please assign '" . $person "' to '" $project "' first.";
+						"assigned to project '" . $project . "'. Please assign '" . $person . "' to '" . $project . "' first.";
 				}
 			}
 		}

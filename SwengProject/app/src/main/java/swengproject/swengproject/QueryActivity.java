@@ -198,7 +198,8 @@ public class QueryActivity extends AppCompatActivity {
                 Log.d(TAG, "Failed to connect to server");
                 insertFail("Failed to connect to server. Please check your internet connection and try again");
 
-            } else {
+            }
+            else {
                 String[] result = r.split("#");
                 String[] object_info = Arrays.copyOfRange(result, 1, result.length);
                 String response_code = result[0].replaceAll("\\s+", "");
