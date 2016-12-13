@@ -10,7 +10,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="384dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#cc3f35"
         app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -18,9 +18,13 @@
         tools:layout_conversion_absoluteY="0dp"
         tools:layout_conversion_absoluteWidth="384dp"
         tools:layout_conversion_absoluteHeight="56dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 
@@ -41,11 +45,11 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Object Name"
+        android:hint="Person Name"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/objectET"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="128dp"
         app:layout_constraintTop_toBottomOf="@+id/projectET"
         android:layout_marginStart="40dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -62,12 +66,10 @@
         app:layout_constraintTop_toBottomOf="@+id/objectET"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintLeft_creator="1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,8 +89,8 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
-        android:layout_width="48dp"
-        android:layout_height="40dp"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:background="@drawable/home_button2"
         android:id="@+id/homeButton"
         android:layout_marginTop="16dp"
