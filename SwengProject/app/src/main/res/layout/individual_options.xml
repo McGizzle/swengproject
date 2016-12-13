@@ -22,7 +22,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:text="Assign Object to Individual"
+        android:text="Assign Object to Project"
         android:textSize="18dp"
         android:textColor="#ffffff"
         android:background="#cc3f35"
@@ -39,7 +39,7 @@
         android:layout_marginRight="16dp" />
 
     <Button
-        android:text="Assign Project to Individual"
+        android:text="Attach Project and Person"
         android:textSize="18dp"
         android:textColor="#ffffff"
         android:background="#cc3f35"
@@ -48,13 +48,15 @@
         android:id="@+id/individuleToProj"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="192dp"
-        app:layout_constraintVertical_bias="0.47"
+        app:layout_constraintVertical_bias="0.98"
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp" />
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/objToIndividule" />
     <Button
 
         android:layout_width="88dp"

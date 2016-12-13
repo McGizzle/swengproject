@@ -1,8 +1,6 @@
 package swengproject.swengproject;
 
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,15 +9,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import static swengproject.swengproject.R.layout.assign_object;
 import static swengproject.swengproject.R.layout.generate_list_obj;
@@ -37,12 +32,24 @@ public class AssignObjectActivity extends AppCompatActivity {
     private String[] info;
     private String listType;
     String TAG = "AssignObjectActivity";
+    ArrayAdapter adapter;
+    ArrayAdapter adapterS;
 
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Button homeBttn = (Button) findViewById(R.id.homeButton);
+        if(homeBttn!=null) {
+            homeBttn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(AssignObjectActivity.this, MainActivity.class);
+                    startActivity(i);
+                }
+            });
+        }
 
         Bundle extras = getIntent().getExtras();
         info = extras.getStringArray("INFO");
@@ -68,6 +75,8 @@ public class AssignObjectActivity extends AppCompatActivity {
             Log.d(TAG, info.toString());
         }
 
+        final Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
+
         Button addObj = (Button) findViewById(R.id.addButton);
         addObj.setVisibility(View.INVISIBLE);
         addObj.setOnClickListener(new View.OnClickListener() {
@@ -78,63 +87,69 @@ public class AssignObjectActivity extends AppCompatActivity {
         });
 
 
-        String[] details = new String[info.length/4];
+        ArrayList<String> details = new ArrayList<>();
         TextView bc = (TextView) findViewById(R.id.barcodeName);
 
         int i=1;
-        switch (listType)
-        {
-            case "BROKEN":
-                bc.setText("List of Broken Objects");
-                break;
-            case "ATTACHED":
-                bc.setText("List of Objects Attached as of a User Specified Date");
-                break;
-            case "RECLAIMED":
-                bc.setText("List of Objects to be Reclaimed");
-                break;
-            default:bc.setText("Barcode Number "+barcode);
-                addObj.setVisibility(View.VISIBLE);
-                i=0;
+        if(listType!=null) {
+            switch (listType) {
+                case "BROKEN":
+                    bc.setText("List of Broken Objects");
+                    dropdown.setVisibility(View.INVISIBLE);
+                    TextView t = (TextView) findViewById(R.id.brokenSetTV);
+                    t.setVisibility(View.INVISIBLE);
+                    break;
+                case "ATTACHED":
+                    bc.setText("List of Objects Attached as of a User Specified Date");
+                    break;
+                case "RECLAIMED":
+                    bc.setText("List of Objects to be Reclaimed");
+                    break;
+                default:
+                    bc.setText("Barcode Number " + barcode);
+                    addObj.setVisibility(View.VISIBLE);
+                    i = 0;
 
+            }
+        }
+        else{
+            bc.setText("Barcode Number " + barcode);
+            addObj.setVisibility(View.VISIBLE);
+            i = 0;
         }
 
-        int j=0;
        final ArrayList<String> obj_ids = new ArrayList<>();
-        String tmp;
         while(!info[i].equals("!")) {
-            tmp="";
+
+            StringBuilder tmp = new StringBuilder();
             String person = info[++i];
-            if(person.length()==0)
-                tmp += "Person = unassigned \n ";
-
-            else
-                tmp += "Person = " + person+" \n" ;
-
+            if(person.equals("")) {
+                person = "Unassigned";
+            }
             String project = info[++i];
-            if(person.length()==0)
-                tmp += "Project = unassigned \n";
-            else
-                tmp += "Project = " + project+" \n";
+            if(project.equals("")) {
+                project = "Unassigned";
+            }
 
-            tmp += "Object Name = " + info[++i] +" \n"; //ObjectName
-            tmp += "Object ID = " + info[++i] +" \n"; //ObjectID
-            tmp += "\n\n";
+            tmp.append("Person = " + person+" \n");
+            tmp.append("Project = " + project+" \n");
+            tmp.append("Object Name = " + info[++i] +" \n"); //ObjectName
+            tmp.append("Object ID = " + info[++i] +" \n"); //ObjectID
+            tmp.append("\n\n");
             obj_ids.add(info[i]);
             i++;
-            details[j]=tmp;
-            j++;
-
+            details.add(tmp.toString());
         }
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+         adapter = new ArrayAdapter<String>(this,
                 R.layout.activity_listview, details);
 
         ListView listView = (ListView) findViewById(R.id.listview);
-        listView.setAdapter(adapter);
+        if(adapter!=null)
+            listView.setAdapter(adapter);
 
 
-        final Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
+
         final String[] items = new String[obj_ids.size()+1];
         for(int x=0;x<obj_ids.size();x++){
             items[x] = obj_ids.get(x);
@@ -142,9 +157,11 @@ public class AssignObjectActivity extends AppCompatActivity {
         }
         items[items.length-1] = "";
 
-        ArrayAdapter<String> adapterS = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapterS);
-        dropdown.setSelection(items.length-1);
+        adapterS = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items);
+        if(adapterS!=null) {
+            dropdown.setAdapter(adapterS);
+            dropdown.setSelection(items.length - 1);
+        }
 
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -156,8 +173,8 @@ public class AssignObjectActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                    dropdown.setSelected(false);
-                    dropdown.setSelection(items.length-1);
+                   // dropdown.setSelected(false);
+                  //  dropdown.setSelection(items.length-1);
             }
         });
     }
@@ -207,10 +224,6 @@ public class AssignObjectActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     public boolean gather_info() {
 
         ArrayList<String> data = new ArrayList<String>();
@@ -248,7 +261,7 @@ public class AssignObjectActivity extends AppCompatActivity {
 
 
         meta.add("BROKEN");
-        data.add("false");
+        data.add("1");
 
         meta.add("TYPE");
         data.add(""+TYPE1);

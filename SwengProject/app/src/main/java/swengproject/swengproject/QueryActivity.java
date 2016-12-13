@@ -30,7 +30,6 @@ public class QueryActivity extends AppCompatActivity {
     ArrayList<String> DATA;
     ArrayList<String> META_DATA;
     private MyAsyncTask task;
-    private Class PREV_ACTIVITY;
     private final String FAIL_RESPONSE = "0";
     private final String SUCCESS_RESPONSE = "1";
     private final String OBJECT_FOUND = "2";
@@ -44,9 +43,6 @@ public class QueryActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();                //How to get Data from previous activity
-        int activity =  extras.getInt("ACTIVITY");
-        setContentView(activity);
-        PREV_ACTIVITY = (Class) extras.get("PREVIOUS_ACTIVITY");
 
 
         DATA  = extras.getStringArrayList("DATA");
@@ -219,6 +215,8 @@ public class QueryActivity extends AppCompatActivity {
                 i.putExtra("INFO",object_info);
                 i.putExtra("FOUND",true);
                 startActivity(i);
+                finish();
+
             }
             else if(response_code.equals(OBJECT_NOT_FOUND)){
                 Log.d(TAG,"OBJECT NOT FOUND");
@@ -226,6 +224,8 @@ public class QueryActivity extends AppCompatActivity {
                 i.putExtra("INFO",object_info);
                 i.putExtra("FOUND",false);
                 startActivity(i);
+                finish();
+
             }
             else if(response_code.equals(LIST)){
                 Log.d(TAG,"LIST FOUND");
@@ -234,12 +234,13 @@ public class QueryActivity extends AppCompatActivity {
                 i.putExtra("LIST_TYPE",result[1]);
                 i.putExtra("FOUND",true);
                 startActivity(i);
+                finish();
+
             }
 
             else {
                 Log.d(TAG,"UNKNOWN RESPONSE CODE =["+result[0]+"]");
             }
-
         }
 
 }

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import static swengproject.swengproject.R.layout.indiv_to_obj;
+import static swengproject.swengproject.R.layout.proj_to_obj;
 
 /**
  * Created by McGroarty on 15/11/2016.
@@ -22,7 +23,7 @@ public class IndividualToObj extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(indiv_to_obj);
+        setContentView(proj_to_obj);
 
         Button submit = (Button) findViewById(R.id.submitButton);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +55,9 @@ public class IndividualToObj extends AppCompatActivity {
         data.add(TYPE+"");
 
 
-        EditText fn = (EditText) (findViewById(R.id.personET));
+        EditText fn = (EditText) (findViewById(R.id.projectET));
         if( fn.getText().toString().length() == 0 ) {
-            fn.setError("Person name is required!");
+            fn.setError("Project name is required!");
             return false;
         }
         String fname = fn.getText().toString();

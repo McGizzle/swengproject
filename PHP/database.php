@@ -142,24 +142,24 @@
 		$object_name = $_POST['OBJECT_NAME'];
 		$barcode = $_POST['BARCODE'];
 
-		$project_name = NULL;
-		if (isset($_POST['PROJECT_NAME'])) {
-			echo "Project set " . $project_name;
-			$project_name = $_POST['PROJECT_NAME'];
+
+		$project_name = $_POST['PROJECT_NAME'];
+		if($project_name ==""){
+		}
+		else{
 			check_project_exists($con,$project_name);
 		}
 
-		$person_name = NULL;
-		if (isset($_POST['PERSON_NAME'])) {
-			$person_name = $_POST['PERSON_NAME'];
-			check_person_exists($con,$person_name);
-		}
+		$person_name = $_POST['PERSON_NAME'];
+		check_person_exists($con,$person_name);
 
-		check_person_in_project($con, $project_name, $person_name);
+		if($project_name != ""){
+			check_person_in_project($con, $project_name, $person_name);
+		}
 		$broken = $_POST['BROKEN'];
 
-		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken)" .
-												" VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken')";
+		$sql = "INSERT INTO Object (Barcode, PersonName, ProjectName, ObjectName, Broken)
+												 VALUES ('$barcode', '$person_name', '$project_name' , '$object_name', '$broken')";
 		$ret = mysqli_query($con,$sql)  or die(mysqli_error($con));
 		echo "1" . "#" . "Object successfully added :)";
 		mysqli_close($con);
