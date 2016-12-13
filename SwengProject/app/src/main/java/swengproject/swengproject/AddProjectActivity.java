@@ -115,17 +115,17 @@ public class AddProjectActivity extends AppCompatActivity {
         data.add(name);
 
         EditText i = (EditText) (findViewById(R.id.editText4));
-        String list = i.getText().toString();
-        String[] separated = list.split(",");
-        meta.add("INDIVIDUALS_NUM");
-        data.add(""+separated.length);
-        for(int x=0;x<separated.length;x++){
-            meta.add("INDIVIDUALS"+x);
-            data.add(separated[x]);
-        }
 
-//        EditText e = (EditText) (findViewById(R.id.editText3));
-//        String end_date = e.getText().toString();
+        if( i.getText().toString().length() != 0 ) {
+            String list = i.getText().toString();
+            String[] separated = list.split(",");
+            meta.add("INDIVIDUALS_NUM");
+            data.add("" + separated.length);
+            for (int x = 0; x < separated.length; x++) {
+                meta.add("INDIVIDUALS" + x);
+                data.add(separated[x]);
+            }
+        }
 
         String end_date = yearX + "-" + monthX + "-" + dayX;
 
