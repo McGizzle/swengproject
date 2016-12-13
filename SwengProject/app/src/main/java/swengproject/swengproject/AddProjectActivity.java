@@ -39,8 +39,7 @@ public class AddProjectActivity extends AppCompatActivity {
         monthX = cal.get(Calendar.MONTH);
         dayX = cal.get(Calendar.DAY_OF_MONTH);
         showDialogOnButtonClick();
-        TextView dateTV = (TextView) findViewById(R.id.dateShowTV);
-        dateTV.setText(dayX+"/"+monthX+"/"+yearX);
+
 
 
         Button submit = (Button) findViewById(R.id.submitButton);
