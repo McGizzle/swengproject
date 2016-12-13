@@ -101,8 +101,8 @@
 		$sql = "SELECT * FROM Project WHERE ProjectName = '$project_name'";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "0" . "#" . "A project with the name ". $project_name ." does not exist :( Please create it first.
-			 Any Projects after it have not been added due to this error.";
+			echo "0" . "#" . "A project with the name ". $project_name ." does not exist :( Please create it first." .
+			 "Any Projects after it have not been added due to this error.";
 			// $sql = "INSERT INTO Project (ProjectName) VALUES ('$project_name')";
 			// $ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
