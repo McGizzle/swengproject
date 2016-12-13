@@ -58,11 +58,11 @@
 	fucntion check_project_group($con,$person_name,$project_name){
 			$sql = "SELECT * FROM ProjectGroup WHERE ProjectName = '$project_name' AND PersonName = '$person_name'";
 			$ret = mysqli_query($con,$sql);
-			if(mysqli_num_rows($ret) != 0){
-				return 1;
+			if(mysqli_num_rows($ret) == 0){
+				return 0;
 			}
 			else
-				return 0;
+				return 1;
 	}
 
 	function add_individuals($con){
@@ -82,7 +82,11 @@
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 
 		for($i=0;$i<$num;$i++){
-			check_project_exists($con,$projects[i]);
+			if(check_project_exists($con,$projects[$i])==0){
+				echo "0" . "#" . "A project with the name ". $project_name ." does not exist :( Please create it first." .
+				"Any Projects listed after it have not been attached to the individual due to this error.";
+				die();
+			}
 			$sql = "INSERT INTO ProjectGroup (ProjectName,PersonName) VALUES ('$projects[$i]','$name')";
 			$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		}
@@ -104,11 +108,9 @@
 		$sql = "SELECT * FROM Project WHERE ProjectName = '$project_name'";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "0" . "#" . "A project with the name ". $project_name ." does not exist :( Please create it first." .
-			 "Any Projects after it have not been added due to this error.";
-			// $sql = "INSERT INTO Project (ProjectName) VALUES ('$project_name')";
-			// $ret = mysqli_query($con,$sql) or die(mysqli_error($con));
+			return 0;
 		}
+		return 1;
 	}
 
 	function attach_project_person($con){
@@ -155,14 +157,21 @@
 		if($project_name == ""){
 		}
 		else{
-			check_project_exists($con,$project_name);
+			if (check_project_exists($con,$project_name) == 0){
+				echo "0" . "#" . "A project with the name ". $project_name ." does not exist :( Please create it first." .
+				"The Object has not been added";
+				die();
+			}
 		}
 
 		$person_name = $_POST['PERSON_NAME'];
 		check_person_exists($con,$person_name);
 
 		if($project_name != ""){
-			check_person_in_project($con, $project_name, $person_name);
+			if(check_person_in_project($con, $project_name, $person_name)==0){
+					echo "0" . "#" . "Persons/project are not attahced.	The Object has not been added";
+					die();
+			}
 		}
 		$broken = $_POST['BROKEN'];
 
@@ -267,8 +276,8 @@
 		$sql = "SELECT * FROM ProjectGroup WHERE PersonName = '$person' AND ProjectName = '$project'";
 		$ret = mysqli_query($con,$sql) or die(mysqli_error($con));
 		if (mysqli_num_rows($ret) == 0) {
-			echo "0" . "#" . "Persons/project are not attahced.";
-
+			return 0;
 		}
+		return 1;
 	}
 ?>

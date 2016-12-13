@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-import static swengproject.swengproject.R.layout.indiv_to_obj;
 import static swengproject.swengproject.R.layout.proj_to_obj;
 
 /**
@@ -18,7 +17,9 @@ import static swengproject.swengproject.R.layout.proj_to_obj;
 
 public class IndividualToObj extends AppCompatActivity {
 
-    final int TYPE = 6;
+    final int TYPE = 8;
+    private String id="";
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -42,6 +43,9 @@ public class IndividualToObj extends AppCompatActivity {
 
             }
         });
+
+        Bundle extras = getIntent().getExtras();
+        id = extras.getString("OBJECT_ID");
     }
 
 
@@ -56,28 +60,28 @@ public class IndividualToObj extends AppCompatActivity {
 
 
         EditText fn = (EditText) (findViewById(R.id.projectET));
-        if( fn.getText().toString().length() == 0 ) {
-            fn.setError("Project name is required!");
-            return false;
-        }
-        String fname = fn.getText().toString();
-        meta.add("NAME");
-        data.add(fname);
         EditText i = (EditText) (findViewById(R.id.objectET));
-        if( i.getText().toString().length() == 0 ) {
-            i.setError("Object name is required!");
+        if( i.getText().toString().length() == 0 && fn.getText().toString().length() == 0 ) {
+            i.setError("Person or Project name is required!");
             return false;
         }
-        String obj = i.getText().toString();
-        meta.add("OBJECT");
-        data.add(obj);
+
+
+        String fname = fn.getText().toString();
+        meta.add("PROJECT_NAME");
+        data.add(fname);
+        String p = i.getText().toString();
+        meta.add("PERSON_NAME");
+        data.add(p);
+        meta.add("OBJECT_ID");
+        data.add(id);
+        meta.add("TYPE");
+        data.add(""+TYPE);
 
 
         Intent passData = (new Intent(IndividualToObj.this, QueryActivity.class));
         passData.putExtra("DATA",data);
         passData.putExtra("META_DATA",meta);
-        passData.putExtra("ACTIVITY",indiv_to_obj);
-        passData.putExtra("PREVIOUS_ACTIVITY",IndividualToObj.class);
 
         startActivity(passData);
         return true;
