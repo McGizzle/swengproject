@@ -159,7 +159,10 @@ public class AssignObjectActivity extends AppCompatActivity {
                         .setPositiveButton("Assign", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                add_clicked();
+                                Intent i = new Intent(AssignObjectActivity.this, IndividualToObj.class);
+                                i.putExtra("OBJECT_ID",obj_ids.get(position));
+                                startActivity(i);
+                                finish();
                             }
                         })
                         .setNegativeButton("Break Object", new DialogInterface.OnClickListener() {
@@ -247,7 +250,7 @@ public class AssignObjectActivity extends AppCompatActivity {
           String person = i.getText().toString();
             meta.add("PERSON_NAME");
             data.add(person);
-        
+
         EditText p = (EditText) (findViewById(R.id.groupId));
 
             String group = p.getText().toString();
