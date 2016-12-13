@@ -244,14 +244,13 @@ public class AssignObjectActivity extends AppCompatActivity {
         data.add(name);
 
         EditText i = (EditText) (findViewById(R.id.personET));
-        if( i.getText().toString().length() == 0 ) {
-            i.setError("Person name is required!");
-            return false;
-        }
-        String person = i.getText().toString();
-        meta.add("PERSON_NAME");
-        data.add(person);
+        if( i.getText().toString().length() != 0 ) {
 
+
+            String person = i.getText().toString();
+            meta.add("PERSON_NAME");
+            data.add(person);
+        }
         EditText p = (EditText) (findViewById(R.id.groupId));
         String group = p.getText().toString();
         meta.add("PROJECT_NAME");
